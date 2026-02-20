@@ -1,17 +1,21 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Nunito_Sans, Sora } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const ninutoSans = Nunito_Sans({
+  variable: '--font-nunito-sans',
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const sora = Sora({
+  variable: '--font-sora',
+  weight: ['400', '700'],
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -26,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${ninutoSans.variable} ${sora.variable}`}>
         <Header />
         {children}
         <Footer />
