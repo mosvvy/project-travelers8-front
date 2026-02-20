@@ -1,5 +1,9 @@
 import css from './page.module.css';
 
 export default function Home() {
-  return <>Реєстрація</>;
+  return (
+    <>
+      <h1>Реєстрація</h1>
+    </>
+  );
 }

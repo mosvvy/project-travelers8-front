@@ -1,5 +1,9 @@
 import css from './page.module.css';
 
 export default function Home() {
-  return <>Вхід</>;
+  return (
+    <>
+      <h1>Вхід</h1>
+    </>
+  );
 }

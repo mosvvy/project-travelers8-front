@@ -1,5 +1,9 @@
 import css from './page.module.css';
 
 export default function Home() {
-  return <>Історія</>;
+  return (
+    <>
+      <h1>Історія</h1>
+    </>
+  );
 }
