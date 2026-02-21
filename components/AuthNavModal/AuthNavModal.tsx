@@ -1,7 +1,7 @@
 import css from './AuthNavModal.module.css';
 
 const AuthNavModal = () => {
-  return AuthNavModal;
+  return <h2>AuthNavModal</h2>;
 };
 
 export default AuthNavModal;
