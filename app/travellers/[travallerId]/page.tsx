@@ -1,6 +1,6 @@
 import css from './page.module.css';
 
-export default function Home() {
+export default function TravelerPage() {
   return (
     <>
       <h1>Профіль Мандрівника Публічний</h1>

@@ -1,6 +1,6 @@
 import css from './page.module.css';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <h1>Головна</h1>
