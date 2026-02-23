@@ -3,6 +3,7 @@ import { Nunito_Sans, Sora } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 
 const ninutoSans = Nunito_Sans({
   variable: '--font-nunito-sans',
@@ -32,11 +33,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${ninutoSans.variable} ${sora.variable}`}>
-        <main>
+        <TanStackProvider>
           <Header />
-          {children}
+          <main>{children}</main>
           <Footer />
-        </main>
+        </TanStackProvider>
       </body>
     </html>
   );
