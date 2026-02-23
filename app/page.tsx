@@ -1,4 +1,5 @@
 import css from './page.module.css';
+import OurTravellers from '@/components/OurTraveller/OurTravellers';
 
 export default function HomePage() {
   return (
