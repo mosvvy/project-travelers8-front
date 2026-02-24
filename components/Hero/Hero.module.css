@@ -17,6 +17,10 @@
 }
 
 .heroTitle {
+  max-width: 559px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   color: var(--color-white);
 }
 
@@ -30,7 +34,7 @@
 }
 
 .heroButton {
-  width: 100%;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -44,7 +48,7 @@
   }
 
   .heroTitle {
-    max-width: 612px;
+    max-width: 600px;
   }
 
   .heroButton {
@@ -60,10 +64,6 @@
       url('/images/hero-img/hero-desk.webp') 1x,
       url('/images/hero-img/hero-desk@2x.webp') 2x
     );
-  }
-
-  .heroTitle {
-    max-width: 759px;
   }
 
   .heroDescription {
