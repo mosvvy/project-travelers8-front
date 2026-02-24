@@ -6,23 +6,25 @@ const Footer = () => {
     <footer className={css.footer_section}>
       <div className={css.container}>
         <div className={css.content}>
-          <div className={css.logo}>
-            <Link href='/' variant='link' text='Подорожники' />
+          <div className={css.wrapper}>
+            <div className={css.logo}>
+              <Link href='/' variant='link' text='Подорожники' />
+            </div>
+            <ul className={css.socials}>
+              <li>
+                <Link href='https://www.facebook.com/' variant='link' text='F' />
+              </li>
+              <li>
+                <Link href='https://www.instagram.com/' variant='link' text='I' />
+              </li>
+              <li>
+                <Link href='https://x.com/' variant='link' text='X' />
+              </li>
+              <li>
+                <Link href='https://www.youtube.com/' variant='link' text='Y' />
+              </li>
+            </ul>
           </div>
-          <ul className={css.socials}>
-            <li>
-              <Link href='https://www.facebook.com/' variant='link' text='F' />
-            </li>
-            <li>
-              <Link href='https://www.instagram.com/' variant='link' text='I' />
-            </li>
-            <li>
-              <Link href='https://x.com/' variant='link' text='X' />
-            </li>
-            <li>
-              <Link href='https://www.youtube.com/' variant='link' text='Y' />
-            </li>
-          </ul>
           <ul className={css.menu}>
             <li>
               <Link href='/' variant='link' text='Головна' />
