@@ -1,0 +1,244 @@
+/* :root {
+	--color-scheme-1-background: var(--color-white);
+	--color-neutral-darkest: #000;
+	--color-scheme-1-border: var(--opacity-neutral-darkest-15);
+	--color-scheme-1-text: var(--color-neutral-darkest);
+	--color-neutral-lighter: #d8d8d8;
+	--color-white: #fff;
+	--color-neutral-lightest: #f2f2f2;
+	--color-neutral-light: #b2b2b2;
+	--color-neutral: #7f7f7f;
+	--color-neutral-dark: #4c4c4c;
+	--color-neutral-darker: #191919;
+	--opacity-transparent: rgba(255, 255, 255, 0);
+	--color-scheme-1-foreground: var(--color-neutral-lightest);
+	--color-scheme-1-accent: var(--color-royal-blue);
+	--opacity-white-5: rgba(255, 255, 255, 0.05);
+	--opacity-white-10: rgba(255, 255, 255, 0.1);
+	--opacity-white-15: rgba(255, 255, 255, 0.15);
+	--opacity-white-20: rgba(255, 255, 255, 0.2);
+	--opacity-white-30: rgba(255, 255, 255, 0.3);
+	--opacity-white-40: rgba(255, 255, 255, 0.4);
+	--opacity-white-50: rgba(255, 255, 255, 0.5);
+	--opacity-white-60: rgba(255, 255, 255, 0.6);
+	--opacity-neutral-darkest-5: rgba(0, 0, 0, 0.05);
+	--opacity-neutral-darkest-10: rgba(0, 0, 0, 0.1);
+	--opacity-neutral-darkest-15: rgba(0, 0, 0, 0.15);
+	--opacity-neutral-darkest-20: rgba(0, 0, 0, 0.2);
+	--opacity-neutral-darkest-30: rgba(0, 0, 0, 0.3);
+	--opacity-neutral-darkest-40: rgba(0, 0, 0, 0.4);
+	--opacity-neutral-darkest-50: rgba(0, 0, 0, 0.5);
+	--opacity-neutral-darkest-60: rgba(0, 0, 0, 0.6);
+	--color-royal-blue-lightest: #f7f9ff;
+	--color-royal-blue-lighter: #e8eeff;
+	--color-royal-blue-light: #7a96ea;
+	--color-royal-blue: #4169e1;
+	--color-royal-blue-dark: #3454b4;
+	--color-royal-blue-darker: #1a2a5a;
+	--color-royal-blue-darkest: #131f43;
+	--color-scheme-2-text: var(--color-neutral-darkest);
+	--color-scheme-2-background: var(--color-royal-blue-lightest);
+	--color-scheme-2-border: var(--opacity-neutral-darkest-15);
+	--color-scheme-2-accent: var(--color-royal-blue);
+	--color-scheme-2-foreground: var(--color-royal-blue-lighter);
+	--color-red: #b00101;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+
+.title {
+  font-size: 40px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+  text-align: center;   
+  margin-bottom: 16px; 
+
+  font-family: var(--second-family);
+font-weight: 700;
+font-size: 48px;
+line-height: 120%;
+letter-spacing: -0.01em;
+text-align: center;
+color: var(--color-scheme-1-text);
+}
+
+
+.text {
+  
+  text-align: center;
+  margin-bottom: 32px;
+
+  font-family: var(--font-family);
+font-weight: 400;
+font-size: 20px;
+line-height: 150%;
+text-align: center;
+color: var(--color-scheme-1-text);
+}
+
+
+.textBlock {
+  max-width: 640px;
+  margin: 0 auto 40px auto;
+}
+
+
+.actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  padding: 0;      
+  margin-bottom: 64px;
+}
+
+
+.loginBtn {
+  min-width: 140px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  background: #f2f4f7;
+  cursor: pointer;
+}
+
+.registerBtn {
+  min-width: 180px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  background: #3b5bcc;
+  color: #fff;
+  cursor: pointer;
+}  */
+
+:root {
+  --color-white: #fff;
+  --color-neutral-darkest: #000;
+  --color-neutral-darker: #191919;
+  --color-neutral-dark: #4c4c4c;
+  --color-neutral: #7f7f7f;
+  --color-neutral-light: #b2b2b2;
+  --color-neutral-lighter: #d8d8d8;
+  --color-neutral-lightest: #f2f2f2;
+
+  --color-royal-blue-lightest: #f7f9ff;
+  --color-royal-blue-lighter: #e8eeff;
+  --color-royal-blue-light: #7a96ea;
+  --color-royal-blue: #4169e1;
+  --color-royal-blue-dark: #3454b4;
+  --color-royal-blue-darker: #1a2a5a;
+  --color-royal-blue-darkest: #131f43;
+
+  --color-red: #b00101;
+
+  --opacity-transparent: rgba(255, 255, 255, 0);
+  --opacity-white-5: rgba(255, 255, 255, 0.05);
+  --opacity-white-10: rgba(255, 255, 255, 0.1);
+  --opacity-white-15: rgba(255, 255, 255, 0.15);
+  --opacity-white-20: rgba(255, 255, 255, 0.2);
+  --opacity-white-30: rgba(255, 255, 255, 0.3);
+  --opacity-white-40: rgba(255, 255, 255, 0.4);
+  --opacity-white-50: rgba(255, 255, 255, 0.5);
+  --opacity-white-60: rgba(255, 255, 255, 0.6);
+
+  --opacity-neutral-darkest-5: rgba(0, 0, 0, 0.05);
+  --opacity-neutral-darkest-10: rgba(0, 0, 0, 0.1);
+  --opacity-neutral-darkest-15: rgba(0, 0, 0, 0.15);
+  --opacity-neutral-darkest-20: rgba(0, 0, 0, 0.2);
+  --opacity-neutral-darkest-30: rgba(0, 0, 0, 0.3);
+  --opacity-neutral-darkest-40: rgba(0, 0, 0, 0.4);
+  --opacity-neutral-darkest-50: rgba(0, 0, 0, 0.5);
+  --opacity-neutral-darkest-60: rgba(0, 0, 0, 0.6);
+
+  --color-scheme-1-background: var(--color-white);
+  --color-scheme-1-foreground: var(--color-neutral-lightest);
+  --color-scheme-1-text: var(--color-neutral-darkest);
+  --color-scheme-1-border: var(--opacity-neutral-darkest-15);
+  --color-scheme-1-accent: var(--color-royal-blue);
+
+  --color-scheme-2-background: var(--color-royal-blue-lightest);
+  --color-scheme-2-foreground: var(--color-royal-blue-lighter);
+  --color-scheme-2-text: var(--color-neutral-darkest);
+  --color-scheme-2-border: var(--opacity-neutral-darkest-15);
+  --color-scheme-2-accent: var(--color-royal-blue);
+
+  --font-family: "Nunito Sans", sans-serif;
+  --second-family: "Inter", sans-serif;
+  --third-family: "Sora", sans-serif;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.title {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--color-scheme-1-text);
+  margin-bottom: 16px;
+}
+
+.text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--color-scheme-1-text);
+  margin-bottom: 32px;
+}
+
+.textBlock {
+  max-width: 640px;
+  margin: 0 auto 40px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+.loginBtn {
+  min-width: 140px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  background: #f2f4f7;
+  cursor: pointer;
+}
+
+.registerBtn {
+  min-width: 180px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  background: #3b5bcc;
+  color: #fff;
+  cursor: pointer;
+}
