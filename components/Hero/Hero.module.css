@@ -8,8 +8,8 @@
   padding-top: 124px;
   padding-bottom: 93px;
   background-image: image-set(
-    url('./hero-img/hero-mob.webp') 1x,
-    url('./hero-img/hero-mob@2x.webp') 2x
+    url('/images/hero-mob.webp') 1x,
+    url('/images/hero-mob@2x.webp') 2x
   );
 }
 
@@ -51,8 +51,8 @@
     padding-top: 244px;
     padding-bottom: 117px;
     background-image: image-set(
-      url('./hero-img/hero-tab.webp') 1x,
-      url('./hero-img/hero-tab@2x.webp') 2x
+      url('/images/hero-tab.webp') 1x,
+      url('/images/hero-tab@2x.webp') 2x
     );
   }
 
@@ -71,8 +71,8 @@
     padding-top: 244px;
     padding-bottom: 347px;
     background-image: image-set(
-      url('./hero-img/hero-desk.webp') 1x,
-      url('./hero-img/hero-desk@2x.webp') 2x
+      url('/images/hero-desk.webp') 1x,
+      url('/images/hero-desk@2x.webp') 2x
     );
   }
 
