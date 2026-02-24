@@ -19,7 +19,7 @@ const Hero = () => {
       </p>
       <Link 
         href="#join" 
-        variant="primaryBtn"
+        variant="link"
         className={css.heroButton}
       >
         Доєднатись
