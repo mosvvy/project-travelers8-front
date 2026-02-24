@@ -8,32 +8,48 @@ const Footer = () => {
         <div className={css.content}>
           <div className={css.wrapper}>
             <div className={css.logo}>
-              <Link href='/' variant='link' text='Подорожники' />
+              <Link href='/' variant='link'>
+                Подорожники
+              </Link>
             </div>
             <ul className={css.socials}>
               <li>
-                <Link href='https://www.facebook.com/' variant='link' text='F' />
+                <Link href='https://www.facebook.com/' variant='link'>
+                  F
+                </Link>
               </li>
               <li>
-                <Link href='https://www.instagram.com/' variant='link' text='I' />
+                <Link href='https://www.instagram.com/' variant='link'>
+                  I
+                </Link>
               </li>
               <li>
-                <Link href='https://x.com/' variant='link' text='X' />
+                <Link href='https://x.com/' variant='link'>
+                  X
+                </Link>
               </li>
               <li>
-                <Link href='https://www.youtube.com/' variant='link' text='Y' />
+                <Link href='https://www.youtube.com/' variant='link'>
+                  Y
+                </Link>
               </li>
             </ul>
           </div>
           <ul className={css.menu}>
             <li>
-              <Link href='/' variant='link' text='Головна' />
+              <Link href='/' variant='link'>
+                Головна
+              </Link>
             </li>
             <li>
-              <Link href='/stories' variant='link' text='Історії' />
+              <Link href='/stories' variant='link'>
+                Історії
+              </Link>
             </li>
             <li>
-              <Link href='/travellers' variant='link' text='Мандрівники' />
+              <Link href='/travellers' variant='link'>
+                Мандрівники
+              </Link>
             </li>
           </ul>
         </div>
