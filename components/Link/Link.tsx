@@ -10,10 +10,9 @@ interface LinkProps {
   className?: string;
 }
 
-const Link = ({ variant = 'primaryBtn', href, children, className }: LinkProps) => {
+const Link = ({ variant = 'link', href, children, className }: LinkProps) => {
   return (
-    <NextLink href={href} 
-    className={clsx(css.link, variant && css[variant], className)}>
+    <NextLink href={href} className={clsx(css.link, variant && css[variant], className)}>
       {children}
     </NextLink>
   );
