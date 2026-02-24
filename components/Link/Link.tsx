@@ -1,20 +1,22 @@
 'use client';
 import clsx from 'clsx';
 import css from './Link.module.css';
-import Link from 'next/link';
+import NextLink from 'next/link';
 
-interface ButtonProps {
+interface LinkProps {
   variant?: 'link' | 'primaryBtn' | 'secondaryBtn';
-  text: string;
+  children: React.ReactNode;
   href: string;
+  className?: string;
 }
 
-const Button = ({ variant, href, text }: ButtonProps) => {
+const Link = ({ variant = 'primaryBtn', href, children, className }: LinkProps) => {
   return (
-    <Link href={href} className={clsx(css.link, variant && css[variant])}>
-      {text}
-    </Link>
+    <NextLink href={href} 
+    className={clsx(css.link, variant && css[variant], className)}>
+      {children}
+    </NextLink>
   );
 };
 
-export default Button;
+export default Link;
