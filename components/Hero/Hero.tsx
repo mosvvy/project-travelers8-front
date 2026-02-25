@@ -1,7 +1,7 @@
 'use client';
 
 import css from './Hero.module.css';
-import Button from '../Button/Button';
+import Link from '../Link/Link';
 import Section from '../Section/Section';
 
 const Hero = () => {
@@ -17,13 +17,13 @@ const Hero = () => {
         своїми історіями та отримувати натхнення для нових пригод. Відкрийте
         для себе нові місця та знайдіть однодумців!
       </p>
-      <Button 
+      <Link 
         href="#join" 
-        variant="primary"
+        variant="primaryBtn"
         className={css.heroButton}
       >
         Доєднатись
-      </Button>
+      </Link>
     </Section>
   );
 };
