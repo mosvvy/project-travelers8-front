@@ -1,4 +1,5 @@
 import React from 'react';
+import Section from '../Section/Section';
 import css from './About.module.css';
 
 const features = [
@@ -21,29 +22,27 @@ const features = [
 
 const About = () => {
   return (
-    <section className={css.section}>
-      <div className={css.container}>
-        <div className={css.topContent}>
-          <h2 className={css.title}>Проєкт, створений для тих, хто живе подорожами</h2>
-          <p className={css.description}>
-            Ми віримо, що кожна подорож — це унікальна історія, варта того, щоб нею поділилися. Наша
-            платформа створена, щоб об’єднати людей, закоханих у відкриття нового. Тут ви можете
-            ділитися власним досвідом, знаходити друзів та надихатися на наступні пригоди разом з
-            нами.
-          </p>
-        </div>
-
-        <ul className={css.featuresList}>
-          {features.map((item, index) => (
-            <li key={index} className={css.featureItem}>
-              <div style={{ fontSize: '32px' }}>{item.icon}</div>
-              <h3 className={css.featureTitle}>{item.title}</h3>
-              <p className={css.featureText}>{item.text}</p>
-            </li>
-          ))}
-        </ul>
+    <Section>
+      <div className={css.topContent}>
+        <h2 className={css.title}>Проєкт, створений для тих, хто живе подорожами</h2>
+        <p className={css.description}>
+          Ми віримо, що кожна подорож — це унікальна історія, варта того, щоб нею поділилися. Наша
+          платформа створена, щоб об’єднати людей, закоханих у відкриття нового. Тут ви можете
+          ділитися власним досвідом, знаходити друзів та надихатися на наступні пригоди разом з
+          нами.
+        </p>
       </div>
-    </section>
+
+      <ul className={css.featuresList}>
+        {features.map((item, index) => (
+          <li key={index} className={css.featureItem}>
+            <div className={css.icon}>{item.icon}</div>
+            <h3 className={css.featureTitle}>{item.title}</h3>
+            <p className={css.featureText}>{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 };
 
