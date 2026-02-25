@@ -1,13 +1,16 @@
 import { Story } from '@/types/story';
 import css from './TravellersStoriesItem.module.css';
 
-import Button from '../Link/Link';
+import Link from '../Link/Link';
+import Button from '../Button/Button';
 
 interface TravellersStoriesItemProps {
   story: Story;
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
+  const noop = () => {};
+
   return (
     <li className={css.storyItem}>
       <img src={story.imageUrl} alt={story.title} />
@@ -35,12 +38,14 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
         </div>
 
         <div className={css.storyActions}>
-          <Button href={`/stories/${story.id}`} text='Переглянути статтю' variant='secondaryBtn' />
-          <button className={css.favoriteButton}>
+          <Link href={`/stories/${story.id}`} variant='secondaryBtn'>
+            Переглянути статтю
+          </Link>
+          <Button variant='secondary' onClick={noop}>
             <svg className={css.favoriteIcon} width='24' height='24'>
               <use href='/icons/sprite.svg#icon-bookmark' />
             </svg>
-          </button>
+          </Button>
         </div>
       </div>
     </li>

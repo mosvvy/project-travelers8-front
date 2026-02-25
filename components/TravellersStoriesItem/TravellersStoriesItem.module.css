@@ -7,7 +7,7 @@
 
 .storyContent {
   padding: 24px;
-  background-color: #e8eeff;
+  background-color: var(--color-royal-blue-lighter, #e8eeff);
 }
 
 .storyCategory {
@@ -17,11 +17,9 @@
 
 .storyTitleCard {
   margin-top: 8px;
-  /*---color: #000;---*/
 }
 
 .storyTextCard {
-  /*--margin-top: 8px;---*/
   font-weight: 400;
 }
 
@@ -61,7 +59,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #000;
+  background-color: var(--color-neutral-darkest, #000);
 }
 
 .favoriteCount {
@@ -71,7 +69,7 @@
 
 .actionIcon {
   display: block;
-  fill: #000;
+  fill: var(--color-neutral-darkest, #000);
 }
 
 .storyActions {
