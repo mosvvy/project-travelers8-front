@@ -4,18 +4,18 @@ import css from './Button.module.css';
 
 interface ButtonProps {
   variant?: 'primary' | 'secondary';
-  text: string;
+  children: React.ReactNode;
   onClick: () => void;
 }
 
-const Button = ({ variant, text, onClick }: ButtonProps) => {
+const Button = ({ variant = 'primary', children, onClick }: ButtonProps) => {
   const handleClick = () => {
     onClick();
   };
 
   return (
     <button className={clsx(css.button, variant && css[variant])} onClick={handleClick}>
-      {text}
+      {children}
     </button>
   );
 };
