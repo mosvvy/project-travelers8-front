@@ -32,7 +32,6 @@
  background-color: var(--color-white);
  color: var(--accent-light);
  text-align: center;
- /* display: flex; align-items: center; justify-content: center; */
 }
 
 @media screen and (min-width: 768px) {
@@ -53,15 +52,13 @@
 
 .joinTitle { 
  margin-bottom: 8px;
- max-width: 500px;
 }
 
 .joinDescription{
  margin-bottom: 16px;
- max-width: 558px;
+ max-width: 558px; 
  }
 }
-
 
 @media screen and (min-width: 1440px) {
  .joinBackground{
@@ -73,15 +70,14 @@
 
  .joinContent {
   padding: 80px 60px;
+  max-width: 558px;
  }
 
  .joinTitle { 
-  margin-bottom: 24 px;
-  max-width: 650px;
+  margin-bottom: 24px;
   }
 
  .joinDescription{
   margin-bottom: 32px;
-  max-width: 550px;    
  }
 }
