@@ -1,3 +1,8 @@
+.topContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 .description {
   max-width: 530px;
 
@@ -64,11 +69,12 @@
 }
 @media (min-width: 768px) {
   .topContent {
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
-    margin-bottom: 60px; 
+    margin-bottom: 60px;
+  }
 
   .title {
     flex: 1;
