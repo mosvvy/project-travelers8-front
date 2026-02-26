@@ -6,17 +6,17 @@ const features = [
   {
     title: 'Наша місія',
     text: 'Об’єднувати людей через любов до пригод та надихати на нові відкриття.',
-    icon: '✨',
+    iconId: 'icon-wand_stars',
   },
   {
     title: 'Автентичні історії',
     text: 'Ми цінуємо справжні, нередаговані враження від мандрівників з усього світу.',
-    icon: '💼',
+    iconId: 'icon-travel_luggage_and_bags',
   },
   {
     title: 'Ваша спільнота',
     text: 'Станьте частиною спільноти, де кожен може бути і автором, і читачем.',
-    icon: '👥',
+    iconId: 'icon-communication',
   },
 ];
 
@@ -36,7 +36,9 @@ const About = () => {
       <ul className={css.featuresList}>
         {features.map((item, index) => (
           <li key={index} className={css.featureItem}>
-            <div className={css.icon}>{item.icon}</div>
+            <svg className={css.icon} width='32' height='32'>
+              <use xlinkHref={`/icons/sprite.svg#${item.iconId}`} />
+            </svg>
             <h3 className={css.featureTitle}>{item.title}</h3>
             <p className={css.featureText}>{item.text}</p>
           </li>
