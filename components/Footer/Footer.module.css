@@ -102,11 +102,12 @@
   .content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: top;
   }
 
   .wrapper {
     margin-bottom: 0;
+    gap: 434px;
   }
 
   .copyright {
