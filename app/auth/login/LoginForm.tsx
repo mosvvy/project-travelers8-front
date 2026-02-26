@@ -1,9 +1,132 @@
+'use client';
+
+import axios from 'axios';
+import { login } from '@/app/lib/api/clientApi';
+import { useAuthStore } from '@/app/lib/store/authStore';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+import * as Yup from 'yup';
 import css from './LoginForm.module.css';
+import Loading from '@/app/loading';
+
+interface LoginValues {
+  email: string;
+  password: string;
+}
+
+const loginSchema = Yup.object({
+  email: Yup.string()
+    .email('Невірний email')
+    .max(64, 'Максимум 64 символів')
+    .required("Обов'язкове поле"),
+  password: Yup.string()
+    .min(8, 'Мінімум 8 символів')
+    .max(128, 'Максимум 128 символів')
+    .required("Обов'язкове поле"),
+});
 
 export default function LoginForm() {
+  const router = useRouter();
+  const setUser = useAuthStore(s => s.setUser);
+
+  const handleSubmit = async (
+    values: LoginValues,
+    {
+      setSubmitting,
+      setFieldError,
+    }: {
+      setSubmitting: (s: boolean) => void;
+      setFieldError: (field: string, message: string) => void;
+    }
+  ) => {
+    try {
+      const data = await login(values);
+      setUser(data.user);
+
+      toast.success('Вхід виконано успішно!');
+      router.push('/');
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status;
+
+        if (status === 401) {
+          toast.error('Невірна пошта або пароль.');
+          setFieldError('email', 'Перевірте пошту');
+          setFieldError('password', 'Перевірте пароль');
+          return;
+        }
+
+        toast.error('Вхід не виконано. Спробуйте ще раз.');
+        return;
+      }
+
+      toast.error('Сталася невідома помилка.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
-    <>
-      <h1>Вхід</h1>
-    </>
+    <div className={css.container}>
+      <div className={css.authForm}>
+        <Formik<LoginValues>
+          initialValues={{ email: '', password: '' }}
+          validationSchema={loginSchema}
+          onSubmit={handleSubmit}
+          validateOnMount
+        >
+          {({ isSubmitting, isValid, handleChange, errors, touched }) => (
+            <Form noValidate className={css.form}>
+              <h1 className={css.title}>Вхід</h1>
+              <p className={css.text}>Вітаємо знову у спільноту мандрівників!</p>
+
+              <div className={css.field}>
+                <label htmlFor='email' className={css.label}>
+                  Пошта*
+                </label>
+                <Field
+                  id='email'
+                  name='email'
+                  type='email'
+                  placeholder='hello@podorozhnyky.ua'
+                  className={`${css.input} ${errors.email && touched.email ? css.input_error : ''}`}
+                  onChange={handleChange}
+                />
+                <ErrorMessage name='email' component='div' className={css.error} />
+              </div>
+
+              <div className={`${css.field} ${css.passwordField}`}>
+                <label htmlFor='password' className={css.label}>
+                  Пароль*
+                </label>
+
+                <div className={css.passwordWrapper}>
+                  <Field
+                    id='password'
+                    name='password'
+                    type='password'
+                    placeholder='********'
+                    className={`${css.input} ${
+                      errors.password && touched.password ? css.input_error : ''
+                    }`}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <ErrorMessage name='password' component='div' className={css.error} />
+              </div>
+
+              <button type='submit' disabled={!isValid || isSubmitting} className={css.submitBtn}>
+                {isSubmitting ? <Loading /> : 'Увійти'}
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
   );
 }
