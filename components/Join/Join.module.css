@@ -1,0 +1,83 @@
+.join{
+ padding: 32px 0;
+}
+
+.joinBackground{
+ background-color: var(--accent-light);
+ border-radius: 24px;
+ background-position: center;
+ background-size: cover;
+ background-repeat: no-repeat;
+ background-image: image-set(
+    url('/images/join-img/join-mob@1x.webp') 1x,
+    url('/images/join-img/join-mob@2x.webp') 2x
+    );
+}
+
+.joinContent {
+ padding: 40px 20px;
+}
+
+.joinTitle{
+ color: var(--color-white);
+ margin-bottom: 16px;
+}
+
+.joinDescription{
+ color: var(--color-white);
+ margin-bottom: 24px;
+}
+
+.joinButton {
+ background-color: var(--color-white);
+ color: var(--accent-light);
+ text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+ .join{
+ padding: 48px 0; 
+}
+
+.joinBackground{
+ background-image: image-set(
+ url('/images/join-img/join-tabl@1x.webp') 1x,
+ url('/images/join-img/join-tabl@2x.webp') 2x
+ );
+}
+
+.joinContent {
+ padding: 60px 40px;
+}
+
+.joinTitle { 
+ margin-bottom: 8px;
+}
+
+.joinDescription{
+ margin-bottom: 16px;
+ max-width: 558px; 
+ }
+}
+
+@media screen and (min-width: 1440px) {
+ .joinBackground{
+  background-image: image-set(
+  url('/images/join-img/join-desk@1x.webp') 1x,
+  url('/images/join-img/join-desk@2x.webp') 2x
+  );
+ }
+
+ .joinContent {
+  padding: 80px 60px;
+  max-width: 558px;
+ }
+
+ .joinTitle { 
+  margin-bottom: 24px;
+  }
+
+ .joinDescription{
+  margin-bottom: 32px;
+ }
+}
