@@ -2,6 +2,7 @@ import Link from '../Link/Link';
 import css from './Footer.module.css';
 
 const Footer = () => {
+  const svgSize = 24;
   return (
     <footer className={css.footer_section}>
       <div className={css.container}>
@@ -15,22 +16,30 @@ const Footer = () => {
             <ul className={css.socials}>
               <li>
                 <Link href='https://www.facebook.com/' variant='link'>
-                  F
+                  <svg width={svgSize} height={svgSize}>
+                    <use href='/icons/sprite.svg#icon-Facebook' />
+                  </svg>
                 </Link>
               </li>
               <li>
                 <Link href='https://www.instagram.com/' variant='link'>
-                  I
+                  <svg width={svgSize} height={svgSize}>
+                    <use href='/icons/sprite.svg#icon-Instagram' />
+                  </svg>
                 </Link>
               </li>
               <li>
                 <Link href='https://x.com/' variant='link'>
-                  X
+                  <svg width={svgSize} height={svgSize}>
+                    <use href='/icons/sprite.svg#icon-X' />
+                  </svg>
                 </Link>
               </li>
               <li>
                 <Link href='https://www.youtube.com/' variant='link'>
-                  Y
+                  <svg width={svgSize} height={svgSize}>
+                    <use href='/icons/sprite.svg#icon-Youtube' />
+                  </svg>
                 </Link>
               </li>
             </ul>
