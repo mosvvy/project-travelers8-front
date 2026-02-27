@@ -1,4 +1,5 @@
 import Link from '../Link/Link';
+import Logo from '../Logo/Logo';
 import css from './Footer.module.css';
 
 const Footer = () => {
@@ -12,7 +13,7 @@ const Footer = () => {
           <div className={css.wrapper}>
             <div className={css.logo}>
               <Link href='/' variant='link'>
-                Подорожники
+                <Logo />
               </Link>
             </div>
             <ul className={css.socials}>
