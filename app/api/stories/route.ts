@@ -9,12 +9,16 @@ export async function GET(request: NextRequest) {
     const cookieStore = await cookies();
     const { searchParams } = request.nextUrl;
 
-    const page = searchParams.get('page') || '1';
-    const perPage = searchParams.get('perPage') || '12';
+    const page = searchParams.get('page') || 1;
+    const perPage = searchParams.get('perPage') || 12;
     const category = searchParams.get('category');
 
     const res = await api('/stories', {
-      params: { page, perPage, ...(category && category !== 'All' && { category }) },
+      params: {
+        page: Number(page),
+        perPage: Number(perPage),
+        ...(category && category !== 'All' && { category }),
+      },
       headers: {
         Cookie: cookieStore.toString(),
       },
