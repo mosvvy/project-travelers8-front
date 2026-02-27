@@ -3,6 +3,8 @@ import css from './Footer.module.css';
 
 const Footer = () => {
   const svgSize = 24;
+  const isAuthenticated = true; // Змінна для перевірки автентифікації користувача
+
   return (
     <footer className={css.footer_section}>
       <div className={css.container}>
@@ -60,6 +62,15 @@ const Footer = () => {
                 Мандрівники
               </Link>
             </li>
+            {isAuthenticated ? (
+              <li>
+                <Link href='/profile' variant='link'>
+                  Профіль
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
           </ul>
         </div>
         <hr className={css.line} />
