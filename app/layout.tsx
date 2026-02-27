@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Toaster } from 'react-hot-toast';
 import { Nunito_Sans, Sora } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header/Header';
@@ -34,9 +35,8 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${ninutoSans.variable} ${sora.variable}`}>
         <TanStackProvider>
-          <Header />
           <main>{children}</main>
-          <Footer />
+          <Toaster position='top-right' />
         </TanStackProvider>
       </body>
     </html>
