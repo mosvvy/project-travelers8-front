@@ -1,0 +1,77 @@
+.container {
+  padding: 32px 32px 0 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.travellerAvatar {
+  border-radius: 50%;
+  width: 200px;
+  margin-bottom: 24px;
+}
+
+.travellerName {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--color-scheme-2-text);
+  margin-bottom: 8px;
+}
+
+.travellerDescription {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--color-scheme-2-text);
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .travellerAvatar {
+    margin-bottom: 0;
+    margin-right: 24px;
+  }
+  .travellerName {
+    margin-bottom: 0;
+    text-align: start;
+  }
+
+  .travellerDescription {
+    text-align: start;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    padding: 48px 64px 0 64px;
+  }
+
+  .travellerName {
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 130%;
+    letter-spacing: -0.01em;
+    color: var(--color-scheme-2-text);
+  }
+
+  .travellerDescription {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    color: var(--color-scheme-2-text);
+  }
+  .travellerInfoWrapper {
+    max-width: 367px;
+  }
+}
