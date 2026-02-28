@@ -1,0 +1,19 @@
+.logo {
+  padding: 7px 4px;
+  font-family: var(--second-family);
+  font-size: 17px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dark {
+  color: var(--color-scheme-1-text);
+}
+
+.light {
+  color: var(--color-white);
+}
