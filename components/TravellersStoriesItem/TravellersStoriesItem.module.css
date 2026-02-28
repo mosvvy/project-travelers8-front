@@ -4,7 +4,17 @@
   display: flex;
   flex-direction: column;
   width: 335px;
+
   overflow: hidden;
+}
+
+.storyImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .storyContent {
@@ -74,7 +84,7 @@
   font-size: 12px;
 }
 
-.actionIcon {
+.favoriteIcon {
   display: block;
   fill: var(--color-neutral-darkest, #000);
 }
@@ -89,7 +99,7 @@
   width: 310px;
 }
 
-.storyActions :global(.Button-module__button).favoriteButton {
+.favoriteButton {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -97,13 +107,13 @@
   height: 48px;
 }
 
-.favoriteButton:active {
+/*--.favoriteButton:active {
   background-color: var(--color-royal-blue-darkest, #131f43);
-}
+}--*/
 
-.favoriteButton .actionIcon :active {
+/*----.favoriteButton .actionIcon :active {
   fill: var(--color-white, #fff);
-}
+}--*/
 
 @media screen and (min-width: 768px) {
   .storyCard {
@@ -111,7 +121,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1440px) {
   .storyCard {
     width: calc((100% - 48px) / 3);
   }

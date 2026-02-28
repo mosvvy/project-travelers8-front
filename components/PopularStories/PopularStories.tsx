@@ -1,10 +1,10 @@
 'use client';
 import css from './PopularStories.module.css';
-import TravellersList from '../TravellersList/TravellersList';
 import type { Story } from '@/types/story';
 import Section from '../Section/Section';
 import { useEffect, useState } from 'react';
 import { getStories } from '@/app/lib/api/clientApi';
+import TravellersStories from '../TravellersStories/TravellersStories';
 
 const mockStories: Story[] = [
   {
@@ -104,7 +104,7 @@ const PopularStories = () => {
   return (
     <Section>
       <h2 className={css.popularStoriesTitle}>Популярні історії</h2>
-      <TravellersList stories={stories} />
+      <TravellersStories stories={stories} />
     </Section>
   );
 };

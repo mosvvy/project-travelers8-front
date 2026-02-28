@@ -7,6 +7,7 @@ import Link from '../Link/Link';
 import Button from '../Button/Button';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 //import { useAuth } from '@/hooks/useAuth';
 //import { toggleFavorite } from '@/api/favorites';
@@ -41,7 +42,15 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
 
   return (
     <article className={css.storyCard}>
-      <img src={story.img} alt={story.title} className={css.storyImage} />
+      <div className={css.storyImageWrapper}>
+        <Image
+          src={story.img}
+          alt={story.title}
+          fill
+          className='object-cover object-center'
+          sizes='(max-width: 768px) 335px, (max-width: 1024px) 340px, 421px'
+        />
+      </div>
 
       <div className={css.storyContent}>
         <p className={css.storyCategory}>{story.category.name}</p>
@@ -51,11 +60,15 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
         <p className={css.storyTextCard}>{story.article}</p>
 
         <div className={css.authorInfo}>
-          <img
-            className={css.authorAvatar}
+          <Image
+            //className={css.authorAvatar}
             src={story.ownerId.avatarUrl}
             alt={story.ownerId.name}
+            width={48}
+            height={48}
+            style={{ borderRadius: '50%', objectFit: 'cover' }}
           />
+
           <div className={css.authorDetails}>
             <p className={css.authorName}>{story.ownerId.name}</p>
             <div className={css.storyMeta}>
