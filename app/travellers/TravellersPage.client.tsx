@@ -39,7 +39,7 @@ export default function TravellersPageClient({ totalUsers }: { totalUsers: numbe
       <TravellersList travellers={users} />
       <div className={css.buttonContainer}>
         {!isAllLoaded && (
-          <Button type='button' onClick={() => loadMore(perPage + LOAD_STEP)} disabled={isLoading}>
+          <Button onClick={() => loadMore(perPage + LOAD_STEP)}>
             {isLoading ? 'Завантаження…' : 'Переглянути ще'}
           </Button>
         )}
