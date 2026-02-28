@@ -1,8 +1,7 @@
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
 import TravellerInfo from '@/components/TravellerInfo/TravellerInfo';
 import TravellerStories from '@/components/TravellersStories/TravellersStories';
 import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
+import css from './page.module.css';
 
 const DEFAULT_TRAVELLER_ID = '6881563901add19ee16fd017'; // 👈 тестовий
 
@@ -24,14 +23,13 @@ export default async function TravelerPage({ params }: PageProps) {
   }
   const data = await res.json();
   const traveller = data.user;
+  const hasStories = traveller.savedStories?.length > 0;
 
   return (
     <>
-      <Header />
       <TravellerInfo traveller={traveller} />
-      <TravellerStories />
-      <MessageNoStories />
-      <Footer />
+      <h2 className={css.travellerStoriesTitle}>Історії мандрівника</h2>
+      {hasStories ? <TravellerStories /> : <MessageNoStories />}
     </>
   );
 }

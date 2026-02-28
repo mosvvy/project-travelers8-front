@@ -1,20 +1,22 @@
 import css from './TravellerInfo.module.css';
+import { User } from '@/types/User';
+import Image from 'next/image';
 
 type TravellerInfoProps = {
-  traveller: {
-    id: string;
-    name: string;
-    avatarUrl?: string;
-    articlesAmount?: number;
-    description?: string;
-  };
+  traveller: User;
 };
 
 export default function TravellerInfo({ traveller }: TravellerInfoProps) {
   return (
     <div className={css.container}>
       {traveller.avatarUrl && (
-        <img src={traveller.avatarUrl} alt={traveller.name} className={css.travellerAvatar} />
+        <Image
+          src={traveller.avatarUrl}
+          alt={traveller.name}
+          className={css.travellerAvatar}
+          width={100}
+          height={100}
+        />
       )}
       <div className={css.travellerInfoWrapper}>
         <h2 className={css.travellerName}>{traveller.name}</h2>
