@@ -7,24 +7,26 @@ import { logErrorResponse } from '../_utils/utils';
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
+
     const { searchParams } = request.nextUrl;
+    const page = Number(searchParams.get('page') ?? 1);
+    const perPage = Number(searchParams.get('perPage') ?? 12);
+    const rawCategory = searchParams.get('category') ?? '';
+    const category = rawCategory === 'All' ? '' : rawCategory;
 
-    const page = searchParams.get('page') || 1;
-    const perPage = searchParams.get('perPage') || 12;
-    const category = searchParams.get('category');
-
-    const res = await api('/stories', {
+    const res = await api.get('/stories', {
       params: {
-        page: Number(page),
-        perPage: Number(perPage),
-        ...(category && category !== 'All' && { category }),
+        page,
+        perPage,
+        ...(category && { category }),
       },
       headers: {
-        Cookie: cookieStore.toString(),
+        Cookie: cookieHeader,
       },
     });
 
-    return NextResponse.json(res.data, { status: res.status });
+    return NextResponse.json(res.data);
   } catch (error) {
     if (isAxiosError(error)) {
       const status = error.response?.status || 500;
