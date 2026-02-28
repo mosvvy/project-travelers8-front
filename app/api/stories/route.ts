@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const rawCategory = searchParams.get('category') ?? '';
     const category = rawCategory === 'All' ? '' : rawCategory;
 
-    const res = await api.get('/stories', {
+    const res = await api('/stories', {
       params: {
         page,
         perPage,
