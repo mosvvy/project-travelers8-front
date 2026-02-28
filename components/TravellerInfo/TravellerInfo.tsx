@@ -1,5 +1,5 @@
 import css from './TravellerInfo.module.css';
-import { User } from '@/types/User';
+import { User } from '@/types/user';
 import Image from 'next/image';
 
 type TravellerInfoProps = {

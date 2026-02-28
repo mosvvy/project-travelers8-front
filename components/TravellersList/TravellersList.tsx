@@ -1,6 +1,7 @@
 import css from './TravellersList.module.css';
-import { User } from '@/types/User';
+import { User } from '@/types/user';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type TravellersListProps = {
   travellers: User[];
@@ -13,7 +14,13 @@ const TravellersList = ({ travellers }: TravellersListProps) => {
         <li key={traveller._id} className={css.travellerListItem}>
           <div>
             {traveller.avatarUrl && (
-              <img src={traveller.avatarUrl} alt={traveller.name} className={css.travellerAvatar} />
+              <Image
+                src={traveller.avatarUrl}
+                alt={traveller.name}
+                className={css.travellerAvatar}
+                width={100}
+                height={100}
+              />
             )}
             <div className={css.travellerInfoWrapper}>
               <h2 className={css.travellerName}>{traveller.name}</h2>

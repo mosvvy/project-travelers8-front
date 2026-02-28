@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import TravellersList from '@/components/TravellersList/TravellersList';
 import Button from '@/components/Button/Button';
-import { User } from '@/types/User';
+import { User } from '@/types/user';
 import css from './page.module.css';
 
 const LOAD_STEP = 4;
