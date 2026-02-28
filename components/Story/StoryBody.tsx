@@ -6,19 +6,17 @@ import Button from '../Button/Button';
 
 const AddToFavorites = ({ storyId }: { storyId: string }) => {
   return (
-    <div className={css.favoritesBox}>
-      <div className={css.innerFavoritesBox}>
-        <h3>Збережіть собі історію</h3>
-        <p>Вона буде доступна у вашому профілі у розділі збережене</p>
-        <div className={css.buttonContainer}>
-          <Button
-            fullWidth={true}
-            variant='primary'
-            onClick={() => alert(`Story ${storyId} added to favorites!`)}
-          >
-            Зберегти
-          </Button>
-        </div>
+    <div className={css.innerFavoritesBox}>
+      <h3>Збережіть собі історію</h3>
+      <p>Вона буде доступна у вашому профілі у розділі збережене</p>
+      <div className={css.buttonContainer}>
+        <Button
+          fullWidth={true}
+          variant='primary'
+          onClick={() => alert(`Story ${storyId} added to favorites!`)}
+        >
+          Зберегти
+        </Button>
       </div>
     </div>
   );
