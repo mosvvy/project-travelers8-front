@@ -1,8 +1,10 @@
-.storyItem {
+.storyCard {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 16px;
   display: flex;
   flex-direction: column;
+  width: 335px;
+  overflow: hidden;
 }
 
 .storyContent {
@@ -83,10 +85,34 @@
   gap: 10px;
 }
 
-.favoriteButton {
+.viewStoryLink {
+  width: 310px;
+}
+
+.storyActions :global(.Button-module__button).favoriteButton {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  width: 48px;
+  width: 48px !important;
   height: 48px;
+}
+
+.favoriteButton:active {
+  background-color: var(--color-royal-blue-darkest, #131f43);
+}
+
+.favoriteButton .actionIcon :active {
+  fill: var(--color-white, #fff);
+}
+
+@media screen and (min-width: 768px) {
+  .storyCard {
+    width: calc((100% - 24px) / 2);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .storyCard {
+    width: calc((100% - 48px) / 3);
+  }
 }

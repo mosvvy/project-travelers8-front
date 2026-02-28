@@ -1,20 +1,20 @@
-import { User } from './user';
-
 export interface Story {
   id: string;
+  img: string;
   title: string;
-  content: string;
-  imageUrl: string;
+  article: string;
+  category: {
+    id: string;
+    name: string;
+  };
+
   ownerId: {
-    _id: string;
+    id: string;
     name: string;
     avatarUrl: string;
   };
-  publishedAt: string;
-  category: {
-    _id: string;
-    name: string;
-  };
+  date: string;
+
   favoriteCount: number;
-  isFavorite: boolean;
+  //isFavorite: boolean;
 }

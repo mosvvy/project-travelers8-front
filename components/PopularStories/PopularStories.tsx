@@ -1,19 +1,24 @@
+'use client';
 import css from './PopularStories.module.css';
 import TravellersList from '../TravellersList/TravellersList';
 import type { Story } from '@/types/story';
+import Section from '../Section/Section';
+import { useEffect, useState } from 'react';
+import { getStories } from '@/app/lib/api/clientApi';
 
 const mockStories: Story[] = [
   {
-    _id: '1',
+    id: '68498236a100312bea07900b',
     img: 'https://ftp.goit.study/img/travel-blog/68498236a100312bea07900b.webp',
     title: 'Єгипет: враження від Луксора',
-    article: 'Луксор — це справжній музей під відкритим небом...',
+    article:
+      'Луксор — це справжній музей під відкритим небом. Ми відвідали Долину царів, де збереглися гробниці фараонів із розписами, що сяють і сьогодні. Храм Хатшепсут вразив величчю і масштабом. А вечірня прогулянка вздовж Нілу залишила особливі спогади. Єгипет — це країна, де історія оживає на кожному кроці.',
     category: {
-      _id: 'c1',
+      id: '68fb50c80ae91338641121f4',
       name: 'Африка',
     },
     ownerId: {
-      _id: 'u1',
+      id: '6881563901add19ee16fd010',
       name: 'Назар Романенко',
       avatarUrl: 'https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp',
     },
@@ -21,60 +26,87 @@ const mockStories: Story[] = [
     favoriteCount: 20,
   },
   {
-    _id: '2',
-    img: 'https://ftp.goit.study/img/travel-blog/685b12482dcb3c1a14d83a77.webp',
-    title: 'Франція: вечірній Париж',
-    article: 'Прогулянки Монмартром і кава з видом на Ейфелеву вежу...',
+    id: '68498236a100312bea07900b',
+    img: 'https://ftp.goit.study/img/travel-blog/68498236a100312bea07900b.webp',
+    title: 'Єгипет: враження від Луксора',
+    article:
+      'Луксор — це справжній музей під відкритим небом. Ми відвідали Долину царів, де збереглися гробниці фараонів із розписами, що сяють і сьогодні. Храм Хатшепсут вразив величчю і масштабом. А вечірня прогулянка вздовж Нілу залишила особливі спогади. Єгипет — це країна, де історія оживає на кожному кроці.',
     category: {
-      _id: 'c2',
-      name: 'Європа',
+      id: '68fb50c80ae91338641121f4',
+      name: 'Африка',
     },
     ownerId: {
-      _id: 'u2',
-      name: 'Марія Коваль',
-      avatarUrl: 'https://ftp.goit.study/img/harmoniq/users/685b12482dcb3c1a14d83a77.webp',
+      id: '6881563901add19ee16fd010',
+      name: 'Назар Романенко',
+      avatarUrl: 'https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp',
     },
-    date: '2024-10-15',
-    favoriteCount: 14,
+    date: '2024-11-03',
+    favoriteCount: 20,
   },
   {
-    _id: '3',
-    img: 'https://ftp.goit.study/img/travel-blog/685b12482dcb3c1a14d83a78.webp',
-    title: 'Ісландія: край льоду і вогню',
-    article: 'Гейзери, водоспади і чорні пляжі — магія півночі...',
+    id: '68498236a100312bea07900b',
+    img: 'https://ftp.goit.study/img/travel-blog/68498236a100312bea07900b.webp',
+    title: 'Єгипет: враження від Луксора',
+    article:
+      'Луксор — це справжній музей під відкритим небом. Ми відвідали Долину царів, де збереглися гробниці фараонів із розписами, що сяють і сьогодні. Храм Хатшепсут вразив величчю і масштабом. А вечірня прогулянка вздовж Нілу залишила особливі спогади. Єгипет — це країна, де історія оживає на кожному кроці.',
     category: {
-      _id: 'c3',
-      name: 'Північна Європа',
+      id: '68fb50c80ae91338641121f4',
+      name: 'Африка',
     },
     ownerId: {
-      _id: 'u3',
-      name: 'Олег Савчук',
-      avatarUrl: 'https://ftp.goit.study/img/harmoniq/users/685b12482dcb3c1a14d83a78.webp',
+      id: '6881563901add19ee16fd010',
+      name: 'Назар Романенко',
+      avatarUrl: 'https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp',
     },
-    date: '2024-09-01',
-    favoriteCount: 32,
+    date: '2024-11-03',
+    favoriteCount: 20,
   },
   {
-    _id: '4',
-    img: 'https://ftp.goit.study/img/travel-blog/685b12482dcb3c1a14d83a79.webp',
-    title: 'Японія: сакура в Кіото',
-    article: 'Храми, сади і цвітіння сакури — справжня медитація...',
+    id: '68498236a100312bea07900b',
+    img: 'https://ftp.goit.study/img/travel-blog/68498236a100312bea07900b.webp',
+    title: 'Єгипет: враження від Луксора',
+    article:
+      'Луксор — це справжній музей під відкритим небом. Ми відвідали Долину царів, де збереглися гробниці фараонів із розписами, що сяють і сьогодні. Храм Хатшепсут вразив величчю і масштабом. А вечірня прогулянка вздовж Нілу залишила особливі спогади. Єгипет — це країна, де історія оживає на кожному кроці.',
     category: {
-      _id: 'c4',
-      name: 'Азія',
+      id: '68fb50c80ae91338641121f4',
+      name: 'Африка',
     },
     ownerId: {
-      _id: 'u4',
-      name: 'Ірина Петренко',
-      avatarUrl: 'https://ftp.goit.study/img/harmoniq/users/685b12482dcb3c1a14d83a79.webp',
+      id: '6881563901add19ee16fd010',
+      name: 'Назар Романенко',
+      avatarUrl: 'https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd010.webp',
     },
-    date: '2024-04-12',
-    favoriteCount: 45,
+    date: '2024-11-03',
+    favoriteCount: 20,
   },
 ];
 
+const getLimit = () => {
+  if (typeof window === 'undefined') return 3;
+  if (window.innerWidth >= 1440) return 3;
+  if (window.innerWidth >= 768) return 4;
+  return 3;
+};
+
 const PopularStories = () => {
-  return <TravellersList stories={mockStories} />;
+  const [stories, setStories] = useState<Story[]>([]);
+
+  useEffect(() => {
+    const load = () => {
+      const limit = getLimit();
+      setStories(mockStories.slice(0, limit));
+    };
+
+    load();
+    window.addEventListener('resize', load);
+    return () => window.removeEventListener('resize', load);
+  }, []);
+  return (
+    <Section>
+      <h2 className={css.popularStoriesTitle}>Популярні історії</h2>
+      <TravellersList stories={stories} />
+    </Section>
+  );
 };
 
 export default PopularStories;

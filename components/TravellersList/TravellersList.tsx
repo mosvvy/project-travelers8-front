@@ -10,9 +10,7 @@ export default function TravellersList({ stories }: TravellersListProps) {
   return (
     <ul className={css.storiesList}>
       {stories.map(story => (
-        <li key={story.id}>
-          <TravellersStoriesItem story={story} />
-        </li>
+        <TravellersStoriesItem key={story.id} story={story} />
       ))}
     </ul>
   );

@@ -1,0 +1,9 @@
+.popular-stories {
+  padding: 64px 0;
+  background-color: var(--color-royal-blue-lightest, #f7f9ff);
+  margin: 0 auto;
+}
+
+.popularStoriesTitle {
+  margin-bottom: 0px;
+}
