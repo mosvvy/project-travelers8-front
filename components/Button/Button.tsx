@@ -7,9 +7,10 @@ interface ButtonProps {
   children: React.ReactNode;
   fullWidth?: boolean;
   onClick: () => void;
+  className?: string;
 }
 
-const Button = ({ variant = 'primary', children, fullWidth = false, onClick }: ButtonProps) => {
+const Button = ({ variant = 'primary', children, fullWidth = false, onClick, className }: ButtonProps) => {
   const handleClick = () => {
     onClick();
   };
@@ -17,7 +18,7 @@ const Button = ({ variant = 'primary', children, fullWidth = false, onClick }: B
   const widthClass = fullWidth ? css.fullWidth : css.defaultWidth;
 
   return (
-    <button className={clsx(css.button, widthClass, variant && css[variant])} onClick={handleClick}>
+    <button className={clsx(css.button, widthClass, variant && css[variant], className)} onClick={handleClick}>
       {children}
     </button>
   );

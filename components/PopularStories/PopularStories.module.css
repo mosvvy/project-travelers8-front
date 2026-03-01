@@ -1,0 +1,32 @@
+.popular-stories {
+  padding: 64px 0;
+  background-color: var(--color-royal-blue-lightest, #f7f9ff);
+  margin: 0 auto;
+}
+
+.popularStoriesTitle {
+  margin-bottom: 0px;
+  font-size: 28px;
+}
+
+.viewAllWrapper {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .popularStoriesTitle {
+    font-size: 44px;
+  }
+
+  .viewAllWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .popularStoriesTitle {
+    font-size: 52px;
+  }
+}
