@@ -16,5 +16,5 @@ export interface Story {
   date: string;
 
   favoriteCount: number;
-  //isFavorite: boolean;
+  isFavorite?: boolean;
 }

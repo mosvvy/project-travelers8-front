@@ -56,3 +56,7 @@ export const getStories = async (page: number, perPage: number): Promise<Stories
   });
   return data;
 };
+
+export const toggleFavorite = async (storyId: string): Promise<void> => {
+  await api.post('/users/bookmark', { storyId });
+};

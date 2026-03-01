@@ -63,7 +63,6 @@
 .storyMeta {
   display: flex;
   align-items: center;
-  gap: 8px;
 }
 
 .publishedAt {
@@ -71,15 +70,20 @@
   font-size: 12px;
 }
 
+.metaSeparator::before {
+  content: '•';
+  font-size: 12px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
 .metaSeparator {
-  display: inline-block;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: var(--color-neutral-darkest, #000);
+  margin-left: 8px;
 }
 
 .favoriteCount {
+  margin-left: 3px;
   font-weight: 400;
   font-size: 12px;
 }

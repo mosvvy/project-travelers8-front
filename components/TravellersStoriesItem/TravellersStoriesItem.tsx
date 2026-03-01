@@ -9,19 +9,19 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
-//import { useAuth } from '@/hooks/useAuth';
-//import { toggleFavorite } from '@/api/favorites';
+import { useAuthStore } from '@/app/lib/store/authStore';
+import { toggleFavorite } from '@/app/lib/api/clientApi';
 
 interface TravellersStoriesItemProps {
   story: Story;
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
-  //const [isFavorite, setIsFavorite] = useState(story.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(story.isFavorite);
   const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
   const [isLoading, setIsLoading] = useState(false);
 
-  //const { isAuth, openAuthModal } = useAuth();
+  //const { isAuth, openAuthModal } = useAuthStore();
 
   const handleFavoriteClick = async () => {
     //if (!isAuth) {
@@ -30,9 +30,9 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
     //}
 
     try {
-      //await toggleFavorite(story.id);
-      //setIsFavorite(prev => !prev);
-      //setFavoriteCount(prev => (isFavorite ? prev - 1 : prev + 1));
+      await toggleFavorite(story.id);
+      setIsFavorite(prev => !prev);
+      setFavoriteCount(prev => (isFavorite ? prev - 1 : prev + 1));
     } catch (err) {
       toast.error('Не вдалося оновити збережені. Спробуйте ще раз.');
     } finally {

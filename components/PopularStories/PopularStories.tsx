@@ -5,6 +5,7 @@ import Section from '../Section/Section';
 import { useEffect, useState } from 'react';
 import { getStories } from '@/app/lib/api/clientApi';
 import TravellersStories from '../TravellersStories/TravellersStories';
+import Link from '../Link/Link';
 
 const mockStories: Story[] = [
   {
@@ -105,6 +106,11 @@ const PopularStories = () => {
     <Section>
       <h2 className={css.popularStoriesTitle}>Популярні історії</h2>
       <TravellersStories stories={stories} />
+      <div className={css.viewAllWrapper}>
+        <Link variant='primaryBtn' href='/stories' className={css.viewAllLink}>
+          Переглянути всі
+        </Link>
+      </div>
     </Section>
   );
 };
