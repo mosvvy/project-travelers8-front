@@ -1,4 +1,4 @@
-.container {
+.travellerCard {
   padding: 32px 32px 0 32px;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .container {
+  .travellerCard {
     flex-direction: row;
   }
 
@@ -52,7 +52,7 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .container {
+  .travellerCard {
     padding: 48px 64px 0 64px;
   }
 

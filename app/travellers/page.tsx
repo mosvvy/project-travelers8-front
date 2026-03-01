@@ -1,5 +1,6 @@
 import css from './page.module.css';
 import TravellersPageClient from './TravellersPage.client';
+import Section from '@/components/Section/Section';
 
 export default async function TravellersPage() {
   const res = await fetch('https://project-travelers8-back.onrender.com/users', {
@@ -11,9 +12,9 @@ export default async function TravellersPage() {
   console.log(data);
 
   return (
-    <main className={css.container}>
+    <Section>
       <h1 className={css.travellersPageTitle}>Мандрівники</h1>
       <TravellersPageClient totalUsers={data.totalUsers} />
-    </main>
+    </Section>
   );
 }

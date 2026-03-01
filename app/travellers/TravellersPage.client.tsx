@@ -10,15 +10,8 @@ const LOAD_STEP = 4;
 
 export default function TravellersPageClient({ totalUsers }: { totalUsers: number }) {
   const [users, setUsers] = useState<User[]>([]);
-  const [perPage, setPerPage] = useState(8); // дефолт для SSR
+  const [perPage, setPerPage] = useState(8);
   const [isLoading, setIsLoading] = useState(false);
-
-  // ❗ Використовуємо window тільки в useEffect
-  useEffect(() => {
-    const initialPerPage = window.innerWidth >= 1440 ? 12 : 8;
-    setPerPage(initialPerPage);
-    loadMore(initialPerPage);
-  }, []);
 
   const loadMore = async (nextPerPage = perPage) => {
     setIsLoading(true);
@@ -31,6 +24,12 @@ export default function TravellersPageClient({ totalUsers }: { totalUsers: numbe
     setPerPage(nextPerPage);
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    const initialPerPage = window.innerWidth >= 1440 ? 12 : 8;
+    setPerPage(initialPerPage);
+    loadMore(initialPerPage);
+  }, []);
 
   const isAllLoaded = users.length >= totalUsers;
 
