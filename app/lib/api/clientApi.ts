@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Story } from '@/types/story';
 
 export type RegisterPayload = {
   name: string;
@@ -23,6 +24,20 @@ export type AuthResponse = {
   user: AuthUser;
 };
 
+export interface StoriesResponse {
+  page: number;
+  perPage: number;
+  totalStories: number;
+  totalPages: number;
+  stories: Story[];
+}
+
+export interface FetchStoriesParams {
+  page?: number;
+  perPage?: number;
+  category?: string;
+}
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
 
 export const api = axios.create({
@@ -38,5 +53,18 @@ export const register = async (payload: RegisterPayload): Promise<AuthResponse> 
 
 export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
+  return data;
+};
+
+export const fetchStories = async (params: FetchStoriesParams = {}): Promise<StoriesResponse> => {
+  const { page, perPage, category } = params;
+  const { data } = await api.get<StoriesResponse>('/stories', {
+    params: {
+      page,
+      perPage,
+      ...(category && category !== 'All' ? { category } : {}),
+    },
+  });
+
   return data;
 };
