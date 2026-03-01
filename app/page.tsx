@@ -9,15 +9,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-<<<<<<< HEAD
-      <h2>project</h2>
-      <h2>popular stories</h2>
-      <OurTravellers />
-=======
       <About />
       <PopularStories />
-      <h2>travelers</h2>s
->>>>>>> origin/main
+      <OurTravellers />
       <Join />
     </>
   );
