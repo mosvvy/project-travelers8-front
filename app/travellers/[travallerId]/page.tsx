@@ -31,7 +31,7 @@ export default async function TravellerPage({ params }: PageProps) {
       <TravellerInfo traveller={traveller} />
       <Section>
         <h2 className={css.travellerStoriesTitle}>Історії мандрівника</h2>
-        {hasStories ? <TravellerStories /> : <MessageNoStories />}
+        {hasStories ? <TravellerStories stories={traveller.savedStories} /> : <MessageNoStories />}
       </Section>
     </>
   );
