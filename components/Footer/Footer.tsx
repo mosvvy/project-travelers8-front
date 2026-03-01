@@ -1,3 +1,5 @@
+'use client';
+
 import { useAuthStore } from '@/app/lib/store/authStore';
 import Link from '../Link/Link';
 import Logo from '../Logo/Logo';
