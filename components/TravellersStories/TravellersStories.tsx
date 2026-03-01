@@ -1,7 +1,17 @@
 import css from './TravellersStories.module.css';
+import TravellersStoriesItem from '../TravellersStoriesItem/TravellersStoriesItem';
+import type { Story } from '@/types/story';
 
-const TravellersStories = () => {
-  return <h2>TravellersStories</h2>;
-};
+interface TravellersListProps {
+  stories: Story[];
+}
 
-export default TravellersStories;
+export default function TravellersStories({ stories }: TravellersListProps) {
+  return (
+    <ul className={css.storiesList}>
+      {stories.map(story => (
+        <TravellersStoriesItem key={story.id} story={story} />
+      ))}
+    </ul>
+  );
+}

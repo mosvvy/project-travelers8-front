@@ -1,0 +1,132 @@
+.storyCard {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  width: 335px;
+
+  overflow: hidden;
+}
+
+.storyImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.storyContent {
+  padding: 24px;
+  background-color: var(--color-royal-blue-lighter, #e8eeff);
+}
+
+.storyCategory {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.storyTitleCard {
+  margin-top: 8px;
+}
+
+.storyTextCard {
+  font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.authorInfo {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.authorAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.authorName {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.storyMeta {
+  display: flex;
+  align-items: center;
+}
+
+.publishedAt {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.metaSeparator::before {
+  content: '•';
+  font-size: 12px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.metaSeparator {
+  margin-left: 8px;
+}
+
+.favoriteCount {
+  margin-left: 3px;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.favoriteIcon {
+  display: block;
+  fill: var(--color-neutral-darkest, #000);
+}
+
+.storyActions {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.viewStoryLink {
+  width: 310px;
+}
+
+.favoriteButton {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  width: 48px !important;
+  height: 48px;
+}
+
+/*--.favoriteButton:active {
+  background-color: var(--color-royal-blue-darkest, #131f43);
+}--*/
+
+/*----.favoriteButton .actionIcon :active {
+  fill: var(--color-white, #fff);
+}--*/
+
+@media screen and (min-width: 768px) {
+  .storyCard {
+    width: calc((100% - 24px) / 2);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .storyCard {
+    width: calc((100% - 48px) / 3);
+  }
+}
