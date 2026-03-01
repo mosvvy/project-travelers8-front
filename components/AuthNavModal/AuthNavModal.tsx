@@ -1,38 +1,38 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Modal from '../Modal/Modal';
 import css from './AuthNavModal.module.css';
+import CloseIcon from '../../app/close-btn.svg';
 
-type AuthNavModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-const AuthNavModal = ({ isOpen, onClose }: AuthNavModalProps) => {
+const AuthNavModal = () => {
+  const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
+  const handleClose = () => setIsOpen(false);
+
   const handleLogin = () => {
-    onClose();
+    handleClose();
     router.push('/auth/login');
   };
 
   const handleRegister = () => {
-    onClose();
+    handleClose();
     router.push('/auth/register');
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      {/* close button */}
+    <Modal isOpen={isOpen} onClose={handleClose}>
       <button
         className={css.closeBtn}
-        onClick={onClose}
+        onClick={handleClose}
         aria-label="Закрити"
       >
-        ×
+        <img src={CloseIcon.src} alt="" className={css.closeIcon} />
       </button>
 
+      
       {/* text block */}
       <div className={css.textBlock}>
         <h2 className={css.title}>Помилка під час <br /> збереження</h2>
