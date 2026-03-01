@@ -1,5 +1,14 @@
-import axios from 'axios';
 import { Story } from '@/types/story';
+import axios from 'axios';
+import { Story as SingleStory } from './types/stories';
+
+export type StoriesResponse = {
+  page: number;
+  perPage: number;
+  totalStories: number;
+  totalPages: number;
+  stories: Story[];
+};
 
 export type RegisterPayload = {
   name: string;
@@ -24,21 +33,9 @@ export type AuthResponse = {
   user: AuthUser;
 };
 
-export interface StoriesResponse {
-  page: number;
-  perPage: number;
-  totalStories: number;
-  totalPages: number;
-  stories: Story[];
-}
+type GetStoryResponse = SingleStory;
 
-export interface FetchStoriesParams {
-  page?: number;
-  perPage?: number;
-  category?: string;
-}
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -56,15 +53,19 @@ export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
   return data;
 };
 
-export const fetchStories = async (params: FetchStoriesParams = {}): Promise<StoriesResponse> => {
-  const { page, perPage, category } = params;
-  const { data } = await api.get<StoriesResponse>('/stories', {
-    params: {
-      page,
-      perPage,
-      ...(category && category !== 'All' ? { category } : {}),
-    },
-  });
+export const fetchStory = async (storyId: string): Promise<GetStoryResponse> => {
+  const { data } = await api.get<GetStoryResponse>(`/stories/${storyId}`);
 
   return data;
+};
+
+export const getStories = async (page: number, perPage: number): Promise<StoriesResponse> => {
+  const { data } = await api.get<StoriesResponse>('/stories', {
+    params: { page, perPage },
+  });
+  return data;
+};
+
+export const toggleFavorite = async (storyId: string): Promise<void> => {
+  await api.post('/users/bookmark', { storyId });
 };

@@ -1,25 +1,20 @@
-export interface Category {
-  _id: string;
-  name: string;
-}
-
-export interface StoryOwner {
-  _id: string;
-  name: string;
-  avatarUrl: string;
-  articlesAmount?: number;
-  description?: string;
-}
-
 export interface Story {
-  _id: string;
+  id: string;
   img: string;
   title: string;
   article: string;
-  category: Category;
-  ownerId: StoryOwner;
+  category: {
+    id: string;
+    name: string;
+  };
+
+  ownerId: {
+    id: string;
+    name: string;
+    avatarUrl: string;
+  };
   date: string;
+
   favoriteCount: number;
-  createdAt: string;
-  updatedAt: string;
+  isFavorite?: boolean;
 }
