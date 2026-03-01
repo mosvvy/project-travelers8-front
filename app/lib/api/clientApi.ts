@@ -1,6 +1,6 @@
 import { Story } from '@/types/story';
 import axios from 'axios';
-import { Story } from './types/stories';
+import { Story as SingleStory } from './types/stories';
 
 export type StoriesResponse = {
   page: number;
@@ -33,7 +33,7 @@ export type AuthResponse = {
   user: AuthUser;
 };
 
-type GetStoryResponse = Story;
+type GetStoryResponse = SingleStory;
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
