@@ -35,7 +35,9 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${ninutoSans.variable} ${sora.variable}`}>
         <TanStackProvider>
+          <Header />
           <main>{children}</main>
+          <Footer />
           <Toaster position='top-right' />
         </TanStackProvider>
       </body>
