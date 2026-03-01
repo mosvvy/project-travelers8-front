@@ -1,12 +1,11 @@
 'use client';
 
 import axios from 'axios';
-import { login } from '@/app/lib/api/clientApi';
+import { login } from '@/app/lib/api/proxyApi';
 import { useAuthStore } from '@/app/lib/store/authStore';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import * as Yup from 'yup';
