@@ -1,5 +1,5 @@
 import css from './MessageNoStories.module.css';
-import Link from 'next/link';
+import Link from '../Link/Link';
 
 const MessageNoStories = () => {
   return (

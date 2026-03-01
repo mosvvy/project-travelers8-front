@@ -1,6 +1,6 @@
 import css from './TravellersList.module.css';
 import { User } from '@/types/user';
-import Link from 'next/link';
+import Link from '../Link/Link';
 import Image from 'next/image';
 
 type TravellersListProps = {
@@ -31,7 +31,7 @@ const TravellersList = ({ travellers }: TravellersListProps) => {
                   in eros
                 </p>
               )}
-              <Link href='/' className={css.travellerProfileLink}>
+              <Link href={`/travellers/${traveller._id}`} className={css.travellerProfileLink}>
                 Переглянути профіль
               </Link>
             </div>

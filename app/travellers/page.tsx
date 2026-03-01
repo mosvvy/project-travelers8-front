@@ -9,8 +9,6 @@ export default async function TravellersPage() {
 
   const data = await res.json();
 
-  console.log(data);
-
   return (
     <Section>
       <h1 className={css.travellersPageTitle}>Мандрівники</h1>
