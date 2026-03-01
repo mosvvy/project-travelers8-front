@@ -1,4 +1,13 @@
+import { Story } from '@/types/story';
 import axios from 'axios';
+
+export type StoriesResponse = {
+  page: number;
+  perPage: number;
+  totalStories: number;
+  totalPages: number;
+  stories: Story[];
+};
 
 export type RegisterPayload = {
   name: string;
@@ -39,4 +48,15 @@ export const register = async (payload: RegisterPayload): Promise<AuthResponse> 
 export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
   return data;
+};
+
+export const getStories = async (page: number, perPage: number): Promise<StoriesResponse> => {
+  const { data } = await api.get<StoriesResponse>('/stories', {
+    params: { page, perPage },
+  });
+  return data;
+};
+
+export const toggleFavorite = async (storyId: string): Promise<void> => {
+  await api.post('/users/bookmark', { storyId });
 };
