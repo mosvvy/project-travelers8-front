@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const apiRes = await api.post('auth/login', body);
 
-    setCookies(apiRes.headers['set-cookie']);
+    await setCookies(apiRes.headers['set-cookie']);
 
     return NextResponse.json(apiRes.data, {
       status: apiRes.status,
