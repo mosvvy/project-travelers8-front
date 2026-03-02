@@ -14,12 +14,12 @@
   overflow: hidden;
   flex-shrink: 0;
   border: 2px solid transparent;
-  transition: border-color var(--transition-duration) var(--transition-timing);
+  transition: border-color 0.3s ease;
 }
 
 .avatarLink:hover,
 .avatarLink:focus {
-  border-color: var(--color-royal-blue);
+  border-color: #4169e1;
 }
 
 .avatar {
@@ -37,15 +37,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 29px;
-  height: 24px;
 }
 
 .separator {
   width: 0px;
   height: 29px;
   border-left: 1px solid rgba(0, 0, 0, 0.15);
-  transform: rotate(0deg);
   flex-shrink: 0;
 }
 
