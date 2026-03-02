@@ -1,11 +1,12 @@
+'use client';
 import Image from 'next/image';
 import Link from '../Link/Link';
 import Logo from '../Logo/Logo';
 import css from './Header.module.css';
+import { useAuthStore } from '@/app/lib/store/authStore';
 
 const Header = () => {
-  const isAuthenticated = true; // Змінна для перевірки автентифікації користувача
-
+  const { isAuthenticated } = useAuthStore();
   return (
     <header className={css.header_section}>
       <div className={css.container}>
