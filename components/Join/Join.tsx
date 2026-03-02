@@ -20,7 +20,7 @@ export default function Join() {
             href={isAuthenticated ? '/profile' : '/auth/register'}
             className={css.joinButton}
           >
-            Зареєструватися
+            {isAuthenticated ? 'Збережені' : 'Зареєструватися'}
           </Link>
         </div>
       </div>
