@@ -11,7 +11,9 @@ const Header = () => {
     <header className={css.header_section}>
       <div className={css.container}>
         <nav className={css.navbar}>
-          <Logo />
+          <Link href='/' className={css.logo}>
+            <Logo />
+          </Link>
           <div className={css.wrappwer}>
             <ul className={css.menu}>
               <li>
@@ -42,7 +44,7 @@ const Header = () => {
             <ul className={css.auth}>
               {isAuthenticated ? (
                 <>
-                  <Link href='/stories/new' variant='primaryBtn'>
+                  <Link href='/stories/create' variant='primaryBtn'>
                     Опублікувати історію
                   </Link>
                   <li>
