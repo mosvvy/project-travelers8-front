@@ -1,0 +1,115 @@
+.travellerListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.travellerListItem {
+  border-radius: 16px;
+  padding: 24px;
+  width: 335px;
+
+  min-width: 250px;
+  background: var(--color-scheme-2-foreground);
+}
+
+.container {
+  padding: 32px 32px 0 32px;
+}
+
+.travellerAvatar {
+  border-radius: 50%;
+  width: 112px;
+  margin-bottom: 24px;
+}
+
+.travellerName {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 150%;
+  color: var(--color-scheme-2-text);
+  margin-bottom: 16px;
+}
+
+.travellerDescription {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+
+  color: var(--color-scheme-2-text);
+
+  margin-bottom: 16px;
+}
+
+.travellerProfileLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  width: 100%;
+  height: 48px;
+  background: var(--opacity-neutral-darkest-5);
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-neutral-darkest);
+}
+
+@media screen and (min-width: 768px) {
+  .travellerListContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .travellerListItem {
+    width: 340px;
+  }
+
+  .travellerAvatar {
+    margin-bottom: 0;
+    margin-right: 24px;
+  }
+  .travellerName {
+    margin-bottom: 0;
+    text-align: start;
+  }
+
+  .travellerDescription {
+    text-align: start;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    padding: 48px 64px 0 64px;
+  }
+
+  .travellerListItem {
+    width: 310px;
+  }
+
+  .travellerName {
+    font-family: var(--second-family);
+    font-weight: 600;
+    font-size: 326x;
+    line-height: 150%;
+
+    color: var(--color-scheme-2-text);
+  }
+
+  .travellerDescription {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+    color: var(--color-scheme-2-text);
+  }
+  .travellerInfoWrapper {
+    max-width: 367px;
+  }
+}

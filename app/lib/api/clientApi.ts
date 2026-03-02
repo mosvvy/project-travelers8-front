@@ -1,5 +1,6 @@
 import { Story } from '@/types/story';
 import axios from 'axios';
+import { Story as SingleStory } from './types/stories';
 
 export type StoriesResponse = {
   page: number;
@@ -32,7 +33,9 @@ export type AuthResponse = {
   user: AuthUser;
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+type GetStoryResponse = SingleStory;
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -50,6 +53,12 @@ export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
   return data;
 };
 
+export const fetchStory = async (storyId: string): Promise<GetStoryResponse> => {
+  const { data } = await api.get<GetStoryResponse>(`/stories/${storyId}`);
+
+  return data;
+};
+
 export const getStories = async (page: number, perPage: number): Promise<StoriesResponse> => {
   const { data } = await api.get<StoriesResponse>('/stories', {
     params: { page, perPage },
@@ -59,4 +68,9 @@ export const getStories = async (page: number, perPage: number): Promise<Stories
 
 export const toggleFavorite = async (storyId: string): Promise<void> => {
   await api.post('/users/bookmark', { storyId });
+};
+
+export const getPopularStories = async (limit: number = 6): Promise<Story[]> => {
+  const data = await getStories(1, 100);
+  return [...data.stories].sort((a, b) => b.favoriteCount - a.favoriteCount).slice(0, limit);
 };

@@ -41,7 +41,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
   };
 
   return (
-    <article className={css.storyCard}>
+    <li className={css.storyCard}>
       <div className={css.storyImageWrapper}>
         <Image
           src={story.img}
@@ -53,46 +53,56 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
       </div>
 
       <div className={css.storyContent}>
-        <p className={css.storyCategory}>{story.category.name}</p>
+        <div className={css.storyText}>
+          <p className={css.storyCategory}>{story.category.name}</p>
 
-        <h3 className={css.storyTitleCard}>{story.title}</h3>
+          <h3 className={css.storyTitleCard}>{story.title}</h3>
 
-        <p className={css.storyTextCard}>{story.article}</p>
+          <p className={css.storyTextCard}>{story.article}</p>
+        </div>
+        <div className={css.storyFooter}>
+          <div className={css.authorInfo}>
+            <Image
+              src={story.ownerId.avatarUrl}
+              alt={story.ownerId.name}
+              width={48}
+              height={48}
+              style={{ borderRadius: '50%', objectFit: 'cover' }}
+            />
 
-        <div className={css.authorInfo}>
-          <Image
-            //className={css.authorAvatar}
-            src={story.ownerId.avatarUrl}
-            alt={story.ownerId.name}
-            width={48}
-            height={48}
-            style={{ borderRadius: '50%', objectFit: 'cover' }}
-          />
-
-          <div className={css.authorDetails}>
-            <p className={css.authorName}>{story.ownerId.name}</p>
-            <div className={css.storyMeta}>
-              <p className={css.publishedAt}>{story.date}</p>
-              <span className={css.metaSeparator}></span>
-              <p className={css.favoriteCount}>{favoriteCount}</p>
-              <svg className={css.actionIcon} width='16' height='16'>
-                <use href='/icons/sprite.svg#icon-bookmark' />
-              </svg>
+            <div className={css.authorDetails}>
+              <p className={css.authorName}>{story.ownerId.name}</p>
+              <div className={css.storyMeta}>
+                <p className={css.publishedAt}>{story.date}</p>
+                <span className={css.metaSeparator}></span>
+                <p className={css.favoriteCount}>{favoriteCount}</p>
+                <svg className={css.actionIcon} width='16' height='16'>
+                  <use href='/icons/sprite.svg#icon-bookmark' />
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={css.storyActions}>
-          <Link href={`/stories/${story.id}`} className={css.viewStoryLink} variant='secondaryBtn'>
-            Переглянути статтю
-          </Link>
-          <Button className={css.favoriteButton} variant='secondary' onClick={handleFavoriteClick}>
-            <svg className={css.favoriteIcon} width='24' height='24'>
-              <use href='/icons/sprite.svg#icon-bookmark' />
-            </svg>
-          </Button>
+          <div className={css.storyActions}>
+            <Link
+              href={`/stories/${story.id}`}
+              className={css.viewStoryLink}
+              variant='secondaryBtn'
+            >
+              Переглянути статтю
+            </Link>
+            <Button
+              className={css.favoriteButton}
+              variant='secondary'
+              onClick={handleFavoriteClick}
+            >
+              <svg className={css.favoriteIcon} width='24' height='24'>
+                <use href='/icons/sprite.svg#icon-bookmark' />
+              </svg>
+            </Button>
+          </div>
         </div>
       </div>
-    </article>
+    </li>
   );
 }

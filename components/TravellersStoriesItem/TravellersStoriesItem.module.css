@@ -3,9 +3,10 @@
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  width: 335px;
+  /*-width: 335px;--*/
 
   overflow: hidden;
+  height: auto;
 }
 
 .storyImageWrapper {
@@ -20,6 +21,10 @@
 .storyContent {
   padding: 24px;
   background-color: var(--color-royal-blue-lighter, #e8eeff);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 24px;
 }
 
 .storyCategory {
@@ -40,8 +45,10 @@
   overflow: hidden;
 }
 
+.storyFooter {
+  margin-top: auto;
+}
 .authorInfo {
-  margin-top: 24px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -100,7 +107,8 @@
 }
 
 .viewStoryLink {
-  width: 310px;
+  width: 100%;
+  flex: 1;
 }
 
 .favoriteButton {
