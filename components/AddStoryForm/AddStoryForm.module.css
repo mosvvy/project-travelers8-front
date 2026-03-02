@@ -112,16 +112,16 @@
   flex-direction: column;
   gap: 12px;
 }
-.actionsBottom {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin: 32px auto 0;
-  width: 100%;
+@media (min-width: 768px) and (max-width: 1439px) {
+  .actions button {
+    width: 704px;
+    max-width: 100%;
+    height: 48px;
+  }
 }
 @media (min-width: 1440px) {
   .form {
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: flex-start;
     max-width: 1312px;
@@ -173,48 +173,4 @@
     color: #5d5fef;
     border: 1px solid #5d5fef;
   }
-}
-.saveButton {
-  width: 100%;
-  height: 48px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-/* Активна */
-.saveButton:not(:disabled) {
-  background: #5d5fef;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-/* Hover */
-.saveButton:not(:disabled):hover {
-  background: #4c4ee0;
-}
-
-/* Disabled — як у Figma */
-.saveButton:disabled {
-  background: #9fa8da; /* більш фігмівський світло-синій */
-  color: #ffffff;
-  cursor: not-allowed;
-}
-.cancelButton {
-  width: 100%;
-  height: 48px;
-  border-radius: 8px;
-  border: none;
-  background: #f3f4f6;
-  color: #2d2d2d;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.cancelButton:hover {
-  background: #e5e7eb;
 }

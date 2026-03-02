@@ -1,6 +1,9 @@
-import { Story } from "@/types/story";
+import { Story,IStory,
+  IStoryByIdResponse,
+  PaginatedStoriesResponse, } from "@/types/story";
 import { User } from "@/types/user";
 import axios from "axios";
+import { nextServer } from './api';
 
 export const apiServer = axios.create({
   
@@ -14,6 +17,12 @@ export type StoriesListResponse = {
     total: number;
     totalPages: number;
   };
+};
+export const fetchStoryById = async (storyId: string): Promise<IStory> => {
+  const { data } = await nextServer.get<IStoryByIdResponse>(
+    `/stories/${storyId}`
+  );
+  return data.data;
 };
 
 export const getTopStoriesServer = async (limit = 3) => {
@@ -42,6 +51,7 @@ export async function getUsersServer(page = 1, limit = 4) {
 
   return res.data;
 }
+
 
 export interface StoryDetailResponse {
   data: Story;

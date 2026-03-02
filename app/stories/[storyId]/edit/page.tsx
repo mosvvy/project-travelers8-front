@@ -1,18 +1,56 @@
+'use client';
 import AddStoryForm from '@/components/AddStoryForm/AddStoryForm';
-import { getStoryById } from '@/app/lib/api/api';
+import css from './page.module.css';
+import { fetchStoryById } from '@/app/lib/api/serverApi';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { getStory, type StoryResponse } from '@/app/lib/api/api';
 
-interface Props {
-  params: Promise<{ storyId: string }>;
-}
+export default function EditStoryPage() {
+    const { storyId } = useParams<{ storyId: string }>();
 
-export default async function EditStoryPage({ params }: Props) {
-  const { storyId } = await params;   
-  const story = await getStoryById(storyId);
+    const [story, setStory] = useState<StoryResponse | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
 
-  return (
-    <>
-      <h1>Редагувати історію</h1>
-      <AddStoryForm initialData={story} isEdit />
-    </>
-  );
+    useEffect(() => {
+        let mounted = true;
+
+        (async () => {
+            try {
+                setIsLoading(true);
+                setIsError(false);
+
+                const data = await getStory(storyId);
+
+                if (mounted) setStory(data);
+            } catch {
+                if (mounted) setIsError(true);
+            } finally {
+                if (mounted) setIsLoading(false);
+            }
+        })();
+
+        return () => {
+            mounted = false;
+        };
+    }, [storyId]);
+
+    return (
+        <main className={css.main}>
+            <div className={css.container}>
+                <h1 className={css.title}>Редагувати історію</h1>
+
+                {isLoading && <p>Loading...</p>}
+
+                {!isLoading && isError && (
+                    <p>Не вдалося завантажити історію для редагування.</p>
+                )}
+
+                {!isLoading && !isError && story && (
+                    <AddStoryForm storyId={storyId} initialData={story} />
+                )}
+            </div>
+        </main>
+    );
 }

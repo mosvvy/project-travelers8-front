@@ -3,178 +3,230 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useId, useState } from 'react';
+import Button from '@/components/Button/Button';
 import { useRouter } from 'next/navigation';
 import css from './AddStoryForm.module.css';
 import { createStory, updateStory } from '@/app/lib/api/api';
-
-interface AddStoryFormValues {
-  img: File | null;
-  title: string;
-  description: string;
-  category: string;
-  article: string;
-}
+import type { StoryResponse } from '@/app/lib/api/api';
 
 interface AddStoryFormProps {
-  initialData?: any;
-  isEdit?: boolean;
+  storyId?: string;
+  initialData?: StoryResponse;
 }
 
-const defaultValues: AddStoryFormValues = {
-  img: null,
-  title: '',
-  description: '',
-  category: '',
-  article: '',
+interface AddStoryFormValues {
+img: File | null;
+title: string;
+category: string;
+article: string;
+}
+
+const initialValues: AddStoryFormValues = {
+img: null,
+title: '',
+category: '',
+article: '',
 };
 
 const validationSchema = Yup.object({
-  title: Yup.string().required('Поле обовʼязкове'),
-  description: Yup.string().required('Поле обовʼязкове'),
-  category: Yup.string().required('Поле обовʼязкове'),
-  article: Yup.string().required('Поле обовʼязкове'),
+img: Yup.mixed<File>().required('Поле обовʼязкове'),
+title: Yup.string().required('Поле обовʼязкове'),
+category: Yup.string().required('Поле обовʼязкове'),
+article: Yup.string().required('Поле обовʼязкове'),
 });
 
-export default function AddStoryForm({ initialData, isEdit }: AddStoryFormProps) {
-  const router = useRouter();
-  const fieldId = useId();
+export default function AddStoryForm({
+  storyId,
+  initialData,
+}: AddStoryFormProps) {
+const fieldId = useId();
+const router = useRouter();
 
-  const [preview, setPreview] = useState(initialData?.imgUrl || '');
+const [preview, setPreview] = useState<string>('');
+const [isErrorOpen, setIsErrorOpen] = useState(false);
 
-  const initialValues: AddStoryFormValues = initialData
-    ? {
-        img: null,
-        title: initialData.title,
-        description: initialData.description,
-        category: initialData.category,
-        article: initialData.article,
-      }
-    : defaultValues;
+const handleSubmit = async (
+values: AddStoryFormValues,
+actions: FormikHelpers<AddStoryFormValues>
+) => {
+try {
+const formData = new FormData();
+if (values.img) formData.append('img', values.img);
+formData.append('title', values.title);
+formData.append('category', values.category);
+formData.append('article', values.article);
 
-  const handleSubmit = async (
-    values: AddStoryFormValues,
-    actions: FormikHelpers<AddStoryFormValues>
-  ) => {
-    try {
-      const formData = new FormData();
-      if (values.img) formData.append('img', values.img);
-      formData.append('title', values.title);
-      formData.append('description', values.description);
-      formData.append('category', values.category);
-      formData.append('article', values.article);
+const res = await createStory(formData);
 
-      const res = isEdit
-        ? await updateStory(initialData._id, formData)
-        : await createStory(formData);
+router.push(`/stories/${res._id}`);
+actions.resetForm();
+setPreview('');
+} catch {
+setIsErrorOpen(true);
+} finally {
+actions.setSubmitting(false);
+}
+};
 
-      router.push(`/stories/${res._id}`);
+return (
+<>
+<Formik
+initialValues={initialValues}
+validationSchema={validationSchema}
+onSubmit={handleSubmit}
+validateOnBlur
+validateOnChange
+validateOnMount
+>
+{({ isSubmitting, isValid, dirty, setFieldValue, values }) => {
+const isSaveDisabled =
+isSubmitting || !isValid || !dirty || !values.img;
 
-    } finally {
-      actions.setSubmitting(false);
-    }
-  };
+return (
+<Form className={css.form} noValidate>
 
-  return (
-    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-      {({ setFieldValue, isSubmitting, isValid }) => {
-        const disabled = isSubmitting || !isValid;
+  {/* ЛІВА КОЛОНКА — ОБКЛАДИНКА + ПОЛЯ */}
+  <div className={css.left}>
 
-        return (
-          <Form className={css.form} noValidate>
-            
-            {/* IMAGE */}
-            <div className={css.field}>
-              <label className={css.label}>Обкладинка статті</label>
+    {/* Обкладинка */}
+    <div className={css.field}>
+      <label htmlFor={`${fieldId}-img`} className={css.label}>
+        Обкладинка статті
+      </label>
 
-              <div className={css.preview}>
-                {preview ? (
-                  <img src={preview} alt="preview" className={css.previewImage} />
-                ) : (
-                  <div className={css.placeholder}>Обкладинка</div>
-                )}
-              </div>
+      <div className={css.preview}>
+        {preview ? (
+          <img src={preview} alt="preview" className={css.previewImage} />
+        ) : (
+          <div className={css.placeholder}>Обкладинка</div>
+        )}
+      </div>
 
-              <input
-                type="file"
-                className={css.fileInput}
-                id={`${fieldId}-img`}
-                accept="image/png,image/jpeg,image/webp"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] ?? null;
-                  setFieldValue('img', file);
-                  if (file) setPreview(URL.createObjectURL(file));
-                }}
-              />
+      <input
+        id={`${fieldId}-img`}
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+        className={css.file}
+        disabled={isSubmitting}
+        onChange={(e) => {
+          const file = e.currentTarget.files?.[0] ?? null;
+          setFieldValue('img', file);
+          setPreview(file ? URL.createObjectURL(file) : '');
+        }}
+      />
 
-              <label htmlFor={`${fieldId}-img`} className={css.uploadButton}>
-                Завантажити фото
-              </label>
-            </div>
+      <ErrorMessage name="img" component="span" className={css.error} />
+    </div>
 
-            {/* TITLE */}
-            <div className={css.field}>
-              <label htmlFor={`${fieldId}-title`} className={css.label}>Заголовок</label>
-              <Field
-                id={`${fieldId}-title`}
-                className={css.input}
-                name="title"
-                placeholder="Введіть заголовок історії"
-              />
-              <ErrorMessage name="title" component="span" className={css.error} />
-            </div>
+    {/* Заголовок */}
+    <div className={css.field}>
+      <label htmlFor={`${fieldId}-title`} className={css.label}>
+        Заголовок
+      </label>
+      <Field
+        id={`${fieldId}-title`}
+        name="title"
+        className={css.input}
+        disabled={isSubmitting}
+      />
+      <ErrorMessage name="title" component="span" className={css.error} />
+    </div>
 
-            {/* CATEGORY */}
-            <div className={css.field}>
-              <label htmlFor={`${fieldId}-category`} className={css.label}>Категорія</label>
-              <Field as="select" id={`${fieldId}-category`} className={css.select} name="category">
-                <option value="" disabled>Категорія</option>
-                <option value="travel">Travel</option>
-                <option value="food">Food</option>
-                <option value="city">City</option>
-                <option value="nature">Nature</option>
-                <option value="other">Other</option>
-              </Field>
-              <ErrorMessage name="category" component="span" className={css.error} />
-            </div>
-            {/* DESCRIPTION */}
-            <div className={css.field}>
-              <label htmlFor={`${fieldId}-description`} className={css.label}>Короткий опис</label>
-              <Field
-                id={`${fieldId}-description`}
-                className={css.textareaSmall}
-                as="textarea"
-                name="description"
-                placeholder="Введіть короткий опис історії"
-              />
-              <ErrorMessage name="description" component="span" className={css.error} />
-            </div>
+    {/* Категорія */}
+    <div className={css.field}>
+      <label htmlFor={`${fieldId}-category`} className={css.label}>
+        Категорія
+      </label>
+        <Field
+          
+        as="select"
+        id={`${fieldId}-category`}
+        name="category"
+        className={css.select}
+        disabled={isSubmitting}
+        >
+          id={`${fieldId}-title`}
+  name="title"
+  className={css.input}
+  placeholder="Введіть заголовок історії"
+  disabled={isSubmitting}
+        <option value="" disabled>
+          Обери категорію
+        </option>
+        <option value="travel">Travel</option>
+        <option value="city">City</option>
+        <option value="nature">Nature</option>
+        <option value="food">Food</option>
+        <option value="other">Other</option>
+      </Field>
+      <ErrorMessage name="category" component="span" className={css.error} />
+    </div>
 
-            {/* ARTICLE */}
-            <div className={css.field}>
-              <label htmlFor={`${fieldId}-article`} className={css.label}>Текст історії</label>
-              <Field
-                as="textarea"
-                id={`${fieldId}-article`}
-                name="article"
-                className={css.textarea}
-                placeholder="Ваша історія тут"
-              />
-              <ErrorMessage name="article" component="span" className={css.error} />
-            </div>
+    {/* Текст */}
+    <div className={css.field}>
+      <label htmlFor={`${fieldId}-article`} className={css.label}>
+        Текст історії
+      </label>
+      <Field
+        as="textarea"
+        id={`${fieldId}-article`}
+        name="article"
+        rows={8}
+        className={css.textarea}
+        disabled={isSubmitting}
+      />
+      <ErrorMessage name="article" component="span" className={css.error} />
+    </div>
 
-            {/* BUTTONS */}
-            <div className={css.actionsBottom}>
-              <button type="submit" disabled={disabled} className={css.saveButton}>
-                {isEdit ? 'Оновити' : 'Зберегти'}
-              </button>
+  </div>
 
-              <button type="button" className={css.cancelButton} onClick={() => router.back()}>
-                Відмінити
-              </button>
-            </div>
-          </Form>
-        );
-      }}
-    </Formik>
-  );
+  {/* ПРАВА КОЛОНКА — КНОПКИ */}
+  <div className={css.right}>
+    <div className={css.actions}>
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={isSaveDisabled}
+      >
+        {isSubmitting ? 'Збереження...' : 'Зберегти'}
+      </Button>
+
+      <Button
+        type="button"
+        disabled={isSubmitting}
+        onClick={() => router.back()}
+      >
+        Відмінити
+      </Button>
+
+      {isSubmitting && (
+        <span className={css.loader}>Loading...</span>
+      )}
+    </div>
+  </div>
+
+</Form>
+);
+}}
+</Formik>
+
+{isErrorOpen && (
+<div className={css.modalOverlay} onClick={() => setIsErrorOpen(false)}>
+<div className={css.modal} onClick={(e) => e.stopPropagation()}>
+<h2 className={css.modalTitle}>Помилка збереження</h2>
+<p className={css.modalText}>
+Не вдалося зберегти історію. Спробуй ще раз.
+</p>
+<button
+type="button"
+className={css.modalButton}
+onClick={() => setIsErrorOpen(false)}
+>
+Закрити
+</button>
+</div>
+</div>
+)}
+</>
+);
 }

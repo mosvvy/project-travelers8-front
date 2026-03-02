@@ -1,6 +1,8 @@
 import { Story } from '@/types/story';
 import axios from 'axios';
 import { Story as SingleStory } from './types/stories';
+import { ICategory } from '@/types/category';
+import { nextServer } from './api';
 
 export type StoriesResponse = {
   page: number;
@@ -33,13 +35,17 @@ export type AuthResponse = {
   user: AuthUser;
 };
 
+export const fetchCategories = async (): Promise<ICategory[]> => {
+  const { data } = await nextServer.get('/categories');
+  return data.data;
+};
 type GetStoryResponse = SingleStory;
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true, // если бек работает через cookies-сессию
+  withCredentials: true, 
   headers: { 'Content-Type': 'application/json' },
 });
 
