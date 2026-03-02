@@ -1,7 +1,7 @@
 'use client';
+
 import clsx from 'clsx';
 import styles from './Button.module.css';
-
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,17 +13,25 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ({
   variant = 'primary',
-  fullWidth,
+  fullWidth = false,
   className,
+  children,
   ...props
 }: ButtonProps) => {
   return (
     <button
-      className={clsx(styles.button, styles[variant], fullWidth && styles.fullWidth, className)}
+      className={clsx(
+        styles.button,
+        styles[variant],
+        fullWidth && styles.fullWidth,
+        className
+      )}
       {...props}
-    />
+    >
+      {children}
+    </button>
   );
 };
 
 
-export default Button;
+

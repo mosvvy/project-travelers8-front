@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero/Hero';
+import OurTravellers from '@/components/OurTravellers/OurTravellers';
 import Join from '@/components/Join/Join';
 import css from './page.module.css';
 import About from '../components/About/About';
@@ -10,7 +11,7 @@ export default function HomePage() {
       <Hero />
       <About />
       <PopularStories />
-      <h2>travelers</h2>s
+      <OurTravellers />
       <Join />
     </>
   );
