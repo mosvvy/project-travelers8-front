@@ -12,7 +12,7 @@ export function logErrorResponse(errorObj: unknown): void {
 
 type CookiesHeader = string | string[] | undefined;
 
-export const setCookies = async (cookiesHeader: CookiesHeader) => {
+export const setCookies = async (cookiesHeader: CookiesHeader): Promise<boolean> => {
   if (cookiesHeader) {
     const cookieArray = Array.isArray(cookiesHeader) ? cookiesHeader : [cookiesHeader];
 
@@ -33,5 +33,9 @@ export const setCookies = async (cookiesHeader: CookiesHeader) => {
         expires: parsedCookies.Expires ? new Date(parsedCookies.Expires) : undefined,
       });
     }
+
+    return true;
   }
+
+  return false;
 };
