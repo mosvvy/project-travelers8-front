@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Story as SingleStory } from './types/stories';
 import { ICategory } from '@/types/category';
 import { nextServer } from './api';
+import type { RegisterPayload } from './types/register-payload';
 
 export type StoriesResponse = {
   page: number;
@@ -10,12 +11,6 @@ export type StoriesResponse = {
   totalStories: number;
   totalPages: number;
   stories: Story[];
-};
-
-export type RegisterPayload = {
-  name: string;
-  email: string;
-  password: string;
 };
 
 export type LoginPayload = {
@@ -45,7 +40,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true, 
+  withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
 
