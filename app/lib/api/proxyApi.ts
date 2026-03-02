@@ -27,3 +27,11 @@ export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
 
   return data;
 };
+
+export const logout = async () => {
+  const {
+    data: { success },
+  } = await api.post('/auth/logout');
+
+  return !!success;
+};
