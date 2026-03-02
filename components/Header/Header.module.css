@@ -70,11 +70,13 @@
 .headerRight {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   gap: 32px;
-  width: 797px;
+  width: auto;
+  min-width: 797px;
   height: 35px;
+  margin-left: auto;
 }
 
 .desktopNav {
@@ -113,10 +115,11 @@
 .authLinks {
   display: flex;
   gap: 16px;
-  width: 187px;
+  width: auto;
   height: 35px;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  margin-left: auto;
 }
 
 .header.heroHeader .btnLogin {

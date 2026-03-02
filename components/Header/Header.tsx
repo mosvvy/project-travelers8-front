@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import css from './Header.module.css';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import { useAuthStore } from '@/app/lib/store/authStore';
+import Logo from '../Logo/Logo'; 
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,12 +52,8 @@ const Header = () => {
   return (
     <header className={clsx(css.header, isHomePage && css.heroHeader)}>
       <div className={css.container}>
-        <Link href="/" className={css.logo}>
-          <svg width="23" height="23" viewBox="0 0 23 23" fill="currentColor">
-            <use href="/logo.svg#icon-logo" />
-          </svg>
-          <span>Подорожники</span>
-        </Link>
+        {}
+        <Logo variant={isHomePage ? 'light' : 'dark'} />
 
         <div className={css.headerRight}>
           <nav className={css.desktopNav}>
@@ -98,7 +95,7 @@ const Header = () => {
           )}
         </div>
 
-        {/* Планшетна кнопка - ДЛЯ ВСІХ! */}
+        {}
         <Link href="/stories/create" className={css.publishBtnTablet}>
           Опублікувати історію
         </Link>
