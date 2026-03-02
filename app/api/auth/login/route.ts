@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../../api';
 import { cookies } from 'next/headers';
 import { isAxiosError } from 'axios';
+import { parse } from 'cookie';
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,6 +18,7 @@ export async function POST(req: NextRequest) {
       for (const cookieStr of cookieArray) {
         const [nameValue] = cookieStr.split(';');
         const [name, value] = nameValue.split('=');
+        const parsedCookies = parse(cookieStr);
         //httpOnly: true та sameSite: 'lax' захищає токени від XSS атак
         cookieStore.set({
           name,
@@ -24,7 +26,9 @@ export async function POST(req: NextRequest) {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
-          path: '/',
+          path: parsedCookies.Path || '/',
+          maxAge: Number(parsedCookies['Max-Age']),
+          expires: parsedCookies.Expires ? new Date(parsedCookies.Expires) : undefined,
         });
       }
     }
