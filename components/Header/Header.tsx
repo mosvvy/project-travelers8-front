@@ -5,18 +5,38 @@ import Logo from '../Logo/Logo';
 import css from './Header.module.css';
 import { useAuthStore } from '@/app/lib/store/authStore';
 import Button from '../Button/Button';
+import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 const Header = () => {
   const { isAuthenticated } = useAuthStore();
+  const currentPath = usePathname();
 
   const onBurgerClick = () => {};
 
+  const isHero = currentPath === '/';
+
+  const [isTop, setTop] = useState(true);
+  const [isTransparent, setIsTransparent] = useState(isHero);
+
+  window.addEventListener('scroll', () => {
+    setTop(window.scrollY === 0);
+    setIsTransparent(window.scrollY === 0 && isHero);
+  });
+
   return (
-    <header className={css.header_section}>
+    <header
+      className={clsx(
+        css.header_section,
+        isTransparent && isHero && css.transparent,
+        isTop && css.top
+      )}
+    >
       <div className={css.container}>
         <nav className={css.navbar}>
           <Link href='/' className={css.logo}>
-            <Logo />
+            <Logo variant={isTransparent ? 'light' : 'dark'} />
           </Link>
           <div className={css.wrapper}>
             <ul className={css.menu}>
@@ -62,7 +82,7 @@ const Header = () => {
                       />
                       Імʼя
                     </Link>
-                    <Link href='/auth/logout' variant='link'>
+                    <Link href='/auth/logout' variant='link' className='logout'>
                       <svg width={24} height={24}>
                         <use href='/icons/sprite.svg#icon-logout' />
                       </svg>
@@ -71,7 +91,7 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Link href='/auth/login' variant='secondaryBtn'>
+                  <Link href='/auth/login' variant='secondaryBtn' className='log-in'>
                     Вхід
                   </Link>
                   <Link href='/auth/register' variant='primaryBtn'>

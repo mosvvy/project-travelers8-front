@@ -1,6 +1,15 @@
 .header_section {
   margin: 0;
   background: var(--color-scheme-2-background);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.top {
+  position: static;
 }
 
 /* Styles for Mobile devices */
@@ -39,6 +48,24 @@
 
 .burger {
   padding: 4px;
+}
+
+.transparent {
+  background: transparent;
+  color: var(--color-white);
+  position: fixed;
+}
+
+.transparent .logo {
+  color: var(--color-white);
+}
+
+.transparent .wrapper {
+  stroke: var(--color-white);
+}
+
+.transparent .log-in {
+  color: var(--color-white);
 }
 
 /* Styles for Tablet devices */
