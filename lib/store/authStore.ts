@@ -1,5 +1,10 @@
 import { create } from 'zustand';
-import type { AuthUser } from '../api/clientApi';
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  avatarUrl?: string;
+}
 
 type AuthState = {
   isAuthenticated: boolean;
