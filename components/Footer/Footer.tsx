@@ -1,10 +1,13 @@
+'use client';
+
+import { useAuthStore } from '@/app/lib/store/authStore';
 import Link from '../Link/Link';
 import Logo from '../Logo/Logo';
 import css from './Footer.module.css';
 
 const Footer = () => {
   const svgSize = 24;
-  const isAuthenticated = true; // Змінна для перевірки автентифікації користувача
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <footer className={css.footer_section}>
