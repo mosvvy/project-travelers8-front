@@ -7,7 +7,7 @@ import { useAuthStore } from '@/app/lib/store/authStore';
 import Button from '../Button/Button';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
   const { isAuthenticated } = useAuthStore();
@@ -20,10 +20,17 @@ const Header = () => {
   const [isTop, setTop] = useState(true);
   const [isTransparent, setIsTransparent] = useState(isHero);
 
-  window.addEventListener('scroll', () => {
-    setTop(window.scrollY === 0);
-    setIsTransparent(window.scrollY === 0 && isHero);
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      setTop(window.scrollY === 0);
+      setIsTransparent(window.scrollY === 0 && isHero);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isHero]);
 
   return (
     <header
