@@ -8,9 +8,17 @@ interface ButtonProps {
   fullWidth?: boolean;
   onClick: () => void;
   className?: string;
+  type?: 'button' | 'submit' | 'reset';
 }
 
-const Button = ({ variant = 'primary', children, fullWidth = false, onClick, className }: ButtonProps) => {
+const Button = ({
+  variant = 'primary',
+  children,
+  fullWidth = false,
+  onClick,
+  className,
+  type = 'button',
+}: ButtonProps) => {
   const handleClick = () => {
     onClick();
   };
@@ -18,7 +26,11 @@ const Button = ({ variant = 'primary', children, fullWidth = false, onClick, cla
   const widthClass = fullWidth ? css.fullWidth : css.defaultWidth;
 
   return (
-    <button className={clsx(css.button, widthClass, variant && css[variant], className)} onClick={handleClick}>
+    <button
+      className={clsx(css.button, widthClass, variant && css[variant], className)}
+      type={type}
+      onClick={handleClick}
+    >
       {children}
     </button>
   );
