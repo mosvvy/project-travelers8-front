@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../api';
-import { cookies } from 'next/headers';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../_utils/utils';
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies();
-    const cookieHeader = cookieStore.toString();
-
     const { searchParams } = request.nextUrl;
     const page = Number(searchParams.get('page') ?? 1);
     const perPage = Number(searchParams.get('perPage') ?? 12);
