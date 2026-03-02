@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { AuthResponse } from './types/auth-response';
 
 const api = axios.create({
   baseURL: '/api',
@@ -8,18 +9,6 @@ const api = axios.create({
 type LoginPayload = {
   email: string;
   password: string;
-};
-
-type AuthUser = {
-  id?: string;
-  _id?: string;
-  name: string;
-  email: string;
-  avatarUrl?: string;
-};
-
-type AuthResponse = {
-  user: AuthUser;
 };
 
 export const login = async (payload: LoginPayload): Promise<AuthResponse> => {

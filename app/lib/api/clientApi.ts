@@ -4,7 +4,7 @@ import { Story as SingleStory } from './types/stories';
 import { ICategory } from '@/types/category';
 import { nextServer } from './api';
 import type { RegisterPayload } from './types/register-payload';
-import type { AuthUser } from './types/auth-user';
+import type { AuthResponse } from './types/auth-response';
 
 export type StoriesResponse = {
   page: number;
@@ -17,10 +17,6 @@ export type StoriesResponse = {
 export type LoginPayload = {
   email: string;
   password: string;
-};
-
-export type AuthResponse = {
-  user: AuthUser;
 };
 
 export const fetchCategories = async (): Promise<ICategory[]> => {
