@@ -1,0 +1,171 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity var(--transition-duration) var(--transition-timing),
+    visibility var(--transition-duration) var(--transition-timing);
+}
+
+.backdrop.isOpen {
+  visibility: visible;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-white);
+  transform: translateX(-100%);
+  transition: transform var(--transition-duration) var(--transition-timing);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  box-sizing: border-box;
+}
+
+.menu.isOpen {
+  transform: translateX(0);
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.closeIcon {
+  fill: #000000;
+  width: 24px;
+  height: 24px;
+  transition: fill var(--transition-duration) var(--transition-timing);
+}
+
+.closeBtn:hover .closeIcon,
+.closeBtn:focus .closeIcon {
+  fill: var(--color-royal-blue);
+}
+
+.menuHeader .logoWrapper .logoIcon,
+.menuHeader .logoWrapper .logoText {
+  color: #000000;
+  fill: #000000;
+}
+
+.menuNav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-grow: 1;
+}
+
+.navLink {
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color var(--transition-duration) var(--transition-timing);
+}
+
+.navLink:hover,
+.navLink:focus {
+  color: var(--color-royal-blue);
+}
+
+.navLink.active {
+  color: var(--color-royal-blue);
+  position: relative;
+}
+
+.navLink.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-royal-blue);
+}
+
+.menuFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-scheme-2-border);
+}
+
+.authLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.authBtn {
+  width: 100%;
+  text-align: center;
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid var(--color-scheme-2-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--transition-timing);
+}
+
+.logoutBtn:hover,
+.logoutBtn:focus {
+  background-color: var(--color-royal-blue);
+  border-color: var(--color-royal-blue);
+  color: #ffffff;
+}
+
+.logoutBtn .logoutIcon {
+  fill: #000000;
+  transition: fill var(--transition-duration) var(--transition-timing);
+}
+
+.logoutBtn:hover .logoutIcon,
+.logoutBtn:focus .logoutIcon {
+  fill: #ffffff;
+}
+
+.logoutText {
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 768px) {
+  .backdrop,
+  .menu {
+    display: none;
+  }
+}
