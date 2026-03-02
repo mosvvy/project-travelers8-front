@@ -23,11 +23,7 @@ const PopularStories = () => {
         const limit = getLimit();
         const response = await getStories(1, 10);
         const allStories = response?.stories || [];
-
-        const sorted = [...allStories].sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        setStories(sorted.slice(0, limit));
+        setStories(allStories.slice(0, limit));
       } catch (error) {
         console.error('Failed to fetch stories:', error);
       }

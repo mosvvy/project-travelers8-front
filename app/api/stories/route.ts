@@ -21,9 +21,6 @@ export async function GET(request: NextRequest) {
         perPage,
         ...(category && { category }),
       },
-      headers: {
-        Cookie: cookieHeader,
-      },
     });
 
     return NextResponse.json(res.data);
