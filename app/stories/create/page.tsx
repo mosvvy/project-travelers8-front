@@ -1,9 +1,13 @@
+import AddStoryForm from '@/components/AddStoryForm/AddStoryForm';
 import css from './page.module.css';
 
-export default function AddStoryPage() {
+export default function CreateStoryPage() {
   return (
-    <>
-      <h1>Створення історії</h1>
-    </>
+    <main className={css.main}>
+      <div className={css.container}>
+        <h1 className={css.title}>Створити нову історію</h1>
+        <AddStoryForm />
+      </div>
+    </main>
   );
 }

@@ -1,27 +1,29 @@
 'use client';
 import clsx from 'clsx';
-import css from './Button.module.css';
+import styles from './Button.module.css';
 
-interface ButtonProps {
+import { ButtonHTMLAttributes, ReactNode } from 'react';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
-  children: React.ReactNode;
   fullWidth?: boolean;
-  onClick: () => void;
   className?: string;
+  children: ReactNode;
 }
 
-const Button = ({ variant = 'primary', children, fullWidth = false, onClick, className }: ButtonProps) => {
-  const handleClick = () => {
-    onClick();
-  };
-
-  const widthClass = fullWidth ? css.fullWidth : css.defaultWidth;
-
+export const Button = ({
+  variant = 'primary',
+  fullWidth,
+  className,
+  ...props
+}: ButtonProps) => {
   return (
-    <button className={clsx(css.button, widthClass, variant && css[variant], className)} onClick={handleClick}>
-      {children}
-    </button>
+    <button
+      className={clsx(styles.button, styles[variant], fullWidth && styles.fullWidth, className)}
+      {...props}
+    />
   );
 };
+
 
 export default Button;
