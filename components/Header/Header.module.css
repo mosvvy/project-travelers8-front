@@ -1,0 +1,461 @@
+.header {
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.header:not(.heroHeader) {
+  background: #f7f9ff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.header.heroHeader {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  height: 72px;
+  padding: 0 64px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 3.31px;
+  width: 156px;
+  height: 36px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.logo svg {
+  width: 22.41px;
+  height: 22.41px;
+  flex-shrink: 0;
+}
+
+.logo span {
+  font-family: 'Sora', sans-serif;
+  font-weight: 400;
+  font-size: 17.9439px;
+  line-height: 110%;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  width: 123px;
+  height: 20px;
+}
+
+.header.heroHeader .logo {
+  color: #ffffff;
+}
+
+.header.heroHeader .logo svg {
+  fill: #ffffff;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 797px;
+  height: 35px;
+}
+
+.desktopNav {
+  display: flex;
+  gap: 24px;
+  width: auto;
+  height: 27px;
+  justify-content: flex-end;
+}
+
+.navLink {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 150%;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  color: #000000;
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+.header.heroHeader .navLink {
+  color: #ffffff;
+}
+
+.navLink:hover,
+.navLink:focus {
+  color: #4169e1;
+}
+
+.navLink.active {
+  color: #4169e1;
+}
+
+.authLinks {
+  display: flex;
+  gap: 16px;
+  width: 187px;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+}
+
+.header.heroHeader .btnLogin {
+  width: 58px;
+  height: 35px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.header.heroHeader .btnRegister {
+  width: 113px;
+  height: 35px;
+  padding: 4px 10px;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.header:not(.heroHeader) .btnLogin {
+  width: 58px;
+  height: 35px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.header:not(.heroHeader) .btnRegister {
+  width: 113px;
+  height: 35px;
+  padding: 4px 10px;
+  background: #4169e1;
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.userSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: auto;
+  height: 35px;
+}
+
+.publishBtnDesktop {
+  width: auto;
+  min-width: 180px;
+  height: 35px;
+  padding: 4px 12px;
+  background: #4169e1;
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  white-space: nowrap;
+  margin: 0 8px;
+}
+
+.header.heroHeader .publishBtnDesktop {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+}
+
+.publishBtnDesktop:hover {
+  background: #e8eeff;
+  color: #000000;
+  border-color: #e8eeff;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  width: auto;
+  height: 32px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e0e0e0;
+}
+
+.userName {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #000000;
+  white-space: nowrap;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header.heroHeader .userName {
+  color: #ffffff;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  transition: color 0.3s ease;
+}
+
+.logoutBtn svg {
+  transform: scaleX(-1);
+}
+
+.header.heroHeader .logoutBtn {
+  color: #ffffff;
+}
+
+.logoutBtn:hover {
+  color: #4169e1;
+}
+
+.publishBtnTablet {
+  display: none;
+  width: 182px;
+  height: 32px;
+  padding: 4px 10px;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.header:not(.heroHeader) .publishBtnTablet {
+  background: #4169e1;
+  border-color: #4169e1;
+  color: #ffffff;
+}
+
+.publishBtnTablet:hover {
+  background: #e8eeff;
+  color: #000000;
+  border-color: #e8eeff;
+}
+
+.burgerBtn {
+  display: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border: none;
+  margin-left: 16px;
+}
+
+.header:not(.heroHeader) .burgerBtn {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.header.heroHeader .burgerBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.burgerBtn:hover,
+.burgerBtn:focus {
+  background-color: #d8d8d8;
+  border-color: #4169e1;
+}
+
+.burgerIcon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #000000;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.burgerIcon::before,
+.burgerIcon::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #000000;
+  position: absolute;
+  left: 0;
+  transition:
+    transform 0.3s ease,
+    top 0.3s ease;
+}
+
+.burgerIcon::before {
+  top: -8px;
+}
+
+.burgerIcon::after {
+  top: 8px;
+}
+
+.header.heroHeader .burgerIcon,
+.header.heroHeader .burgerIcon::before,
+.header.heroHeader .burgerIcon::after {
+  background-color: #ffffff;
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    padding: 0 64px;
+  }
+
+  .headerRight {
+    display: flex;
+  }
+
+  .publishBtnTablet {
+    display: none !important;
+  }
+
+  .burgerBtn {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .container {
+    padding: 0 32px;
+  }
+
+  .headerRight {
+    display: none;
+  }
+
+  .publishBtnTablet {
+    display: flex !important;
+  }
+
+  .burgerBtn {
+    display: flex;
+    margin-left: 16px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .headerRight {
+    display: none;
+  }
+
+  .publishBtnTablet {
+    display: none;
+  }
+
+  .burgerBtn {
+    display: flex;
+  }
+}
