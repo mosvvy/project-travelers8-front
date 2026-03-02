@@ -4,9 +4,13 @@ import Link from '../Link/Link';
 import Logo from '../Logo/Logo';
 import css from './Header.module.css';
 import { useAuthStore } from '@/app/lib/store/authStore';
+import Button from '../Button/Button';
 
 const Header = () => {
   const { isAuthenticated } = useAuthStore();
+
+  const onBurgerClick = () => {};
+
   return (
     <header className={css.header_section}>
       <div className={css.container}>
@@ -41,13 +45,13 @@ const Header = () => {
                 <></>
               )}
             </ul>
-            <ul className={css.auth}>
+            <div className={css.auth}>
               {isAuthenticated ? (
                 <>
                   <Link href='/stories/create' variant='primaryBtn'>
                     Опублікувати історію
                   </Link>
-                  <li>
+                  <div className={css.user}>
                     <Link href='/profile' variant='link'>
                       <Image
                         src='/images/avatar.png'
@@ -58,14 +62,12 @@ const Header = () => {
                       />
                       Імʼя
                     </Link>
-                  </li>
-                  <li>
                     <Link href='/auth/logout' variant='link'>
                       <svg width={24} height={24}>
                         <use href='/icons/sprite.svg#icon-logout' />
                       </svg>
                     </Link>
-                  </li>
+                  </div>
                 </>
               ) : (
                 <>
@@ -77,7 +79,12 @@ const Header = () => {
                   </Link>
                 </>
               )}
-            </ul>
+            </div>
+            <Button variant='secondary' className={css.burger} onClick={onBurgerClick}>
+              <svg width={24} height={24}>
+                <use href='/icons/sprite.svg#icon-menu' />
+              </svg>
+            </Button>
           </div>
         </nav>
       </div>
