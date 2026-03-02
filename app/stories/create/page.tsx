@@ -1,17 +1,43 @@
-import AddStoryForm from '@/components/AddStoryForm/AddStoryForm';
+'use client';
+
+import AddStoryForm, { AddStoryFormValues } from '@/components/AddStoryForm/AddStoryForm';
 import css from './page.module.css';
+import { createStory } from '@/app/lib/api/api';
+import { useRouter } from 'next/navigation';
+
+const emptyInitialValues: AddStoryFormValues = {
+  img: null,
+  title: '',
+  category: '',
+  article: '',
+  date: '',
+};
 
 export default function CreateStoryPage() {
+  const router = useRouter();
+
+  const handleSubmit = async (values: AddStoryFormValues) => {
+    const formData = new FormData();
+    if (values.img) formData.append('img', values.img);
+    formData.append('title', values.title);
+    formData.append('category', values.category);
+    formData.append('article', values.article);
+
+    const res = await createStory(formData);
+    router.push(`/stories/${res._id}`);
+  };
+
   return (
     <main className={css.main}>
       <div className={css.container}>
-  <div className={css.content}>
-    <div className={css.leftColumn}>
-      <h1 className={css.title}>Створити нову історію</h1>
-      <AddStoryForm />
-    </div>
-  </div>
-</div>
+        <h1 className={css.title}>Створити нову історію</h1>
+
+        <AddStoryForm
+          initialValues={emptyInitialValues}
+          onSubmit={handleSubmit}
+          buttonText="Створити історію"
+        />
+      </div>
     </main>
   );
 }

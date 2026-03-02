@@ -1,56 +1,95 @@
 'use client';
-import AddStoryForm from '@/components/AddStoryForm/AddStoryForm';
+
+import AddStoryForm, { AddStoryFormValues } from '@/components/AddStoryForm/AddStoryForm';
 import css from './page.module.css';
-import { fetchStoryById } from '@/app/lib/api/serverApi';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getStory, type StoryResponse } from '@/app/lib/api/api';
+import { getStoryById, updateStory } from '@/app/lib/api/api';
+import type { StoryResponse } from '@/app/lib/api/api';
+import { useQueryClient } from "@tanstack/react-query";
+import { Story } from "@/types/story";
 
 export default function EditStoryPage() {
-    const { storyId } = useParams<{ storyId: string }>();
+  const queryClient = useQueryClient();
+  const { storyId } = useParams<{ storyId: string }>();
+  const router = useRouter();
 
-    const [story, setStory] = useState<StoryResponse | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isError, setIsError] = useState(false);
+  const [story, setStory] = useState<Story | null>(null);
+  const [initialValues, setInitialValues] = useState<AddStoryFormValues | null>(
+    null,
+  );
 
-    useEffect(() => {
-        let mounted = true;
+  useEffect(() => {
+    if (!storyId) return;
 
-        (async () => {
-            try {
-                setIsLoading(true);
-                setIsError(false);
+    async function fetchStory() {
+      try {
+        const story = await getStoryById(storyId);
+        setStory(story);
 
-                const data = await getStory(storyId);
+        setInitialValues({
+          img: null, 
+          title: story.title || "",
+          category:
+            typeof story.category === "string"
+              ? story.category
+              : story.category?._id || "",
+          article: story.article || "",
+          date: story.date ? story.date.slice(0, 10) : "",
+        });
+      } catch (err) {
+        console.error("Помилка при завантаженні історії:", err);
+      }
+    }
 
-                if (mounted) setStory(data);
-            } catch {
-                if (mounted) setIsError(true);
-            } finally {
-                if (mounted) setIsLoading(false);
-            }
-        })();
+    fetchStory();
+  }, [storyId]);
+  const handleSubmit = async (values: AddStoryFormValues) => {
+    if (!storyId) return;
 
-        return () => {
-            mounted = false;
-        };
-    }, [storyId]);
+     try {
+    const formData = new FormData();
 
-    return (
-        <main className={css.main}>
-            <div className={css.container}>
-                <h1 className={css.title}>Редагувати історію</h1>
+    formData.append("title", values.title);
+    formData.append("article", values.article);
+    formData.append("category", values.category);
+    formData.append("date", values.date);
 
-                {isLoading && <p>Loading...</p>}
+    if (values.img) {
+      formData.append("img", values.img);
+    }
 
-                {!isLoading && isError && (
-                    <p>Не вдалося завантажити історію для редагування.</p>
-                )}
+    await updateStory(storyId, formData);
 
-                {!isLoading && !isError && story && (
-                    <AddStoryForm storyId={storyId} initialData={story} />
-                )}
-            </div>
-        </main>
-    );
+      await queryClient.invalidateQueries({
+        queryKey: ["stories"],
+        exact: false,
+      });
+      await queryClient.refetchQueries({
+        queryKey: ["stories"],
+        exact: false,
+      });
+
+      router.push("/stories");
+      // router.refresh();
+    } catch (err) {
+      console.error("Помилка при оновленні історії:", err);
+    }
+  };
+
+  if (!initialValues || !story) return <div>Loading...</div>;
+
+  return (
+    <>
+      <section className={`${css.stroryDatailsContainer} container`}>
+        <h1 className={css.storyTitle}>Оновити історію</h1>
+        <AddStoryForm
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          buttonText="Оновити історію"
+          currentImage={story.img}
+        />
+      </section>
+    </>
+  );
 }

@@ -1,3 +1,24 @@
+import { User } from "./user";
+import { Category } from "./category";
+
+export interface Story {
+  _id: string;
+  img: string;
+  title: string;
+  article: string;
+  category: Category | string;
+  ownerId: User | string;
+  date: string;
+  favoriteCount: number;
+}
+
+export interface CreateStoryFormValues {
+  title: string;
+  article: string;
+  category: string;
+  img: File | null;
+  date: string;
+}
 export interface IStory {
   _id: string;
   img: string;
@@ -58,24 +79,4 @@ export interface CreateStoryResponse {
   status: number;
   message: string;
   data: IStory;
-}
-export interface Story {
-  id: string;
-  img: string;
-  title: string;
-  article: string;
-  category: {
-    id: string;
-    name: string;
-  };
-
-  ownerId: {
-    id: string;
-    name: string;
-    avatarUrl: string;
-  };
-  date: string;
-
-  favoriteCount: number;
-  isFavorite?: boolean;
 }

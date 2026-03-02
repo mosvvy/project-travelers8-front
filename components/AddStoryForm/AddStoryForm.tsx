@@ -9,22 +9,29 @@ import css from './AddStoryForm.module.css';
 import { createStory, updateStory } from '@/app/lib/api/api';
 import type { StoryResponse } from '@/app/lib/api/api';
 
-interface AddStoryFormProps {
-  storyId?: string;
-  initialData?: StoryResponse;
+export interface AddStoryFormProps {
+  initialValues: AddStoryFormValues;
+  onSubmit: (
+    values: AddStoryFormValues,
+    actions: FormikHelpers<AddStoryFormValues>
+  ) => void | Promise<void>;
+  buttonText: string;
+  currentImage?: string;
 }
 
-interface AddStoryFormValues {
-img: File | null;
-title: string;
-category: string;
-article: string;
+export interface AddStoryFormValues {
+  img: File | null;
+  title: string;
+  category: string;
+  article: string;
+  date: string;
 }
 
 const initialValues: AddStoryFormValues = {
 img: null,
 title: '',
-category: '',
+  category: '',
+date: "",
 article: '',
 };
 
@@ -36,8 +43,10 @@ article: Yup.string().required('Поле обовʼязкове'),
 });
 
 export default function AddStoryForm({
-  storyId,
-  initialData,
+  initialValues,
+  onSubmit,
+  buttonText,
+  currentImage,
 }: AddStoryFormProps) {
 const fieldId = useId();
 const router = useRouter();
