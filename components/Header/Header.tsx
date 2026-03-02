@@ -18,7 +18,7 @@ const Header = () => {
           <Link href='/' className={css.logo}>
             <Logo />
           </Link>
-          <div className={css.wrappwer}>
+          <div className={css.wrapper}>
             <ul className={css.menu}>
               <li>
                 <Link href='/' variant='link'>
@@ -80,11 +80,13 @@ const Header = () => {
                 </>
               )}
             </div>
-            <Button variant='secondary' className={css.burger} onClick={onBurgerClick}>
-              <svg width={24} height={24}>
-                <use href='/icons/sprite.svg#icon-menu' />
-              </svg>
-            </Button>
+            <div className={css.burger}>
+              <Button variant='secondary' onClick={onBurgerClick}>
+                <svg width={24} height={24}>
+                  <use href='/icons/sprite.svg#icon-menu' />
+                </svg>
+              </Button>
+            </div>
           </div>
         </nav>
       </div>

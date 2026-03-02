@@ -11,12 +11,6 @@
   padding: 16px 20px;
 }
 
-.wrappwer {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
 .navbar {
   display: flex;
   flex-direction: row;
@@ -43,6 +37,10 @@
   display: none;
 }
 
+.burger {
+  padding: 4px;
+}
+
 /* Styles for Tablet devices */
 @media screen and (min-width: 768px) {
   .container {
@@ -52,8 +50,8 @@
 
   .wrapper {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
+    align-items: center;
+    gap: 16px;
   }
 
   .logo {
@@ -77,17 +75,6 @@
     padding: 16px 64px;
   }
 
-  .content {
-    display: flex;
-    justify-content: space-between;
-    align-items: top;
-  }
-
-  .wrapper {
-    margin-bottom: 0;
-    gap: 434px;
-  }
-
   .menu {
     display: flex;
     gap: 24px;
@@ -96,5 +83,9 @@
 
   .user {
     display: block;
+  }
+
+  .burger {
+    display: none;
   }
 }
