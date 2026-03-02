@@ -1,8 +1,6 @@
-import axios, { AxiosError } from 'axios';
-export type ApiError = AxiosError<{ error: string }>;
-const baseURL = 'https://project-travelers8-back.onrender.com';
+import axios from 'axios';
 
 export const api = axios.create({
-  baseURL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000',
   withCredentials: true,
 });
