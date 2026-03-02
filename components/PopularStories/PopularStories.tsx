@@ -1,11 +1,12 @@
 'use client';
 import css from './PopularStories.module.css';
-import type { Story } from '@/types/story';
+import type { Story, IStory } from '@/types/story';
 import Section from '../Section/Section';
 import { useEffect, useState } from 'react';
 import { getStories } from '@/app/lib/api/clientApi';
 import TravellersStories from '../TravellersStories/TravellersStories';
 import Link from '../Link/Link';
+import { convertToIStory } from '@/app/api/_utils/utils';
 
 const getLimit = () => {
   if (typeof window === 'undefined') return 3;
@@ -36,7 +37,7 @@ const PopularStories = () => {
   return (
     <Section>
       <h2 className={css.popularStoriesTitle}>Популярні історії</h2>
-      <TravellersStories stories={stories} />
+      <TravellersStories stories={stories.map(convertToIStory)} />
       <div className={css.viewAllWrapper}>
         <Link variant='primaryBtn' href='/stories' className={css.viewAllLink}>
           Переглянути всі

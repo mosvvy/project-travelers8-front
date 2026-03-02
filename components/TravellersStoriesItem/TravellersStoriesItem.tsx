@@ -1,6 +1,6 @@
 'use client';
 
-import { Story } from '@/types/story';
+import { IStory } from '@/types/story';
 import css from './TravellersStoriesItem.module.css';
 
 import Link from '../Link/Link';
@@ -13,7 +13,7 @@ import { useAuthStore } from '@/app/lib/store/authStore';
 import { toggleFavorite } from '@/app/lib/api/clientApi';
 
 interface TravellersStoriesItemProps {
-  story: Story;
+  story: IStory;
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
@@ -30,7 +30,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
     //}
 
     try {
-      await toggleFavorite(story.id);
+      await toggleFavorite(story._id);
       setIsFavorite(prev => !prev);
       setFavoriteCount(prev => (isFavorite ? prev - 1 : prev + 1));
     } catch (err) {
@@ -83,7 +83,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
         </div>
 
         <div className={css.storyActions}>
-          <Link href={`/stories/${story.id}`} className={css.viewStoryLink} variant='secondaryBtn'>
+          <Link href={`/stories/${story._id}`} className={css.viewStoryLink} variant='secondaryBtn'>
             Переглянути статтю
           </Link>
           <Button className={css.favoriteButton} variant='secondary' onClick={handleFavoriteClick}>

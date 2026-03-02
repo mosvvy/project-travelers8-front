@@ -38,6 +38,7 @@ export interface IStory {
   favoriteCount: number;
   createdAt: string;
   updatedAt: string;
+   isFavorite?: boolean;
 }
 
 export interface IStoryByIdResponse {
