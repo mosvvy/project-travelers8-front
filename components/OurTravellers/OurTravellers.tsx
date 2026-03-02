@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import TravellersList from '@/components/TravellersList/TravellersList';
 import Section from '@/components/Section/Section';
-import Link from 'next/link';
+import Link from '@/components/Link/Link';
 import { User } from '@/types/user';
 import css from './OurTravellers.module.css';
 
