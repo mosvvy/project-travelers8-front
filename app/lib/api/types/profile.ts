@@ -1,0 +1,7 @@
+export type User = {
+    _id: string;
+    name: string;
+    avatarUrl: string;
+    articlesAmount: number;
+    description: string;
+}
