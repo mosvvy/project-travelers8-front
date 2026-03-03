@@ -5,7 +5,6 @@ import css from './page.module.css';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getStoryById, updateStory } from '@/app/lib/api/api';
-import type { StoryResponse } from '@/app/lib/api/api';
 import { useQueryClient } from "@tanstack/react-query";
 import { Story } from "@/types/story";
 
