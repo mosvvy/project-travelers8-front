@@ -109,6 +109,16 @@ a {
   text-decoration: none;
 }
 
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
 /* HEADERS */
 h1 {
   font-family: var(--second-family);

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
 import { Nunito_Sans, Sora } from 'next/font/google';
 import './globals.css';
+// import css from './layout.module.css';
 import Footer from '@/components/Footer/Footer';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import Header from '@/components/Header/Header'; // додай імпорт
@@ -34,12 +35,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${ninutoSans.variable} ${sora.variable}`}>
-        <TanStackProvider>
-          <Header /> {/* ← ось він! */}
-          <main>{children}</main>
-          <Toaster position='top-right' />
-          <Footer />
-        </TanStackProvider>
+        <div className='layout-wrapper'>
+          <TanStackProvider>
+            <Header /> {/* ← ось він! */}
+            <main>{children}</main>
+            <Toaster position='top-right' />
+            <Footer />
+          </TanStackProvider>
+        </div>
       </body>
     </html>
   );
