@@ -1,12 +1,21 @@
 import css from './MessageNoStories.module.css';
 import Link from '../Link/Link';
 
-const MessageNoStories = () => {
+type PageProps = {
+  text: string;
+  buttonText: string;
+};
+
+const MessageNoStories = ({ text, buttonText }: PageProps) => {
+  const messageLink = text === 'Опублікувати історію' ? '/new-story' : '/stories';
+
   return (
-    <>
-      <p>Цей користувач ще не опублікував історій</p>
-      <Link href='/'>Назад до історій</Link>
-    </>
+    <div className={css.messageWrapper}>
+      <p className={css.messageText}>{text}</p>
+      <Link href={messageLink} className={css.messageButtonText}>
+        {buttonText}
+      </Link>
+    </div>
   );
 };
 
