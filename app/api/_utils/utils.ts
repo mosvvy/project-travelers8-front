@@ -1,3 +1,5 @@
+import { Story, IStory } from '@/types/story';
+
 export function logErrorResponse(errorObj: unknown): void {
   const green = '\x1b[32m';
   const yellow = '\x1b[33m';
@@ -6,7 +8,6 @@ export function logErrorResponse(errorObj: unknown): void {
   console.log(`${green}> ${yellow}Error Response Data:${reset}`);
   console.dir(errorObj, { depth: null, colors: true });
 }
-import { Story, IStory } from '@/types/story';
 
 export const convertToIStory = (story: Story): IStory => ({
   _id: story._id,
@@ -25,3 +26,5 @@ export const convertToIStory = (story: Story): IStory => ({
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
 });
+
+
