@@ -1,33 +1,23 @@
-<<<<<<< Updated upstream
 export interface IStory {
   _id: string;
-=======
-export interface Story {
-  id: string;
->>>>>>> Stashed changes
+
   img: string;
   title: string;
   article: string;
   category: {
-<<<<<<< Updated upstream
     _id: string;
     name: string;
-  };
+  } | null;
   shortDescription: string;
-=======
-    id: string;
-    name: string;
-  };
 
->>>>>>> Stashed changes
   ownerId: {
-    id: string;
+    _id: string;
     name: string;
     avatarUrl: string;
   };
   date: string;
-<<<<<<< Updated upstream
   favoriteCount: number;
+  isFavorite?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -71,29 +61,4 @@ export interface CreateStoryResponse {
   status: number;
   message: string;
   data: IStory;
-}
-export interface Story {
-  id: string;
-  img: string;
-  title: string;
-  article: string;
-  category: {
-    id: string;
-    name: string;
-  };
-
-  ownerId: {
-    id: string;
-    name: string;
-    avatarUrl: string;
-  };
-  date: string;
-
-  favoriteCount: number;
-  isFavorite?: boolean;
-=======
-
-  favoriteCount: number;
-  //isFavorite: boolean;
->>>>>>> Stashed changes
 }
