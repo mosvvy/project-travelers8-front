@@ -1,0 +1,30 @@
+.noPaddingContainer {
+  padding: 0;
+}
+.travellerStoriesTitle {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  color: var(--color-scheme-1-text);
+
+  margin-bottom: 40px;
+}
+
+@media screen and (min-width: 780px) {
+  .travellerStoriesTitle {
+    font-family: var(--second-family);
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 120%;
+    letter-spacing: -0.01em;
+    color: var(--color-scheme-1-text);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .travellerStoriesTitle {
+    font-size: 52px;
+  }
+}
