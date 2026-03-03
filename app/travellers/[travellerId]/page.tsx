@@ -22,7 +22,7 @@ export default async function TravellerPage({ params }: PageProps) {
   }
   const data = await res.json();
   const traveller = data.user;
-  const hasStories = traveller.savedStories?.length > 0;
+  const hasStories = traveller.savedArticles?.length > 0;
 
   const text = 'Цей користувач ще не опублікував історій';
   const buttonText = 'Назад до історій';
@@ -35,7 +35,7 @@ export default async function TravellerPage({ params }: PageProps) {
       <Section>
         <h2 className={css.travellerStoriesTitle}>Історії мандрівника</h2>
         {hasStories ? (
-          <TravellerStories stories={traveller.savedStories} />
+          <TravellerStories stories={traveller.savedArticles} />
         ) : (
           <MessageNoStories text={text} buttonText={buttonText} />
         )}
