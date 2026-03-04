@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import css from './BurgerMenu.module.css';
 import Image from 'next/image';
+import Logo from '@/components/Logo/Logo';
 
 interface BurgerMenuProps {
   isOpen: boolean;
@@ -47,15 +48,12 @@ const BurgerMenu = ({ isOpen, onClose, isAuthenticated, user }: BurgerMenuProps)
     <div className={clsx(css.backdrop, isOpen && css.isOpen)} onClick={handleBackdropClick}>
       <div className={clsx(css.menu, isOpen && css.isOpen)} ref={menuRef}>
         <div className={css.menuHeader}>
-          <span className={css.logo}>Подорожники</span>
+          <Link href='/' className={css.logo}>
+            <Logo />
+          </Link>
           <button className={css.closeBtn} onClick={onClose}>
-            <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
-              <path
-                d='M18 6L6 18M6 6L18 18'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-              />
+            <svg width='24' height='24'>
+              <use href='/icons/sprite.svg#icon-close' />
             </svg>
           </button>
         </div>

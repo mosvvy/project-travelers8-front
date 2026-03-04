@@ -287,8 +287,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000000;
-  transition: color 0.3s ease;
+  stroke: #000000;
+  fill: currentColor;
+  transition:
+    stroke 0.3s ease,
+    fill 0.3s ease;
 }
 
 .logoutBtn svg {
@@ -296,11 +299,13 @@
 }
 
 .header.heroHeader .logoutBtn {
-  color: #ffffff;
+  stroke: #ffffff;
+  fill: #ffffff;
 }
 
 .logoutBtn:hover {
-  color: #4169e1;
+  stroke: #4169e1;
+  fill: #4169e1;
 }
 
 .publishBtnTablet {
@@ -360,6 +365,7 @@
 .header.heroHeader .burgerBtn {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  stroke: var(--color-white);
 }
 
 .burgerBtn:hover,
