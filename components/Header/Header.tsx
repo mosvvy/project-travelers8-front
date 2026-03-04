@@ -8,6 +8,7 @@ import css from './Header.module.css';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import { useAuthStore } from '@/app/lib/store/authStore';
 import Logo from '../Logo/Logo';
+import Image from 'next/image';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,10 +77,12 @@ const Header = () => {
                 Опублікувати історію
               </Link>
               <div className={css.profile}>
-                <img
+                <Image
                   src={user?.avatarUrl || '/default-avatar.png'}
-                  alt={user?.name}
+                  alt={user?.name || 'Аватар користувача'}
                   className={css.avatar}
+                  width={32}
+                  height={32}
                 />
                 <span className={css.userName}>{user?.name}</span>
               </div>
