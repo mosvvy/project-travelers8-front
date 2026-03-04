@@ -36,6 +36,12 @@ export const getCurrentUser = async (): Promise<AuthenticatedUser> => {
   return { ...data, id: data._id || '' };
 };
 
+export const checkSession = async (): Promise<boolean> => {
+  const { data } = await api.post<{ success: boolean }>('/auth/refresh');
+
+  return data.success;
+};
+
 export const createStory = async (data: FormData) => {
   console.log('Creating story with data:', data);
   const res = await api.post('/stories', data, {
