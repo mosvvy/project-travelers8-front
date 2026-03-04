@@ -1,16 +1,16 @@
 import css from './TravellersStories.module.css';
 import TravellersStoriesItem from '../TravellersStoriesItem/TravellersStoriesItem';
-import type { Story } from '@/types/story';
+import type { IStory } from '@/types/story';
 
 interface TravellersListProps {
-  stories: Story[];
+  stories: IStory[];
 }
 
 export default function TravellersStories({ stories }: TravellersListProps) {
   return (
     <ul className={css.storiesList}>
       {stories.map(story => (
-        <TravellersStoriesItem key={story.id} story={story} />
+        <TravellersStoriesItem key={story._id} story={story} />
       ))}
     </ul>
   );
