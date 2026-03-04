@@ -30,7 +30,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
     // }
 
     try {
-      await toggleFavorite(story.id);
+      await toggleFavorite(story._id);
       setIsFavorite(prev => !prev);
       setFavoriteCount(prev => (isFavorite ? prev - 1 : prev + 1));
     } catch (err) {
@@ -41,7 +41,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
   };
 
   return (
-    <li className={css.storyCard}>
+    <li key={story._id} className={css.storyCard}>
       <div className={css.storyImageWrapper}>
         <Image
           src={story.img}
@@ -88,7 +88,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
 
           <div className={css.storyActions}>
             <Link
-              href={`/stories/${story.id}`}
+              href={`/stories/${story._id}`}
               className={css.viewStoryLink}
               variant='secondaryBtn'
             >
