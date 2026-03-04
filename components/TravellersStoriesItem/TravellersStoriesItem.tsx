@@ -9,7 +9,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
-import { useAuthStore } from '@/lib/store/authStore';
+//import { useAuthStore } from '@/app/lib/store/authStore';
 import { toggleFavorite } from '@/app/lib/api/clientApi';
 
 interface TravellersStoriesItemProps {
@@ -21,17 +21,14 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
   const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
   const [isLoading, setIsLoading] = useState(false);
 
-  //const { isAuth, openAuthModal } = useAuthStore();
-  const isAuth = useAuthStore(state => state.isAuthenticated);
-  const openAuthModal = () => {
-    window.dispatchEvent(new Event('open-auth-modal'));
-  };
+  //const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+  //const openAuthModal = useAuthStore(state => state.openAuthModal);
 
   const handleFavoriteClick = async () => {
-    if (!isAuth) {
-      openAuthModal();
-      return;
-    }
+    //if (!isAuthenticated) {
+    //  openAuthModal();
+    //  return;
+    //}
 
     try {
       setIsLoading(true);
