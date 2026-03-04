@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AuthUser as AuthenticatedUser } from '@/lib/store/authStore';
 
 const api = axios.create({
   baseURL: '/api',
@@ -27,6 +28,12 @@ export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
 
   return data;
+};
+
+export const getCurrentUser = async (): Promise<AuthenticatedUser> => {
+  const { data } = await api.get<AuthUser>('/users/me');
+
+  return { ...data, id: data._id || '' };
 };
 
 export const createStory = async (data: FormData) => {
