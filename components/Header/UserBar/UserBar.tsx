@@ -18,9 +18,9 @@ const UserBar = ({ user, isHomePage = false }: UserBarProps) => {
 
   return (
     <div className={css.userBar}>
-      <Link href="/profile" className={css.avatarLink}>
+      <Link href='/profile' className={css.avatarLink}>
         <Image
-          src={user.avatarUrl || '/images/default-avatar.webp'}
+          src={user.avatarUrl || '/images/default-avatar.png'}
           alt={user.name}
           width={32}
           height={32}

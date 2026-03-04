@@ -48,8 +48,13 @@ const BurgerMenu = ({ isOpen, onClose, isAuthenticated, user }: BurgerMenuProps)
         <div className={css.menuHeader}>
           <span className={css.logo}>Подорожники</span>
           <button className={css.closeBtn} onClick={onClose}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            <svg width='24' height='24' viewBox='0 0 24 24' fill='none'>
+              <path
+                d='M18 6L6 18M6 6L18 18'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+              />
             </svg>
           </button>
         </div>
@@ -58,39 +63,55 @@ const BurgerMenu = ({ isOpen, onClose, isAuthenticated, user }: BurgerMenuProps)
           // МЕНЮ ДЛЯ АВТОРИЗОВАНИХ
           <>
             <nav className={css.menuNav}>
-              <Link href="/" className={clsx(css.navLink, pathname === '/' && css.active)} onClick={onClose}>
+              <Link
+                href='/'
+                className={clsx(css.navLink, pathname === '/' && css.active)}
+                onClick={onClose}
+              >
                 Головна
               </Link>
-              <Link href="/stories" className={clsx(css.navLink, pathname === '/stories' && css.active)} onClick={onClose}>
+              <Link
+                href='/stories'
+                className={clsx(css.navLink, pathname === '/stories' && css.active)}
+                onClick={onClose}
+              >
                 Історії
               </Link>
-              <Link href="/travellers" className={clsx(css.navLink, pathname === '/travellers' && css.active)} onClick={onClose}>
+              <Link
+                href='/travellers'
+                className={clsx(css.navLink, pathname === '/travellers' && css.active)}
+                onClick={onClose}
+              >
                 Мандрівники
               </Link>
-              <Link href="/profile" className={clsx(css.navLink, pathname === '/profile' && css.active)} onClick={onClose}>
+              <Link
+                href='/profile'
+                className={clsx(css.navLink, pathname === '/profile' && css.active)}
+                onClick={onClose}
+              >
                 Мій профіль
               </Link>
             </nav>
 
             <div className={css.menuFooter}>
               {/* Кнопка "Опублікувати історію" - синя */}
-              <Link href="/stories/create" className={css.publishBtn} onClick={onClose}>
+              <Link href='/stories/create' className={css.publishBtn} onClick={onClose}>
                 Опублікувати історію
               </Link>
 
               {/* Профіль з аватаром, ім'ям і кнопкою виходу */}
               <div className={css.profileSection}>
                 <div className={css.profileInfo}>
-                  <img 
-                    src={user?.avatarUrl || '/avatarDefault.jpg'} 
-                    alt={user?.name} 
+                  <img
+                    src={user?.avatarUrl || '/images/default-avatar.png'}
+                    alt={user?.name}
                     className={css.avatar}
                   />
                   <span className={css.userName}>{user?.name}</span>
                 </div>
                 <button className={css.logoutBtn} onClick={onClose}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 13v-2H7V8l-5 4 5 4v-3h9zM20 3h-9c-1.1 0-2 .9-2 2v4h2V5h9v14h-9v-4H9v4c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+                  <svg width='24' height='24' viewBox='0 0 24 24' fill='currentColor'>
+                    <path d='M16 13v-2H7V8l-5 4 5 4v-3h9zM20 3h-9c-1.1 0-2 .9-2 2v4h2V5h9v14h-9v-4H9v4c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z' />
                   </svg>
                 </button>
               </div>
@@ -100,22 +121,34 @@ const BurgerMenu = ({ isOpen, onClose, isAuthenticated, user }: BurgerMenuProps)
           // МЕНЮ ДЛЯ НЕАВТОРИЗОВАНИХ
           <>
             <nav className={css.menuNav}>
-              <Link href="/" className={clsx(css.navLink, pathname === '/' && css.active)} onClick={onClose}>
+              <Link
+                href='/'
+                className={clsx(css.navLink, pathname === '/' && css.active)}
+                onClick={onClose}
+              >
                 Головна
               </Link>
-              <Link href="/stories" className={clsx(css.navLink, pathname === '/stories' && css.active)} onClick={onClose}>
+              <Link
+                href='/stories'
+                className={clsx(css.navLink, pathname === '/stories' && css.active)}
+                onClick={onClose}
+              >
                 Історії
               </Link>
-              <Link href="/travellers" className={clsx(css.navLink, pathname === '/travellers' && css.active)} onClick={onClose}>
+              <Link
+                href='/travellers'
+                className={clsx(css.navLink, pathname === '/travellers' && css.active)}
+                onClick={onClose}
+              >
                 Мандрівники
               </Link>
             </nav>
 
             <div className={css.menuFooter}>
-              <Link href="/auth/login" className={css.loginBtn} onClick={onClose}>
+              <Link href='/auth/login' className={css.loginBtn} onClick={onClose}>
                 Вхід
               </Link>
-              <Link href="/auth/register" className={css.registerBtn} onClick={onClose}>
+              <Link href='/auth/register' className={css.registerBtn} onClick={onClose}>
                 Реєстрація
               </Link>
             </div>
