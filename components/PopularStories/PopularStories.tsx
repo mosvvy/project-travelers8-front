@@ -3,7 +3,7 @@ import css from './PopularStories.module.css';
 import type { IStory } from '@/types/story';
 import Section from '../Section/Section';
 import { useEffect, useState } from 'react';
-import { getStories } from '@/app/lib/api/clientApi';
+import { getPopularStories } from '@/app/lib/api/clientApi';
 import TravellersStories from '../TravellersStories/TravellersStories';
 import Link from '../Link/Link';
 
@@ -16,23 +16,28 @@ const getLimit = () => {
 
 const PopularStories = () => {
   const [stories, setStories] = useState<IStory[]>([]);
+  const [initialData, setInitialData] = useState<IStory[]>([]);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const limit = getLimit();
-        const response = await getStories(1, 10);
-        const allStories = response?.stories || [];
-        setStories(allStories.slice(0, limit));
+        const data = await getPopularStories();
+        setInitialData(data);
+        setStories(data.slice(0, getLimit()));
       } catch (error) {
         console.error('Failed to fetch stories:', error);
       }
     };
 
     load();
-    window.addEventListener('resize', load);
-    return () => window.removeEventListener('resize', load);
   }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      setStories(initialData.slice(0, getLimit()));
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [initialData]);
   return (
     <Section>
       <h2 className={css.popularStoriesTitle}>Популярні історії</h2>
