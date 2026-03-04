@@ -1,6 +1,6 @@
 'use client';
 import css from './PopularStories.module.css';
-import type { Story } from '@/types/story';
+import type { IStory } from '@/types/story';
 import Section from '../Section/Section';
 import { useEffect, useState } from 'react';
 import { getStories } from '@/app/lib/api/clientApi';
@@ -15,7 +15,7 @@ const getLimit = () => {
 };
 
 const PopularStories = () => {
-  const [stories, setStories] = useState<Story[]>([]);
+  const [stories, setStories] = useState<IStory[]>([]);
 
   useEffect(() => {
     const load = async () => {
