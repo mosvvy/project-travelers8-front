@@ -7,7 +7,7 @@ import css from './UserBar.module.css';
 
 interface UserBarProps {
   user: {
-    name: string;
+    name?: string;
     avatarUrl?: string;
   } | null;
   isHomePage?: boolean;
@@ -20,11 +20,11 @@ const UserBar = ({ user, isHomePage = false }: UserBarProps) => {
     <div className={css.userBar}>
       <Link href='/profile' className={css.avatarLink}>
         <Image
-          src={user.avatarUrl || '/images/default-avatar.png'}
-          alt={user.name}
+          src={user?.avatarUrl || '/images/default-avatar.png'}
+          alt={user?.name || 'Аватар користувача'}
+          className={css.avatar}
           width={32}
           height={32}
-          className={css.avatar}
         />
       </Link>
       <span className={clsx(css.userName, isHomePage && css.light)}>{user.name}</span>
