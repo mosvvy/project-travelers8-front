@@ -9,7 +9,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
-import { useAuthStore } from '@/lib/store/authStore';
+import { useAuthStore } from '@/app/lib/store/authStore';
 import { toggleFavorite } from '@/app/lib/api/clientApi';
 
 interface TravellersStoriesItemProps {
