@@ -77,7 +77,7 @@ const Header = () => {
               </Link>
               <div className={css.profile}>
                 <img
-                  src={user?.avatarUrl || '/avatarDefault.jpg'}
+                  src={user?.avatarUrl || '/default-avatar.png'}
                   alt={user?.name}
                   className={css.avatar}
                 />
@@ -101,7 +101,7 @@ const Header = () => {
           )}
         </div>
 
-        {}
+        {/* Планшетна кнопка - ДЛЯ ВСІХ! */}
         <Link href='/stories/create' className={css.publishBtnTablet}>
           Опублікувати історію
         </Link>

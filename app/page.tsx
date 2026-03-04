@@ -1,8 +1,9 @@
 import Hero from '@/components/Hero/Hero';
+import OurTravellers from '@/components/OurTravellers/OurTravellers';
 import Join from '@/components/Join/Join';
 import css from './page.module.css';
 import About from '../components/About/About';
-import PopularStories from '@/components/PopularStories/PopularStories';
+import PopularStories from '../components/PopularStories/PopularStories';
 
 export default function HomePage() {
   return (
@@ -10,7 +11,7 @@ export default function HomePage() {
       <Hero />
       <About />
       <PopularStories />
-      <h2>travelers</h2>s
+      <OurTravellers />
       <Join />
     </>
   );
