@@ -66,6 +66,45 @@ export default function AddStoryForm({ storyId, initialData }: AddStoryFormProps
     }
   };
 
+  const categories = [
+    {
+      _id: '68fb50c80ae91338641121f2',
+      name: 'Європа',
+    },
+    {
+      _id: '68fb50c80ae91338641121f0',
+      name: 'Азія',
+    },
+    {
+      _id: '68fb50c80ae91338641121f3',
+      name: 'Америка',
+    },
+    {
+      _id: '68fb50c80ae91338641121f4',
+      name: 'Африка',
+    },
+    {
+      _id: '68fb50c80ae91338641121f7',
+      name: 'Балкани',
+    },
+    {
+      _id: '68fb50c80ae91338641121f1',
+      name: 'Гори',
+    },
+    {
+      _id: '68fb50c80ae91338641121f8',
+      name: 'Кавказ',
+    },
+    {
+      _id: '68fb50c80ae91338641121f9',
+      name: 'Океанія',
+    },
+    {
+      _id: '68fb50c80ae91338641121f6',
+      name: 'Пустелі',
+    },
+  ];
+
   return (
     <>
       <Formik
@@ -139,17 +178,14 @@ export default function AddStoryForm({ storyId, initialData }: AddStoryFormProps
                     className={css.select}
                     disabled={isSubmitting}
                   >
-                    id={`${fieldId}-title`}
-                    name="title" className={css.input}
-                    placeholder="Введіть заголовок історії" disabled={isSubmitting}
                     <option value='' disabled>
                       Обери категорію
                     </option>
-                    <option value='travel'>Travel</option>
-                    <option value='city'>City</option>
-                    <option value='nature'>Nature</option>
-                    <option value='food'>Food</option>
-                    <option value='other'>Other</option>
+                    {categories.map(category => (
+                      <option key={category._id} value={category._id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </Field>
                   <ErrorMessage name='category' component='span' className={css.error} />
                 </div>
