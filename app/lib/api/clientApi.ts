@@ -1,4 +1,4 @@
-import { Story } from '@/types/story';
+import { IStory } from '@/types/story';
 import axios from 'axios';
 import { Story as SingleStory } from './types/stories';
 import { ICategory } from '@/types/category';
@@ -9,7 +9,7 @@ export type StoriesResponse = {
   perPage: number;
   totalStories: number;
   totalPages: number;
-  stories: Story[];
+  stories: IStory[];
 };
 
 export type RegisterPayload = {
@@ -45,7 +45,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true, 
+  withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
 

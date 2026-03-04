@@ -1,6 +1,6 @@
 'use client';
 
-import { Story } from '@/types/story';
+import { IStory } from '@/types/story';
 import css from './TravellersStoriesItem.module.css';
 
 import Link from '../Link/Link';
@@ -9,11 +9,11 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
-import { useAuthStore } from '@/app/lib/store/authStore';
+import { useAuthStore } from '@/lib/store/authStore';
 import { toggleFavorite } from '@/app/lib/api/clientApi';
 
 interface TravellersStoriesItemProps {
-  story: Story;
+  story: IStory;
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
@@ -21,19 +21,25 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
   const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const { isAuth, openAuthModal } = useAuthStore();
+  //const { isAuth, openAuthModal } = useAuthStore();
+  const isAuth = useAuthStore(state => state.isAuthenticated);
+  const openAuthModal = () => {
+    window.dispatchEvent(new Event('open-auth-modal'));
+  };
 
   const handleFavoriteClick = async () => {
-    // if (!isAuth) {
-    //   openAuthModal();
-    //   return;
-    // }
+    if (!isAuth) {
+      openAuthModal();
+      return;
+    }
 
     try {
+      setIsLoading(true);
       await toggleFavorite(story._id);
       setIsFavorite(prev => !prev);
       setFavoriteCount(prev => (isFavorite ? prev - 1 : prev + 1));
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       toast.error('Не вдалося оновити збережені. Спробуйте ще раз.');
     } finally {
       setIsLoading(false);
@@ -54,7 +60,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
 
       <div className={css.storyContent}>
         <div className={css.storyText}>
-          <p className={css.storyCategory}>{story.category.name}</p>
+          <p className={css.storyCategory}>{story.category?.name}</p>
 
           <h3 className={css.storyTitleCard}>{story.title}</h3>
 

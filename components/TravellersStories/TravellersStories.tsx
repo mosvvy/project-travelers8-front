@@ -1,9 +1,9 @@
 import css from './TravellersStories.module.css';
 import TravellersStoriesItem from '../TravellersStoriesItem/TravellersStoriesItem';
-import type { Story } from '@/types/story';
+import type { IStory } from '@/types/story';
 
 interface TravellersListProps {
-  stories: Story[];
+  stories: IStory[];
 }
 
 export default function TravellersStories({ stories }: TravellersListProps) {
