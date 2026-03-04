@@ -26,7 +26,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1440px;
+  min-width: 320px;
+  max-width: 375px;
   height: 72px;
   padding: 0 64px;
   margin: 0 auto;
@@ -413,6 +414,7 @@
 
 @media screen and (min-width: 1440px) {
   .container {
+    max-width: 1440px;
     padding: 0 64px;
   }
 
@@ -431,6 +433,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1439px) {
   .container {
+    max-width: 768px;
     padding: 0 32px;
   }
 
@@ -451,6 +454,8 @@
 @media screen and (max-width: 767px) {
   .container {
     padding: 0 20px;
+    min-width: 320px;
+    max-width: 375px;
   }
 
   .headerRight {

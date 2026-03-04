@@ -102,7 +102,7 @@ const BurgerMenu = ({ isOpen, onClose, isAuthenticated, user }: BurgerMenuProps)
               <div className={css.profileSection}>
                 <div className={css.profileInfo}>
                   <Image
-                    src={user?.avatarUrl || '/default-avatar.png'}
+                    src={user?.avatarUrl || '/images/default-avatar.png'}
                     alt={user?.name || 'Аватар користувача'}
                     className={css.avatar}
                     width={32}

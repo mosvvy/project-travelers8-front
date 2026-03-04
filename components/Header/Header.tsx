@@ -77,7 +77,7 @@ const Header = () => {
               </Link>
               <div className={css.profile}>
                 <Image
-                  src={user?.avatarUrl || '/default-avatar.png'}
+                  src={user?.avatarUrl || '/images/default-avatar.png'}
                   alt={user?.name || 'Аватар користувача'}
                   className={css.avatar}
                   width={32}
