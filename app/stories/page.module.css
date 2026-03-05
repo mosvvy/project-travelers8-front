@@ -33,6 +33,11 @@
   cursor: pointer;
 }
 
+.mobileCategoryButton.open {
+  border-radius: 8px 8px 0 0;
+  border-bottom-color: transparent;
+}
+
 .mobileCategoryButton:hover,
 .mobileCategoryButton:focus {
   outline: none;
@@ -41,12 +46,12 @@
 
 .mobileDropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
   right: 0;
   background: var(--color-white, #fff);
   border: 1px solid var(--color-royal-blue-light, #7a96ea);
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
   list-style: none;
   padding: 8px 0;
   z-index: 10;

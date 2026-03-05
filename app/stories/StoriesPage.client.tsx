@@ -24,6 +24,7 @@ export default function StoriesPageClient({
   categories: ICategory[];
 }) {
   const [stories, setStories] = useState<IStory[]>([]);
+  const [total, setTotal] = useState(totalStories);
   const [perPage, setPerPage] = useState(getInitialPerPage);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -46,8 +47,10 @@ export default function StoriesPageClient({
 
       const res = await fetch(url.toString());
       const data = await res.json();
+      console.log(data);
       if (!cancelled) {
         setStories(data.stories);
+        setTotal(data.totalStories);
         setIsLoading(false);
       }
     };
@@ -73,7 +76,7 @@ export default function StoriesPageClient({
     setIsSelectOpen(false);
   };
 
-  const hasMore = stories.length < totalStories;
+  const hasMore = stories.length < total;
 
   return (
     <div className={css.storiesPageContainer}>
@@ -87,7 +90,10 @@ export default function StoriesPageClient({
         aria-expanded={isSelectOpen}
         onClick={e => e.stopPropagation()}
       >
-        <button className={css.mobileCategoryButton} onClick={() => setIsSelectOpen(prev => !prev)}>
+        <button
+          className={`${css.mobileCategoryButton} ${isSelectOpen ? css.open : ''}`}
+          onClick={() => setIsSelectOpen(prev => !prev)}
+        >
           {selectedCategoryName}
           <svg
             className={`${css.selectArrow} ${isSelectOpen ? css.selectArrowOpen : ''}`}
