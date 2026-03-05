@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AuthUser, AuthUserRaw } from './types/auth-user';
 
 const api = axios.create({
   baseURL: '/api',
@@ -11,22 +12,26 @@ type LoginPayload = {
   password: string;
 };
 
-type AuthUser = {
-  id?: string;
-  _id?: string;
-  name: string;
-  email: string;
-  avatarUrl?: string;
-};
-
 type AuthResponse = {
-  user: AuthUser;
+  user: AuthUserRaw;
 };
 
-export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
+export const login = async (payload: LoginPayload): Promise<AuthUser> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
 
-  return data;
+  return toUser(data.user);
+};
+
+export const getCurrentUser = async (): Promise<AuthUser> => {
+  const { data } = await api.get<AuthUserRaw>('/users/me');
+
+  return toUser(data);
+};
+
+export const checkSession = async (): Promise<boolean> => {
+  const { data } = await api.post<{ success: boolean }>('/auth/refresh');
+
+  return data.success;
 };
 
 export const createStory = async (data: FormData) => {
@@ -38,4 +43,10 @@ export const createStory = async (data: FormData) => {
   });
 
   return res.data;
+};
+
+const toUser = (user: AuthUserRaw): AuthUser => {
+  const { _id, avatarUrl, ...restUser } = user;
+
+  return { ...restUser, id: _id, avatarUrl: avatarUrl ?? '/images/default-avatar.png' };
 };
