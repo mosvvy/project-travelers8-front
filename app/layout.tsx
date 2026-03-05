@@ -43,6 +43,7 @@ export default function RootLayout({
             <AuthProvider>
               <Header />
               <AuthInit />
+              =======
               <main>{children}</main>
               <Toaster position='top-right' />
               <Footer />
