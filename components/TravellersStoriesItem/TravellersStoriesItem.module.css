@@ -98,7 +98,7 @@
 
 .favoriteIcon {
   display: block;
-  fill: var(--color-neutral-darkest, #000);
+  fill: currentColor;
 }
 
 .storyActions {
@@ -122,11 +122,14 @@
 
 .favoriteButton:active {
   background-color: var(--color-royal-blue-darkest, #131f43);
+  color: var(--color-white, #fff);
 }
-
+/*--.favoriteButton .actionIcon :hover,
+.favoriteButton .actionIcon :focus,
 .favoriteButton .actionIcon :active {
   fill: var(--color-white, #fff);
-}
+  stroke: var(--color-white, #fff);
+}--*/
 
 @media screen and (min-width: 768px) {
   .storyCard {
