@@ -1,34 +1,18 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { api } from '@/app/lib/api/api';
-import type { IStory } from '@/types/story';
+import { ownStories } from '@/app/lib/api/proxyApi';
 
 import TravellersStories from '@/components/TravellersStories/TravellersStories';
 import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
 
 const PER_PAGE = 6;
 
-type OwnResponse = {
-  page: number;
-  perPage: number;
-  totalStories: number;
-  totalPages: number;
-  stories: IStory[];
-};
-
-const fetchOwnStories = async ({ pageParam = 1 }): Promise<OwnResponse> => {
-  const { data } = await api.get<OwnResponse>('/stories/own', {
-    params: { page: pageParam, perPage: PER_PAGE },
-  });
-  return data;
-};
-
 export default function OwnStories() {
   const { data, fetchNextPage, hasNextPage, isLoading, isError, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ['ownStories'],
-      queryFn: fetchOwnStories,
+      queryFn: ({ pageParam }) => ownStories(PER_PAGE, pageParam),
       initialPageParam: 1,
       getNextPageParam: lastPage =>
         lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
