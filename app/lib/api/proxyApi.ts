@@ -66,6 +66,17 @@ export const ownStories = async (
   return res.data;
 };
 
+export const savedStories = async (
+  pageSize: number,
+  page: number
+): Promise<PaginatedResponse<'stories', Story>> => {
+  const res = await api.get<PaginatedResponse<'stories', Story>>('/stories/saved', {
+    params: { page, perPage: pageSize },
+  });
+
+  return res.data;
+};
+
 const toUser = (user: AuthUserRaw): AuthUser => {
   const { _id, avatarUrl, ...restUser } = user;
 
