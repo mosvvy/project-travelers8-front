@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
+import type { StoryRaw, Story } from '../_types/story';
 
 export function logErrorResponse(errorObj: unknown): void {
   const green = '\x1b[32m';
@@ -37,4 +38,14 @@ export const setCookies = async (cookiesHeader: CookiesHeader): Promise<boolean>
   }
 
   return false;
+};
+
+export const toStoryType = (story: StoryRaw): Story => {
+  const { _id, ownerId, ...restStory } = story;
+
+  return {
+    ...restStory,
+    id: _id,
+    ownerId: { name: ownerId.name, avatarUrl: ownerId.avatarUrl || '/image/default-avatar.png' },
+  };
 };

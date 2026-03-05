@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../api';
 import { isAxiosError } from 'axios';
-import { logErrorResponse } from '../_utils/utils';
-import { Story, StoryRaw } from '@/app/api/_types/story';
+import { toStoryType, logErrorResponse } from '../_utils/utils';
+import { StoryRaw } from '@/app/api/_types/story';
 
 export async function GET(request: NextRequest) {
   try {
@@ -83,13 +83,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
-
-const toStoryType = (story: StoryRaw): Story => {
-  const { _id, ownerId, ...restStory } = story;
-
-  return {
-    ...restStory,
-    id: _id,
-    ownerId: { name: ownerId.name, avatarUrl: ownerId.avatarUrl || '/image/default-avatar.png' },
-  };
-};
