@@ -21,13 +21,12 @@ export const setCookies = async (cookiesHeader: CookiesHeader): Promise<boolean>
       const [nameValue] = cookieString.split(';');
       const [name, value] = nameValue.split('=');
       const parsedCookies = parse(cookieString);
-      //httpOnly: true та sameSite: 'lax' захищає токени від XSS атак
+
       cookieStore.set({
         name,
         value,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
         path: parsedCookies.Path || '/',
         maxAge: Number(parsedCookies['Max-Age']),
         expires: parsedCookies.Expires ? new Date(parsedCookies.Expires) : undefined,
