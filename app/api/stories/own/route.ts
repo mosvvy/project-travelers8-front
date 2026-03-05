@@ -12,8 +12,10 @@ export async function GET(request: NextRequest) {
     const { searchParams } = request.nextUrl;
     const page = Number(searchParams.get('page'));
     const perPage = Number(searchParams.get('perPage'));
+
     const res = await api.get<PaginatedResponse<'stories', StoryRaw>>('/stories/own', {
       params: { page, perPage },
+      headers: { Cookie: request.headers.get('cookie') },
     });
 
     const { stories, ...paginationMeta } = res.data;
