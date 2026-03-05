@@ -47,7 +47,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
     <li key={story._id} className={css.storyCard}>
       <div className={css.storyImageWrapper}>
         <Image
-          src={story.img}
+          src={story.img || '/placeholder.jpg'}
           alt={story.title}
           fill
           className='object-cover object-center'
