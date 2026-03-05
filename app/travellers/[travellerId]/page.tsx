@@ -4,16 +4,14 @@ import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
 import css from './page.module.css';
 import Section from '@/components/Section/Section';
 
-const DEFAULT_TRAVELLER_ID = '6881563901add19ee16fd017'; // 👈 тестовий
-
 type PageProps = {
-  params?: {
-    travellerId?: string;
-  };
+  params: Promise<{
+    travellerId: string;
+  }>;
 };
 
 export default async function TravellerPage({ params }: PageProps) {
-  const travellerId = params?.travellerId ?? DEFAULT_TRAVELLER_ID;
+  const { travellerId } = await params;
 
   const res = await fetch(`https://project-travelers8-back.onrender.com/users/${travellerId}`, {
     cache: 'no-store',
@@ -24,14 +22,23 @@ export default async function TravellerPage({ params }: PageProps) {
   }
   const data = await res.json();
   const traveller = data.user;
-  const hasStories = traveller.savedStories?.length > 0;
+  const hasStories = traveller.savedArticles?.length > 0;
+
+  const text = 'Цей користувач ще не опублікував історій';
+  const buttonText = 'Назад до історій';
 
   return (
     <>
-      <TravellerInfo traveller={traveller} />
+      <Section>
+        <TravellerInfo traveller={traveller} />
+      </Section>
       <Section>
         <h2 className={css.travellerStoriesTitle}>Історії мандрівника</h2>
-        {hasStories ? <TravellerStories stories={traveller.savedStories} /> : <MessageNoStories />}
+        {hasStories ? (
+          <TravellerStories stories={traveller.savedArticles} />
+        ) : (
+          <MessageNoStories text={text} buttonText={buttonText} />
+        )}
       </Section>
     </>
   );

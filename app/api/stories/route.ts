@@ -39,6 +39,36 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: Request) {
-  return NextResponse.json({ message: 'Story created' });
+export async function POST(req: NextRequest) {
+  try {
+    const formData = await req.formData();
+    const apiRes = await api.post('/stories', formData, {
+      headers: {
+        'Content-Type': req.headers.get('Content-Type'),
+        Cookie: req.headers.get('cookie') || '',
+      },
+    });
+
+    return NextResponse.json(apiRes.data, {
+      status: apiRes.status,
+    });
+  } catch (error) {
+    if (isAxiosError(error)) {
+      if (error.response?.status === 400) {
+        return NextResponse.json(error.response.data.validation.body, { status: 400 });
+      }
+
+      return NextResponse.json(
+        {
+          error: error.response?.data?.error || error.message,
+          message: error.response?.data?.message,
+        },
+        {
+          status: error.response?.status || 500,
+        }
+      );
+    }
+
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }
