@@ -1,4 +1,4 @@
-import { Story } from '@/types/story';
+import { IStory } from '@/types/story';
 import axios from 'axios';
 import { Story as SingleStory } from './types/stories';
 import { ICategory } from '@/types/category';
@@ -11,7 +11,7 @@ export type StoriesResponse = {
   perPage: number;
   totalStories: number;
   totalPages: number;
-  stories: Story[];
+  stories: IStory[];
 };
 
 export type LoginPayload = {
@@ -58,4 +58,9 @@ export const getStories = async (page: number, perPage: number): Promise<Stories
 
 export const toggleFavorite = async (storyId: string): Promise<void> => {
   await api.post('/users/bookmark', { storyId });
+};
+
+export const getPopularStories = async (): Promise<IStory[]> => {
+  const { data } = await api.get<IStory[]>('/stories/popular');
+  return data;
 };

@@ -1,10 +1,12 @@
 import { create } from 'zustand';
 import type { AuthUser } from '../api/types/auth-user';
 
+type User = AuthUser | AuthenticatedUser;
+
 type AuthState = {
   isAuthenticated: boolean;
-  user: AuthUser | null;
-  setUser: (user: AuthUser) => void;
+  user: User | null;
+  setUser: (user: User) => void;
   clearUser: () => void;
 };
 

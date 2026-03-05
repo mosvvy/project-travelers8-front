@@ -26,7 +26,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1440px;
+  min-width: 320px;
+  max-width: 375px;
   height: 72px;
   padding: 0 64px;
   margin: 0 auto;
@@ -287,8 +288,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000000;
-  transition: color 0.3s ease;
+  stroke: #000000;
+  fill: currentColor;
+  transition:
+    stroke 0.3s ease,
+    fill 0.3s ease;
 }
 
 .logoutBtn svg {
@@ -296,11 +300,13 @@
 }
 
 .header.heroHeader .logoutBtn {
-  color: #ffffff;
+  stroke: #ffffff;
+  fill: #ffffff;
 }
 
 .logoutBtn:hover {
-  color: #4169e1;
+  stroke: #4169e1;
+  fill: #4169e1;
 }
 
 .publishBtnTablet {
@@ -360,6 +366,7 @@
 .header.heroHeader .burgerBtn {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  stroke: var(--color-white);
 }
 
 .burgerBtn:hover,
@@ -407,6 +414,7 @@
 
 @media screen and (min-width: 1440px) {
   .container {
+    max-width: 1440px;
     padding: 0 64px;
   }
 
@@ -425,6 +433,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1439px) {
   .container {
+    max-width: 768px;
     padding: 0 32px;
   }
 
@@ -445,6 +454,8 @@
 @media screen and (max-width: 767px) {
   .container {
     padding: 0 20px;
+    min-width: 320px;
+    max-width: 375px;
   }
 
   .headerRight {

@@ -3,7 +3,7 @@ import OurTravellers from '@/components/OurTravellers/OurTravellers';
 import Join from '@/components/Join/Join';
 import css from './page.module.css';
 import About from '../components/About/About';
-import PopularStories from '@/components/PopularStories/PopularStories';
+import PopularStories from '../components/PopularStories/PopularStories';
 
 export default function HomePage() {
   return (
