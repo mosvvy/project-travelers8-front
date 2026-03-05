@@ -6,6 +6,7 @@ const PROXY_URL = process.env.VERCEL_URL ?? 'localhost:3001';
 
 const api = axios.create({
   baseURL: `${PROTOCOL}://${PROXY_URL}/api`,
+  withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -36,4 +37,15 @@ export const fetchStory = async (storyId: string): Promise<SingleStory> => {
   const { data } = await api.get<SingleStory>(`/stories/${storyId}`);
 
   return data;
+};
+
+export const createStory = async (data: FormData) => {
+  console.log('Creating story with data:', data);
+  const res = await api.post('/stories', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return res.data;
 };

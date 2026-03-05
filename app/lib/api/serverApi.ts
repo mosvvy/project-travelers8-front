@@ -1,4 +1,4 @@
-import { Story,IStory,
+import {IStory,
   IStoryByIdResponse,
   PaginatedStoriesResponse, } from "@/types/story";
 import { User } from "@/types/user";
@@ -10,7 +10,7 @@ export const apiServer = axios.create({
 });
 
 export type StoriesListResponse = {
-  data: Story[];
+  data: IStory[];
   pagination: {
     page: number;
     limit: number;
@@ -54,7 +54,7 @@ export async function getUsersServer(page = 1, limit = 4) {
 
 
 export interface StoryDetailResponse {
-  data: Story;
+  data: IStory;
   isSaved: boolean;
 }
 

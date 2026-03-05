@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import css from './Button.module.css';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
   children: React.ReactNode;
   fullWidth?: boolean;
@@ -37,6 +37,3 @@ const Button = ({
 };
 
 export default Button;
-
-
-
