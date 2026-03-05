@@ -34,6 +34,14 @@ export const checkSession = async (): Promise<boolean> => {
   return data.success;
 };
 
+export const logout = async () => {
+  const {
+    data: { success },
+  } = await api.post('/auth/logout');
+  
+  return !!success;
+};
+
 export const createStory = async (data: FormData) => {
   console.log('Creating story with data:', data);
   const res = await api.post('/stories', data, {
