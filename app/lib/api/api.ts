@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const api = axios.create({
-  baseURL:   process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
 export const nextServer = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + '/api',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
 
@@ -18,7 +18,6 @@ export interface StoryPayload {
 export type CreateStoryResponse = {
   _id: string;
 };
-
 
 export const getStoryById = async (id: string) => {
   const { data } = await api.get(`/stories/${id}`);
@@ -33,7 +32,6 @@ export const createStory = async (data: FormData) => {
   });
   return res.data;
 };
-
 
 export interface StoryResponse {
   _id: string;
@@ -53,12 +51,8 @@ export interface StoryResponse {
   favoriteCount: number;
 }
 
-export async function getStory(
-  storyId: string
-): Promise<StoryResponse> {
-  const { data } = await api.get<StoryResponse>(
-    `/stories/${storyId}`
-  );
+export async function getStory(storyId: string): Promise<StoryResponse> {
+  const { data } = await api.get<StoryResponse>(`/stories/${storyId}`);
 
   return data;
 }
@@ -66,13 +60,9 @@ export async function updateStory(
   storyId: string,
   formData: FormData
 ): Promise<CreateStoryResponse> {
-  const { data } = await api.patch<CreateStoryResponse>(
-    `/stories/${storyId}`,
-    formData,
-    {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    }
-  );
+  const { data } = await api.patch<CreateStoryResponse>(`/stories/${storyId}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
 
   return data;
 }
