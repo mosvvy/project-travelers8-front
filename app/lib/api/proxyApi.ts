@@ -1,10 +1,14 @@
 import axios from 'axios';
 import type { AuthResponse } from './types/auth-response';
 import type { RegisterPayload } from './types/register-payload';
+import type { Story as SingleStory } from './types/stories';
 import { AuthUser, AuthUserRaw } from './types/auth-user';
 
+const PROTOCOL = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+const PROXY_URL = process.env.VERCEL_URL ?? 'localhost:3001';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: `${PROTOCOL}://${PROXY_URL}/api`,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -14,7 +18,7 @@ type LoginPayload = {
   password: string;
 };
 
-export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
+export const login = async (payload: LoginPayload): Promise<AuthUser> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
 
   return toUser(data.user);
@@ -38,6 +42,12 @@ export const logout = async () => {
   } = await api.post('/auth/logout');
   
   return !!success;
+};
+
+export const fetchStory = async (storyId: string): Promise<SingleStory> => {
+  const { data } = await api.get<SingleStory>(`/stories/${storyId}`);
+
+  return data;
 };
 
 export const createStory = async (data: FormData) => {
