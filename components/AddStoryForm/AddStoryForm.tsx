@@ -2,10 +2,11 @@
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import Button from '@/components/Button/Button';
 import { useRouter } from 'next/navigation';
 import css from './AddStoryForm.module.css';
+import Modal from '@/components/Modal/Modal';
 
 export interface AddStoryFormProps {
   initialValues: AddStoryFormValues;
@@ -22,26 +23,33 @@ export interface AddStoryFormValues {
   title: string;
   category: string;
   article: string;
-  date: string;
+  date?: string;
 }
-
-const validationSchema = Yup.object({
-  img: Yup.mixed<File>().required('Поле обовʼязкове'),
-  title: Yup.string().required('Поле обовʼязкове'),
-  category: Yup.string().required('Поле обовʼязкове'),
-  article: Yup.string().required('Поле обовʼязкове'),
-});
 
 export default function AddStoryForm({
   initialValues,
   onSubmit,
   buttonText,
+  currentImage,
 }: AddStoryFormProps) {
   const fieldId = useId();
   const router = useRouter();
 
-  const [preview, setPreview] = useState<string>('');
+  const [preview, setPreview] = useState<string>(currentImage || '');
   const [isErrorOpen, setIsErrorOpen] = useState(false);
+
+  useEffect(() => {
+    setPreview(currentImage || '');
+  }, [currentImage]);
+
+  const validationSchema = Yup.object({
+    img: currentImage
+      ? Yup.mixed<File>().nullable()
+      : Yup.mixed<File>().required('Поле обовʼязкове'),
+    title: Yup.string().required('Поле обовʼязкове'),
+    category: Yup.string().required('Поле обовʼязкове'),
+    article: Yup.string().required('Поле обовʼязкове'),
+  });
 
   return (
     <>
@@ -51,27 +59,28 @@ export default function AddStoryForm({
         onSubmit={async (values, actions) => {
           try {
             await onSubmit(values, actions);
-            setPreview('');
+            setPreview(currentImage || '');
           } catch {
             setIsErrorOpen(true);
           } finally {
             actions.setSubmitting(false);
           }
         }}
+        enableReinitialize
         validateOnBlur
         validateOnChange
-        validateOnMount
       >
         {({ isSubmitting, isValid, dirty, setFieldValue, values }) => {
           const isSaveDisabled =
-            isSubmitting || !isValid || !dirty || !values.img;
+            isSubmitting ||
+            !isValid ||
+            (!dirty && !values.img);
 
           return (
             <Form className={css.form} noValidate>
               <div className={css.left}>
-                
+
                 {/* ОБКЛАДИНКА */}
-                
                 <div className={css.field}>
                   <label htmlFor={`${fieldId}-img`} className={css.label}>
                     Обкладинка статті
@@ -93,12 +102,16 @@ export default function AddStoryForm({
                     id={`${fieldId}-img`}
                     type="file"
                     accept="image/png,image/jpeg,image/webp"
-                    hidden
+                    className={css.fileInput}
                     disabled={isSubmitting}
                     onChange={(e) => {
                       const file = e.currentTarget.files?.[0] ?? null;
                       setFieldValue('img', file);
-                      setPreview(file ? URL.createObjectURL(file) : '');
+
+                      if (file) {
+                        const objectUrl = URL.createObjectURL(file);
+                        setPreview(objectUrl);
+                      }
                     }}
                   />
 
@@ -124,12 +137,10 @@ export default function AddStoryForm({
 
                 {/* ЗАГОЛОВОК */}
                 <div className={css.field}>
-                  <label
-                    htmlFor={`${fieldId}-title`}
-                    className={css.label}
-                  >
+                  <label htmlFor={`${fieldId}-title`} className={css.label}>
                     Заголовок
                   </label>
+
                   <Field
                     id={`${fieldId}-title`}
                     name="title"
@@ -137,6 +148,7 @@ export default function AddStoryForm({
                     placeholder="Введіть заголовок історії"
                     disabled={isSubmitting}
                   />
+
                   <ErrorMessage
                     name="title"
                     component="span"
@@ -146,23 +158,18 @@ export default function AddStoryForm({
 
                 {/* КАТЕГОРІЯ */}
                 <div className={css.field}>
-                  <label
-                    htmlFor={`${fieldId}-category`}
-                    className={css.label}
-                  >
+                  <label htmlFor={`${fieldId}-category`} className={css.label}>
                     Категорія
                   </label>
 
                   <Field
                     as="select"
-                    required
                     id={`${fieldId}-category`}
                     name="category"
                     className={css.select}
-                    placeholder="Категорія"
                     disabled={isSubmitting}
                   >
-                    <option value="" disabled hidden>
+                    <option value="" disabled>
                       Категорія
                     </option>
                     <option value="travel">Travel</option>
@@ -181,10 +188,7 @@ export default function AddStoryForm({
 
                 {/* ТЕКСТ */}
                 <div className={css.field}>
-                  <label
-                    htmlFor={`${fieldId}-article`}
-                    className={css.label}
-                  >
+                  <label htmlFor={`${fieldId}-article`} className={css.label}>
                     Текст історії
                   </label>
 
@@ -231,28 +235,19 @@ export default function AddStoryForm({
         }}
       </Formik>
 
+       {/* ГЛОБАЛЬНА МОДАЛКА */}
       {isErrorOpen && (
-        <div
-          className={css.modalOverlay}
-          onClick={() => setIsErrorOpen(false)}
-        >
-          <div
-            className={css.modal}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className={css.modalTitle}>Помилка збереження</h2>
-            <p className={css.modalText}>
-              Не вдалося зберегти історію. Спробуй ще раз.
-            </p>
-            <button
-              type="button"
-              className={css.modalButton}
-              onClick={() => setIsErrorOpen(false)}
-            >
-              Закрити
-            </button>
-          </div>
-        </div>
+        <Modal onClose={() => setIsErrorOpen(false)}>
+  <div className={css.errorModalWrapper}>
+    <div className={css.errorModalContent}>
+      <h2 className={css.errorModalTitle}>Помилка збереження</h2>
+      <p className={css.errorModalText}>Не вдалося зберегти історію. Спробуй ще раз.</p>
+      <Button type="button" variant="primary" onClick={() => setIsErrorOpen(false)}>
+        Закрити
+      </Button>
+    </div>
+  </div>
+</Modal>
       )}
     </>
   );

@@ -41,6 +41,30 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: Request) {
-  return NextResponse.json({ message: 'Story created' });
-}
+  try {
+    const formData = await request.formData();
 
+    const img = formData.get("img");
+    const title = formData.get("title");
+    const category = formData.get("category");
+    const article = formData.get("article");
+
+    // ⬇️ поки що просто згенеруємо fake id
+    const fakeId = crypto.randomUUID();
+
+    return NextResponse.json(
+      {
+        _id: fakeId,
+        title,
+        category,
+        article,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to create story" },
+      { status: 500 }
+    );
+  }
+}

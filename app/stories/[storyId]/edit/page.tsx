@@ -5,6 +5,7 @@ import css from './page.module.css';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { getStoryById, updateStory } from '@/app/lib/api/api';
+import type { StoryResponse } from '@/app/lib/api/api';
 import { useQueryClient } from "@tanstack/react-query";
 import { Story } from "@/types/story";
 
@@ -52,7 +53,9 @@ export default function EditStoryPage() {
     formData.append("title", values.title);
     formData.append("article", values.article);
     formData.append("category", values.category);
-    formData.append("date", values.date);
+    if (values.date) {
+  formData.append("date", values.date);
+}
 
     if (values.img) {
       formData.append("img", values.img);

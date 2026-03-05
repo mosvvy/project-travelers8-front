@@ -24,6 +24,10 @@ export default function CreateStoryPage() {
     formData.append('article', values.article);
 
     const res = await createStory(formData);
+    if (!res?._id) {
+    console.error('No _id returned:', res);
+    return;
+  }
     router.push(`/stories/${res._id}`);
   };
 
@@ -38,6 +42,7 @@ export default function CreateStoryPage() {
           buttonText="Створити історію"
         />
       </div>
+      
     </main>
   );
 }
