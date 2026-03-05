@@ -17,6 +17,10 @@ interface TravellersStoriesItemProps {
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
+  console.log(
+    'TravellersStoriesItem SOURCE:',
+    'components/TravellersStoriesItem/TravellersStoriesItem.tsx'
+  );
   const [isFavorite, setIsFavorite] = useState(story.isFavorite);
   const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +52,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
       <div className={css.storyImageWrapper}>
         <Image
           src={story.img || '/placeholder.jpg'}
-          alt={story.title}
+          alt={story.title || 'Story image'}
           fill
           className='object-cover object-center'
           sizes='(max-width: 768px) 335px, (max-width: 1024px) 340px, 421px'
