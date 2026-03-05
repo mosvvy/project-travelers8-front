@@ -1,34 +1,18 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { api } from '@/app/lib/api/api';
-import type { IStory } from '@/types/story';
+import { savedStories } from '@/app/lib/api/proxyApi';
 
 import TravellersStories from '@/components/TravellersStories/TravellersStories';
 import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
 
 const PER_PAGE = 6;
 
-type FavouriteResponse = {
-  page: number;
-  perPage: number;
-  totalItems: number;
-  totalPages: number;
-  stories: IStory[];
-};
-
-const fetchSavedStories = async ({ pageParam = 1 }): Promise<FavouriteResponse> => {
-  const { data } = await api.get<FavouriteResponse>('/stories/favourite', {
-    params: { page: pageParam, perPage: PER_PAGE },
-  });
-  return data;
-};
-
 export default function SavedStories() {
   const { data, fetchNextPage, hasNextPage, isLoading, isError, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: ['savedStories'],
-      queryFn: fetchSavedStories,
+      queryFn: ({ pageParam }) => savedStories(PER_PAGE, pageParam),
       initialPageParam: 1,
       getNextPageParam: lastPage =>
         lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
