@@ -22,22 +22,23 @@ export default function Modal({ onClose, children }: ModalProps) {
     };
 
     document.addEventListener('keydown', handleEscapeClick);
-    document.body.style.overflow = 'hidden';
 
     return () => {
       document.removeEventListener('keydown', handleEscapeClick);
-      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'auto';
     };
   }, [onClose]);
 
   return createPortal(
-    <div
-      onClick={handleBackdropClick}
-      className={css.backdrop}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className={css.modal}>{children}</div>
+    <div onClick={handleBackdropClick} className={css.backdrop} role='dialog' aria-modal='true'>
+      <div className={css.modal}>
+        <button type='button' className={css.closeBtn} onClick={onClose} aria-label='Close modal'>
+          <svg className={css.iconX}>
+            <use href='/sprite.svg#icon-close1' />
+          </svg>
+        </button>
+        {children}
+      </div>
     </div>,
     document.body
   );
