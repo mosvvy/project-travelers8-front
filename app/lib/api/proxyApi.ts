@@ -19,9 +19,11 @@ type LoginPayload = {
 };
 
 export const login = async (payload: LoginPayload): Promise<AuthUser> => {
-  const { data } = await api.post<AuthResponse>('/auth/login', payload);
+  const {
+    data: { user },
+  } = await api.post<AuthResponse>('/auth/login', payload);
 
-  return toUser(data.user);
+  return toUser(user);
 };
 
 export const getCurrentUser = async (): Promise<AuthUser> => {
@@ -40,7 +42,7 @@ export const logout = async () => {
   const {
     data: { success },
   } = await api.post('/auth/logout');
-  
+
   return !!success;
 };
 

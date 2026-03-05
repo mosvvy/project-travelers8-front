@@ -1,5 +1,5 @@
-import type { AuthUser } from './auth-user';
+import type { AuthUserRaw } from './auth-user';
 
 export type AuthResponse = {
-  user: AuthUser;
+  user: AuthUserRaw;
 };
