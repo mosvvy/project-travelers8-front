@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import css from './AddStoryForm.module.css';
 import Modal from '@/components/Modal/Modal';
 
+
 export interface AddStoryFormProps {
   initialValues: AddStoryFormValues;
   onSubmit: (
@@ -17,6 +18,7 @@ export interface AddStoryFormProps {
   buttonText: string;
   currentImage?: string;
 }
+
 
 export interface AddStoryFormValues {
   img: File | null;
@@ -56,6 +58,7 @@ export default function AddStoryForm({
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
+
         onSubmit={async (values, actions) => {
           try {
             await onSubmit(values, actions);

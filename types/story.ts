@@ -21,14 +21,16 @@ export interface CreateStoryFormValues {
 }
 export interface IStory {
   _id: string;
+
   img: string;
   title: string;
   article: string;
   category: {
     _id: string;
     name: string;
-  };
+  } | null;
   shortDescription: string;
+
   ownerId: {
     _id: string;
     name: string;
@@ -36,6 +38,7 @@ export interface IStory {
   };
   date: string;
   favoriteCount: number;
+  isFavorite?: boolean;
   createdAt: string;
   updatedAt: string;
    isFavorite?: boolean;

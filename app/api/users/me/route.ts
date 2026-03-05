@@ -1,23 +1,12 @@
-
 import { NextRequest, NextResponse } from 'next/server';
-import { api } from '../api';
+import { api } from '@/app/api/api';
 import { isAxiosError } from 'axios';
-import { logErrorResponse } from '../_utils/utils';
+import { logErrorResponse } from '@/app/api/_utils/utils';
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = request.nextUrl;
-    const page = Number(searchParams.get('page') ?? 1);
-    const perPage = Number(searchParams.get('perPage') ?? 12);
-    const rawCategory = searchParams.get('category') ?? '';
-    const category = rawCategory === 'All' ? '' : rawCategory;
-
-    const res = await api('/stories', {
-      params: {
-        page,
-        perPage,
-        ...(category && { category }),
-      },
+    const res = await api('/users/me', {
+      headers: { Cookie: request.headers.get('cookie') },
     });
 
     return NextResponse.json(res.data);
@@ -39,7 +28,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -72,6 +60,5 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-
   }
 }
