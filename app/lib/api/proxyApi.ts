@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthUser, AuthUserRaw } from './types/auth-user';
+import { AuthUser, AuthUserRaw } from '../../api/_types/auth-user';
 
 const api = axios.create({
   baseURL: '/api',
@@ -38,7 +38,7 @@ export const logout = async () => {
   const {
     data: { success },
   } = await api.post('/auth/logout');
-  
+
   return !!success;
 };
 

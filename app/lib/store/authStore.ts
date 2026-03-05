@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { AuthUser as AuthenticatedUser } from '@/app/lib/api/types/auth-user';
+import type { AuthUser as AuthenticatedUser } from '@/app/api/_types/auth-user';
 import type { AuthUser } from '../api/clientApi';
 import { getMe } from '../api/clientApi';
 
