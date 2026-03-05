@@ -46,6 +46,6 @@ export const toStoryType = (story: StoryRaw): Story => {
   return {
     ...restStory,
     id: _id,
-    ownerId: { name: ownerId.name, avatarUrl: ownerId.avatarUrl || '/image/default-avatar.png' },
+    ownerId: { name: ownerId.name, avatarUrl: ownerId.avatarUrl ?? '/images/default-avatar.png' },
   };
 };
