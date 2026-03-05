@@ -41,7 +41,7 @@ export interface IStory {
   isFavorite?: boolean;
   createdAt: string;
   updatedAt: string;
-   isFavorite?: boolean;
+
 }
 
 export interface IStoryByIdResponse {
