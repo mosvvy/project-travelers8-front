@@ -24,90 +24,98 @@ export default function StoriesPageClient({
   categories: ICategory[];
 }) {
   const [stories, setStories] = useState<IStory[]>([]);
+  const [total, setTotal] = useState(totalStories);
   const [perPage, setPerPage] = useState(getInitialPerPage);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const selectedCategoryName =
+    selectedCategory === null
+      ? 'Всі історії'
+      : (categories.find(c => c._id === selectedCategory)?.name ?? 'Всі історії');
 
   useEffect(() => {
     let cancelled = false;
 
     const fetchStories = async () => {
       setIsLoading(true);
-
       const url = new URL('https://project-travelers8-back.onrender.com/stories');
-
       url.searchParams.set('page', '1');
       url.searchParams.set('perPage', String(perPage));
-
-      if (selectedCategory) {
-        url.searchParams.set('category', selectedCategory);
-      }
+      if (selectedCategory) url.searchParams.set('category', selectedCategory);
 
       const res = await fetch(url.toString());
       const data = await res.json();
-
+      console.log(data);
       if (!cancelled) {
         setStories(data.stories);
+        setTotal(data.totalStories);
         setIsLoading(false);
       }
     };
 
     fetchStories();
-
     return () => {
       cancelled = true;
     };
   }, [perPage, selectedCategory]);
 
-  const handleLoadMore = () => {
-    setPerPage(prev => prev + LOAD_STEP);
-  };
+  useEffect(() => {
+    if (!isSelectOpen) return;
+    const close = () => setIsSelectOpen(false);
+    window.addEventListener('click', close);
+    return () => window.removeEventListener('click', close);
+  }, [isSelectOpen]);
+
+  const handleLoadMore = () => setPerPage(prev => prev + LOAD_STEP);
 
   const handleCategoryChange = (categoryId: string | null) => {
     setSelectedCategory(categoryId);
     setPerPage(getInitialPerPage());
-    setIsDropdownOpen(false);
+    setIsSelectOpen(false);
   };
 
-  useEffect(() => {
-    const close = () => setIsDropdownOpen(false);
-    window.addEventListener('click', close);
-    return () => window.removeEventListener('click', close);
-  }, []);
-
-  const hasMore = stories.length < totalStories;
-
-  const selectedCategoryName =
-    selectedCategory === null
-      ? 'Всі історії'
-      : categories.find(c => c._id === selectedCategory)?.name;
+  const hasMore = stories.length < total;
 
   return (
     <div className={css.storiesPageContainer}>
       <h2 className={css.storiesTitle}>Історії Мандрівників</h2>
 
-      <div className={css.mobileCategoryWrapper} onClick={e => e.stopPropagation()}>
-        <p className={css.mobileCategoryLabel}>Категорії</p>
+      <div
+        className={css.selectWrapper}
+        role='combobox'
+        aria-controls='category-listbox'
+        aria-haspopup='listbox'
+        aria-expanded={isSelectOpen}
+        onClick={e => e.stopPropagation()}
+      >
         <button
-          className={css.mobileCategoryButton}
-          onClick={() => setIsDropdownOpen(prev => !prev)}
+          className={`${css.mobileCategoryButton} ${isSelectOpen ? css.open : ''}`}
+          onClick={() => setIsSelectOpen(prev => !prev)}
         >
           {selectedCategoryName}
+          <svg
+            className={`${css.selectArrow} ${isSelectOpen ? css.selectArrowOpen : ''}`}
+            width='24'
+            height='24'
+          >
+            <use href='/icons/sprite.svg#icon-keyboard_arrow_down' />
+          </svg>
         </button>
 
-        <ul className={`${css.mobileDropdown} ${isDropdownOpen ? css.dropdownOpen : ''}`}>
-          <li>
-            <button onClick={() => handleCategoryChange(null)}>Всі історії</button>
-          </li>
-
-          {categories.map(cat => (
-            <li key={cat._id}>
-              <button onClick={() => handleCategoryChange(cat._id)}>{cat.name}</button>
+        {isSelectOpen && (
+          <ul className={css.mobileDropdown} role='listbox'>
+            <li role='option' aria-selected={selectedCategory === null}>
+              <button onClick={() => handleCategoryChange(null)}>Всі історії</button>
             </li>
-          ))}
-        </ul>
+            {categories.map(cat => (
+              <li key={cat._id} role='option' aria-selected={selectedCategory === cat._id}>
+                <button onClick={() => handleCategoryChange(cat._id)}>{cat.name}</button>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <ul className={css.categoriesList}>
@@ -119,7 +127,6 @@ export default function StoriesPageClient({
             Всі історії
           </button>
         </li>
-
         {categories.slice(0, 4).map(cat => (
           <li className={css.categoryItem} key={cat._id}>
             <button

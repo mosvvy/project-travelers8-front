@@ -8,7 +8,6 @@ import Button from '../Button/Button';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-
 import { useAuthStore } from '@/app/lib/store/authStore';
 import { toggleFavorite } from '@/app/lib/api/clientApi';
 
@@ -21,17 +20,14 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
   const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
   const [isLoading, setIsLoading] = useState(false);
 
-  //const { isAuth, openAuthModal } = useAuthStore();
-  const isAuth = useAuthStore(state => state.isAuthenticated);
-  const openAuthModal = () => {
-    window.dispatchEvent(new Event('open-auth-modal'));
-  };
+  //const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+  //const openAuthModal = useAuthStore(state => state.openAuthModal);
 
   const handleFavoriteClick = async () => {
-    if (!isAuth) {
-      openAuthModal();
-      return;
-    }
+    //if (!isAuthenticated) {
+    //  openAuthModal();
+    //  return;
+    //}
 
     try {
       setIsLoading(true);
@@ -50,7 +46,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
     <li key={story._id} className={css.storyCard}>
       <div className={css.storyImageWrapper}>
         <Image
-          src={story.img}
+          src={story.img || '/placeholder.jpg'}
           alt={story.title}
           fill
           className='object-cover object-center'
@@ -70,7 +66,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
         <div className={css.storyFooter}>
           <div className={css.authorInfo}>
             <Image
-              src={story.ownerId.avatarUrl}
+              src={story.ownerId.avatarUrl || '/images/default-avatar.png'}
               alt={story.ownerId.name}
               width={48}
               height={48}
