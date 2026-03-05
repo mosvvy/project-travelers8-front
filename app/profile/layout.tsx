@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useAuthStore } from '@/lib/store/authStore';
+import { useAuthStore } from '@/app/lib/store/authStore';
 import TravellerInfo from '@/components/TravellerInfo/TravellerInfo';
 import PageToggle from '@/components/PageToggle/PageToggle';
 import { getMe } from '../lib/api/clientApi';
