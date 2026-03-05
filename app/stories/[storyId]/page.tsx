@@ -1,4 +1,4 @@
-import { fetchStory } from '@/app/lib/api/clientApi';
+import { fetchStory } from '@/app/lib/api/proxyApi';
 import Section from '@/components/Section/Section';
 import Story from '@/components/Story/Story';
 import css from './page.module.css';
