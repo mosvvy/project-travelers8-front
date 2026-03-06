@@ -35,6 +35,7 @@ export type AuthUser = {
 export type AuthResponse = {
   user: AuthUser;
 };
+
 type MeResponse = {
   _id: string;
   name: string;
@@ -46,13 +47,15 @@ type MeResponse = {
   avatarUrl?: string;
   description?: string;
 };
+
 export const fetchCategories = async (): Promise<ICategory[]> => {
   const { data } = await nextServer.get('/categories');
   return data.data;
 };
+
 type GetStoryResponse = SingleStory;
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -72,7 +75,6 @@ export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
 
 export const fetchStory = async (storyId: string): Promise<GetStoryResponse> => {
   const { data } = await api.get<GetStoryResponse>(`/stories/${storyId}`);
-
   return data;
 };
 
@@ -84,7 +86,7 @@ export const getStories = async (page: number, perPage: number): Promise<Stories
 };
 
 export const toggleFavorite = async (storyId: string): Promise<void> => {
-  await api.post('/users/bookmark', { storyId });
+  await nextServer.post('/users/bookmark', { storyId });
 };
 
 export const getPopularStories = async (): Promise<IStory[]> => {
@@ -93,7 +95,9 @@ export const getPopularStories = async (): Promise<IStory[]> => {
 };
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await api.get<MeResponse>('/users/me');
+  const { data } = await axios.get<MeResponse>('/api/users/me', {
+    withCredentials: true,
+  });
 
   return {
     _id: data._id,
@@ -109,6 +113,6 @@ export const getMe = async (): Promise<User> => {
 };
 
 export const getCategories = async () => {
-  const response = await api.get('/categories');
+  const response = await nextServer.get('/categories');
   return response.data;
 };

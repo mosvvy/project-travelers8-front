@@ -17,12 +17,8 @@ interface TravellersStoriesItemProps {
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
-  console.log(
-    'TravellersStoriesItem SOURCE:',
-    'components/TravellersStoriesItem/TravellersStoriesItem.tsx'
-  );
   const [isFavorite, setIsFavorite] = useState(story.isFavorite);
-  const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
+  const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount ?? 0);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -36,9 +32,15 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
 
     try {
       setIsLoading(true);
+
       await toggleFavorite(story._id);
-      setIsFavorite(prev => !prev);
-      setFavoriteCount(prev => (isFavorite ? prev - 1 : prev + 1));
+
+      const nextIsFavorite = !isFavorite;
+
+      setIsFavorite(nextIsFavorite);
+      setFavoriteCount(prev => (nextIsFavorite ? prev + 1 : Math.max(0, prev - 1)));
+
+      toast.success(nextIsFavorite ? 'Додано до збережених' : 'Видалено зі збережених');
     } catch (error) {
       console.error(error);
       toast.error('Не вдалося оновити збережені. Спробуйте ще раз.');
@@ -49,7 +51,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
 
   return (
     <>
-      <li key={story._id} className={css.storyCard}>
+      <li className={css.storyCard}>
         <div className={css.storyImageWrapper}>
           <Image
             src={story.img || '/placeholder.jpg'}
@@ -71,13 +73,15 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
             <div className={css.authorInfo}>
               <Image
                 src={story.ownerId.avatarUrl || '/images/default-avatar.png'}
-                alt={story.ownerId.name}
+                alt={story.ownerId.name || 'Author avatar'}
                 width={48}
                 height={48}
                 style={{ borderRadius: '50%', objectFit: 'cover' }}
               />
+
               <div className={css.authorDetails}>
                 <p className={css.authorName}>{story.ownerId.name}</p>
+
                 <div className={css.storyMeta}>
                   <p className={css.publishedAt}>{story.date}</p>
                   <span className={css.metaSeparator}></span>
@@ -97,6 +101,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
               >
                 Переглянути статтю
               </Link>
+
               <Button
                 className={`${css.favoriteButton} ${isFavorite ? css.favoriteButtonActive : ''}`}
                 variant='secondary'

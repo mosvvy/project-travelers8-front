@@ -1,13 +1,6 @@
-import {IStory,
-  IStoryByIdResponse,
-  PaginatedStoriesResponse, } from "@/types/story";
-import { User } from "@/types/user";
-import axios from "axios";
+import { IStory, IStoryByIdResponse } from '@/types/story';
+import { User } from '@/types/user';
 import { nextServer } from './api';
-
-export const apiServer = axios.create({
-  
-});
 
 export type StoriesListResponse = {
   data: IStory[];
@@ -18,21 +11,22 @@ export type StoriesListResponse = {
     totalPages: number;
   };
 };
+
 export const fetchStoryById = async (storyId: string): Promise<IStory> => {
-  const { data } = await nextServer.get<IStoryByIdResponse>(
-    `/stories/${storyId}`
-  );
+  const { data } = await nextServer.get<IStoryByIdResponse>(`/stories/${storyId}`);
+
   return data.data;
 };
 
 export const getTopStoriesServer = async (limit = 3) => {
-  const res = await apiServer.get<StoriesListResponse>("/stories", {
+  const res = await nextServer.get<StoriesListResponse>('/stories', {
     params: {
       page: 1,
       limit,
-      sortBy: "popular",
+      sortBy: 'popular',
     },
   });
+
   return res.data;
 };
 
@@ -42,7 +36,7 @@ export type GetUsersResponse = {
 };
 
 export async function getUsersServer(page = 1, limit = 4) {
-  const res = await apiServer.get<GetUsersResponse>("/users", {
+  const res = await nextServer.get<GetUsersResponse>('/users', {
     params: {
       page,
       limit,
@@ -52,16 +46,13 @@ export async function getUsersServer(page = 1, limit = 4) {
   return res.data;
 }
 
-
 export interface StoryDetailResponse {
   data: IStory;
   isSaved: boolean;
 }
 
 export async function getStoryByIdServer(storyId: string) {
-  const { data } = await apiServer.get<StoryDetailResponse>(
-    `/stories/${storyId}`,
-  );
+  const { data } = await nextServer.get<StoryDetailResponse>(`/stories/${storyId}`);
 
   return data;
 }
