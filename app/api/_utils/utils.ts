@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers';
-import { parse } from 'cookie';
+import { Story, IStory } from '@/types/story';
+import type { StoryRaw } from '@/app/api/_types/story';
 
 export function logErrorResponse(errorObj: unknown): void {
   const green = '\x1b[32m';
@@ -10,32 +10,33 @@ export function logErrorResponse(errorObj: unknown): void {
   console.dir(errorObj, { depth: null, colors: true });
 }
 
-type CookiesHeader = string | string[] | undefined;
+export const convertToIStory = (story: Story): IStory => ({
+  _id: story._id,
+  img: story.img,
+  title: story.title,
+  article: story.article,
+  shortDescription: story.article.slice(0, 100),
+  category:
+    typeof story.category === 'string'
+      ? { _id: story.category, name: story.category }
+      : story.category,
+  ownerId:
+    typeof story.ownerId === 'string'
+      ? { _id: story.ownerId, name: 'Unknown', avatarUrl: '' }
+      : story.ownerId,
+  date: story.date,
+  favoriteCount: story.favoriteCount,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+});
 
-export const setCookies = async (cookiesHeader: CookiesHeader): Promise<boolean> => {
-  if (cookiesHeader) {
-    const cookieArray = Array.isArray(cookiesHeader) ? cookiesHeader : [cookiesHeader];
-
-    for (const cookieString of cookieArray) {
-      const cookieStore = await cookies();
-      const [nameValue] = cookieString.split(';');
-      const [name, value] = nameValue.split('=');
-      const parsedCookies = parse(cookieString);
-      //httpOnly: true та sameSite: 'lax' захищає токени від XSS атак
-      cookieStore.set({
-        name,
-        value,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: parsedCookies.Path || '/',
-        maxAge: Number(parsedCookies['Max-Age']),
-        expires: parsedCookies.Expires ? new Date(parsedCookies.Expires) : undefined,
-      });
-    }
-
-    return true;
-  }
-
-  return false;
-};
+export const toStoryType = (story: StoryRaw): Story => ({
+  _id: story._id,
+  img: story.img,
+  title: story.title,
+  article: story.article,
+  category: typeof story.category === 'string' ? story.category : story.category.name,
+  ownerId: typeof story.ownerId === 'string' ? story.ownerId : story.ownerId.name,
+  date: story.date,
+  favoriteCount: story.favoriteCount,
+});

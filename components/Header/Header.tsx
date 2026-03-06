@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import css from './Header.module.css';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 import { useAuthStore } from '@/app/lib/store/authStore';
+import { logout } from '@/app/lib/api/proxyApi';
 import Logo from '../Logo/Logo';
 import Image from 'next/image';
 
@@ -20,8 +21,10 @@ const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  const handleLogout = () => {
-    clearUser();
+  const handleLogout = async () => {
+    if (await logout()) {
+      clearUser();
+    }
   };
 
   useEffect(() => {

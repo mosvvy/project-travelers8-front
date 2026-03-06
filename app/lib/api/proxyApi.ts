@@ -1,4 +1,8 @@
 import axios from 'axios';
+import type { Story as SingleStory, Story } from './types/stories';
+import type { IStory } from '@/types/story';
+import { AuthUser, AuthUserRaw } from '@/app/api/_types/auth-user';
+import { PaginatedResponse } from '@/app/api/_types/paginated-response';
 
 const api = axios.create({
   baseURL: '/api',
@@ -11,20 +15,38 @@ type LoginPayload = {
   password: string;
 };
 
-type AuthUser = {
-  id?: string;
-  _id?: string;
-  name: string;
-  email: string;
-  avatarUrl?: string;
-};
-
 type AuthResponse = {
-  user: AuthUser;
+  user: AuthUserRaw;
 };
 
-export const login = async (payload: LoginPayload): Promise<AuthResponse> => {
+export const login = async (payload: LoginPayload): Promise<AuthUser> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
+
+  return toUser(data.user);
+};
+
+export const getCurrentUser = async (): Promise<AuthUser> => {
+  const { data } = await api.get<AuthUserRaw>('/users/me');
+
+  return toUser(data);
+};
+
+export const checkSession = async (): Promise<boolean> => {
+  const { data } = await api.post<{ success: boolean }>('/auth/refresh');
+
+  return data.success;
+};
+
+export const logout = async () => {
+  const {
+    data: { success },
+  } = await api.post('/auth/logout');
+
+  return !!success;
+};
+
+export const fetchStory = async (storyId: string): Promise<SingleStory> => {
+  const { data } = await api.get<SingleStory>(`/stories/${storyId}`);
 
   return data;
 };
@@ -38,4 +60,32 @@ export const createStory = async (data: FormData) => {
   });
 
   return res.data;
+};
+
+export const ownStories = async (
+  pageSize: number,
+  page: number
+): Promise<PaginatedResponse<'stories', IStory>> => {
+  const res = await api.get<PaginatedResponse<'stories', IStory>>('/stories/own', {
+    params: { page, perPage: pageSize },
+  });
+
+  return res.data;
+};
+
+export const savedStories = async (
+  pageSize: number,
+  page: number
+): Promise<PaginatedResponse<'stories', IStory>> => {
+  const res = await api.get<PaginatedResponse<'stories', IStory>>('/stories/saved', {
+    params: { page, perPage: pageSize },
+  });
+
+  return res.data;
+};
+
+const toUser = (user: AuthUserRaw): AuthUser => {
+  const { _id, avatarUrl, ...restUser } = user;
+
+  return { ...restUser, id: _id, avatarUrl: avatarUrl ?? '/images/default-avatar.png' };
 };

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Story as SingleStory } from './types/stories';
 import { ICategory } from '@/types/category';
 import { nextServer } from './api';
+import { User } from '@/types/user';
 
 export type StoriesResponse = {
   page: number;
@@ -34,7 +35,17 @@ export type AuthUser = {
 export type AuthResponse = {
   user: AuthUser;
 };
-
+type MeResponse = {
+  _id: string;
+  name: string;
+  email: string;
+  articlesAmount: number;
+  savedArticles: string[];
+  createdAt: string;
+  updatedAt: string;
+  avatarUrl?: string;
+  description?: string;
+};
 export const fetchCategories = async (): Promise<ICategory[]> => {
   const { data } = await nextServer.get('/categories');
   return data.data;
@@ -79,4 +90,25 @@ export const toggleFavorite = async (storyId: string): Promise<void> => {
 export const getPopularStories = async (): Promise<IStory[]> => {
   const { data } = await api.get<IStory[]>('/stories/popular');
   return data;
+};
+
+export const getMe = async (): Promise<User> => {
+  const { data } = await api.get<MeResponse>('/users/me');
+
+  return {
+    _id: data._id,
+    name: data.name,
+    email: data.email,
+    avatarUrl: data.avatarUrl ?? '',
+    description: data.description ?? '',
+    articlesAmount: data.articlesAmount ?? 0,
+    savedArticles: data.savedArticles ?? [],
+    createdAt: data.createdAt,
+    updatedAt: data.updatedAt,
+  };
+};
+
+export const getCategories = async () => {
+  const response = await api.get('/categories');
+  return response.data;
 };

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../../api';
 import { cookies } from 'next/headers';
 import { isAxiosError } from 'axios';
-import { setCookies } from '../../_utils/utils';
+import { setCookies } from '../../_utils/serverCookies';
 
 export async function POST() {
   try {
