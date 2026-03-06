@@ -93,7 +93,9 @@ export const getPopularStories = async (): Promise<IStory[]> => {
 };
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await api.get<MeResponse>('/users/me');
+  const { data } = await axios.get<MeResponse>('/api/users/me', {
+    withCredentials: true,
+  });
 
   return {
     _id: data._id,
