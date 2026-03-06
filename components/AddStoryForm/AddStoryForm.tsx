@@ -7,10 +7,16 @@ import Button from '@/components/Button/Button';
 import { useRouter } from 'next/navigation';
 import css from './AddStoryForm.module.css';
 import Modal from '@/components/Modal/Modal';
+import { useQuery } from '@tanstack/react-query';
+import { getCategories } from '@/app/lib/api/clientApi'; 
+import { createStory } from '@/app/lib/api/proxyApi';
 
 
 export interface AddStoryFormProps {
+   storyId?: string;
+  initialData?: AddStoryFormValues;
   initialValues: AddStoryFormValues;
+
   onSubmit: (
     values: AddStoryFormValues,
     actions: FormikHelpers<AddStoryFormValues>
@@ -28,21 +34,47 @@ export interface AddStoryFormValues {
   date?: string;
 }
 
-export default function AddStoryForm({
-  initialValues,
+export default function AddStoryForm({ storyId, initialData, initialValues,
   onSubmit,
   buttonText,
-  currentImage,
-}: AddStoryFormProps) {
+  currentImage,}: AddStoryFormProps) {
   const fieldId = useId();
   const router = useRouter();
 
-  const [preview, setPreview] = useState<string>(currentImage || '');
+  const [preview, setPreview] = useState<string>('');
   const [isErrorOpen, setIsErrorOpen] = useState(false);
+  const { data: categoriesData } = useQuery({
+    queryKey: ['categories'],
+    queryFn: getCategories,
+  });
 
-  useEffect(() => {
-    setPreview(currentImage || '');
-  }, [currentImage]);
+  const categoriesList = Array.isArray(categoriesData)
+    ? categoriesData
+    : (categoriesData as any)?.data || [];
+
+  const handleSubmit = async (
+    values: AddStoryFormValues,
+    actions: FormikHelpers<AddStoryFormValues>
+  ) => {
+    try {
+      const formData = new FormData();
+      if (values.img) formData.append('img', values.img);
+      formData.append('title', values.title);
+      formData.append('category', values.category);
+      formData.append('article', values.article);
+
+      const res = await createStory(formData);
+
+      router.push(`/stories/${res._id}`);
+      actions.resetForm();
+      setPreview('');
+    } catch {
+      setIsErrorOpen(true);
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
+
 
   const validationSchema = Yup.object({
     img: currentImage
@@ -53,6 +85,45 @@ export default function AddStoryForm({
     article: Yup.string().required('Поле обовʼязкове'),
   });
 
+
+  const categories = [
+    {
+      _id: '68fb50c80ae91338641121f2',
+      name: 'Європа',
+    },
+    {
+      _id: '68fb50c80ae91338641121f0',
+      name: 'Азія',
+    },
+    {
+      _id: '68fb50c80ae91338641121f3',
+      name: 'Америка',
+    },
+    {
+      _id: '68fb50c80ae91338641121f4',
+      name: 'Африка',
+    },
+    {
+      _id: '68fb50c80ae91338641121f7',
+      name: 'Балкани',
+    },
+    {
+      _id: '68fb50c80ae91338641121f1',
+      name: 'Гори',
+    },
+    {
+      _id: '68fb50c80ae91338641121f8',
+      name: 'Кавказ',
+    },
+    {
+      _id: '68fb50c80ae91338641121f9',
+      name: 'Океанія',
+    },
+    {
+      _id: '68fb50c80ae91338641121f6',
+      name: 'Пустелі',
+    },
+  ];
   return (
     <>
       <Formik
@@ -175,11 +246,11 @@ export default function AddStoryForm({
                     <option value="" disabled>
                       Категорія
                     </option>
-                    <option value="travel">Travel</option>
-                    <option value="city">City</option>
-                    <option value="nature">Nature</option>
-                    <option value="food">Food</option>
-                    <option value="other">Other</option>
+                    {categories.map((cat) => (
+    <option key={cat._id} value={cat._id}>
+      {cat.name}
+    </option>
+  ))}
                   </Field>
 
                   <ErrorMessage
