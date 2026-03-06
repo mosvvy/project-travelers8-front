@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { Story as SingleStory, Story } from './types/stories';
-import { AuthUser, AuthUserRaw } from './types/auth-user';
+import { AuthUser, AuthUserRaw } from '@/app/api/_types/auth-user';
 import { PaginatedResponse } from '@/app/api/_types/paginated-response';
 
 const api = axios.create({
