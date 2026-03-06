@@ -1,5 +1,5 @@
-import { Story, IStory } from '@/types/story';
-import type { StoryRaw } from '@/app/api/_types/story';
+import type { IStory } from '@/types/story';
+import type { Story, StoryRaw } from '@/app/api/_types/story';
 
 export function logErrorResponse(errorObj: unknown): void {
   const green = '\x1b[32m';
@@ -16,16 +16,18 @@ export const convertToIStory = (story: Story): IStory => ({
   title: story.title,
   article: story.article,
   shortDescription: story.article.slice(0, 100),
-  category:
-    typeof story.category === 'string'
-      ? { _id: story.category, name: story.category }
-      : story.category,
-  ownerId:
-    typeof story.ownerId === 'string'
-      ? { _id: story.ownerId, name: 'Unknown', avatarUrl: '' }
-      : story.ownerId,
+  category: {
+    _id: story.category._id,
+    name: story.category.name,
+  },
+  ownerId: {
+    _id: story.ownerId._id,
+    name: story.ownerId.name,
+    avatarUrl: story.ownerId.avatarUrl || '/images/default-avatar.png',
+  },
   date: story.date,
   favoriteCount: story.favoriteCount,
+  isFavorite: false,
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
 });
@@ -35,8 +37,15 @@ export const toStoryType = (story: StoryRaw): Story => ({
   img: story.img,
   title: story.title,
   article: story.article,
-  category: typeof story.category === 'string' ? story.category : story.category.name,
-  ownerId: typeof story.ownerId === 'string' ? story.ownerId : story.ownerId.name,
+  category: {
+    _id: story.category._id,
+    name: story.category.name,
+  },
+  ownerId: {
+    _id: story.ownerId._id ?? '',
+    name: story.ownerId.name,
+    avatarUrl: story.ownerId.avatarUrl ?? '/images/default-avatar.png',
+  },
   date: story.date,
   favoriteCount: story.favoriteCount,
 });
