@@ -1,0 +1,76 @@
+.closeButton {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.closeIcon {
+  stroke: var(--color-neutral-darkest, #000);
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
+  .closeIcon {
+    stroke: var(--color-royal-blue-light, #7a96ea);
+  }
+}
+
+.title {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.message {
+  margin-top: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.buttons {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .message {
+    line-height: 1.5;
+  }
+
+  .loginButton,
+  .registerButton {
+    width: 203px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .title {
+    font-size: 48px;
+  }
+
+  .message {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+}
