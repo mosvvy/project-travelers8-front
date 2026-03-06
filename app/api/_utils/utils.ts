@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import type { StoryRaw, Story } from '../_types/story';
+=======
+import { Story, IStory } from '@/types/story';
+
+>>>>>>> main
 
 export function logErrorResponse(errorObj: unknown): void {
   const green = '\x1b[32m';
@@ -11,12 +16,26 @@ export function logErrorResponse(errorObj: unknown): void {
   console.dir(errorObj, { depth: null, colors: true });
 }
 
-type CookiesHeader = string | string[] | undefined;
+export const convertToIStory = (story: Story): IStory => ({
+  _id: story._id,
+  img: story.img,
+  title: story.title,
+  article: story.article,
+  shortDescription: story.article.slice(0, 100),
+  category: typeof story.category === 'string' 
+    ? { _id: story.category, name: story.category } 
+    : story.category,
+  ownerId: typeof story.ownerId === 'string' 
+    ? { _id: story.ownerId, name: 'Unknown', avatarUrl: '' } 
+    : story.ownerId,
+  date: story.date,
+  favoriteCount: story.favoriteCount,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+});
 
-export const setCookies = async (cookiesHeader: CookiesHeader): Promise<boolean> => {
-  if (cookiesHeader) {
-    const cookieArray = Array.isArray(cookiesHeader) ? cookiesHeader : [cookiesHeader];
 
+<<<<<<< HEAD
     for (const cookieString of cookieArray) {
       const cookieStore = await cookies();
       const [nameValue] = cookieString.split(';');
@@ -49,3 +68,5 @@ export const toStoryType = (story: StoryRaw): Story => {
     ownerId: { name: ownerId.name, avatarUrl: ownerId.avatarUrl ?? '/images/default-avatar.png' },
   };
 };
+=======
+>>>>>>> main

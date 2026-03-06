@@ -91,6 +91,7 @@ export const getPopularStories = async (): Promise<IStory[]> => {
   const { data } = await api.get<IStory[]>('/stories/popular');
   return data;
 };
+
 export const getMe = async (): Promise<User> => {
   const { data } = await api.get<MeResponse>('/users/me');
 
@@ -105,4 +106,9 @@ export const getMe = async (): Promise<User> => {
     createdAt: data.createdAt,
     updatedAt: data.updatedAt,
   };
+};
+
+export const getCategories = async () => {
+  const response = await api.get('/categories');
+  return response.data;
 };
