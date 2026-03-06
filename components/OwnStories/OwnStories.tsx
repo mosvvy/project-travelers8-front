@@ -28,7 +28,7 @@ export default function OwnStories() {
     <div style={{ paddingBottom: '80px' }}>
       {stories.length === 0 ? (
         <MessageNoStories
-          text='Ви ще нічого не публікували...'
+          text='Ви ще нічого не публікували, поділіться своєю першою історією!'
           buttonText='Опублікувати історію'
           route='/stories/create'
         />

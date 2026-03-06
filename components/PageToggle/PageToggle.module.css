@@ -38,3 +38,14 @@
 .tab:not(.active):hover {
   opacity: 0.8;
 }
+@media screen and (min-width: 768px) {
+  .toggleWrapper {
+    margin-top: 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .toggleWrapper {
+    margin-top: 48px;
+  }
+}

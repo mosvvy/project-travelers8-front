@@ -28,7 +28,7 @@ export default function SavedStories() {
     <div style={{ paddingBottom: '80px' }}>
       {stories.length === 0 ? (
         <MessageNoStories
-          text='У вас ще немає збережених історій...'
+          text='У вас ще немає збережених історій, мершій збережіть вашу першу історію!'
           buttonText='До історій'
           route='/stories'
         />
