@@ -62,7 +62,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
           <div className={css.authorInfo}>
             <Image
               src={story.ownerId.avatarUrl || '/images/default-avatar.png'}
-              alt={story.ownerId.name}
+              alt={story.ownerId.name || 'placeholder'}
               width={48}
               height={48}
               style={{ borderRadius: '50%', objectFit: 'cover' }}

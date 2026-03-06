@@ -1,11 +1,15 @@
 import axios from 'axios';
-import type { Story as SingleStory, Story } from './types/stories';
+import type { Story as SingleStory } from './types/stories';
 import type { IStory } from '@/types/story';
 import { AuthUser, AuthUserRaw } from '@/app/api/_types/auth-user';
 import { PaginatedResponse } from '@/app/api/_types/paginated-response';
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: `${SITE_URL}/api`,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -47,12 +51,10 @@ export const logout = async () => {
 
 export const fetchStory = async (storyId: string): Promise<SingleStory> => {
   const { data } = await api.get<SingleStory>(`/stories/${storyId}`);
-
   return data;
 };
 
 export const createStory = async (data: FormData) => {
-  console.log('Creating story with data:', data);
   const res = await api.post('/stories', data, {
     headers: {
       'Content-Type': 'multipart/form-data',

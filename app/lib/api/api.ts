@@ -2,14 +2,23 @@ import axios from 'axios';
 import { Story } from '@/types/story';
 import { Category } from '@/types/category';
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + '/api',
+  baseURL: BACKEND_URL,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export const nextServer = axios.create({
-  baseURL: '',
+  baseURL: `${SITE_URL}/api`,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export interface StoryPayload {
@@ -25,7 +34,7 @@ export type CreateStoryResponse = {
 export type StoryResponse = Story;
 
 export async function createStory(formData: FormData): Promise<CreateStoryResponse> {
-  const res = await nextServer.post('/api/stories', formData, {
+  const res = await nextServer.post('/stories', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
@@ -36,7 +45,7 @@ export async function updateStory(
   storyId: string,
   formData: FormData
 ): Promise<CreateStoryResponse> {
-  const res = await nextServer.patch(`/api/stories/${storyId}`, formData, {
+  const res = await nextServer.patch(`/stories/${storyId}`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
@@ -44,16 +53,16 @@ export async function updateStory(
 }
 
 export async function getCategories(): Promise<Category[]> {
-  const res = await nextServer.get<{ categories: Category[] }>('/api/categories');
+  const res = await nextServer.get<{ categories: Category[] }>('/categories');
   return res.data.categories;
 }
 
 export const getStoryById = async (id: string) => {
-  const { data } = await api.get(`/stories/${id}`);
+  const { data } = await nextServer.get(`/stories/${id}`);
   return data;
 };
 
 export async function getStory(storyId: string): Promise<StoryResponse> {
-  const { data } = await api.get<StoryResponse>(`/stories/${storyId}`);
+  const { data } = await nextServer.get<StoryResponse>(`/stories/${storyId}`);
   return data;
 }
