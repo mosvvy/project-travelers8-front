@@ -3,7 +3,6 @@ import { Story } from '@/types/story';
 import { Category } from '@/types/category';
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export const api = axios.create({
   baseURL: BACKEND_URL,
@@ -14,7 +13,7 @@ export const api = axios.create({
 });
 
 export const nextServer = axios.create({
-  baseURL: `${SITE_URL}/api`,
+  baseURL: '/api',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -63,6 +62,6 @@ export const getStoryById = async (id: string) => {
 };
 
 export async function getStory(storyId: string): Promise<StoryResponse> {
-  const { data } = await nextServer.get<StoryResponse>(`/stories/${storyId}`);
+  const { data } = await api.get<StoryResponse>(`/stories/${storyId}`);
   return data;
 }
