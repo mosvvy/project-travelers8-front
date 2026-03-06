@@ -22,10 +22,10 @@ const AuthNavModal = ({ onClose }: AuthNavModalProps) => {
           Щоб зберегти статтю вам треба увійти, якщо ще немає облікового запису зареєструйтесь
         </p>
         <div className={css.buttons}>
-          <Link href='/auth' className={css.loginButton} variant='secondaryBtn'>
+          <Link href='/auth/login' className={css.loginButton} variant='secondaryBtn'>
             Увійти
           </Link>
-          <Link href='/auth?mode=register' className={css.registerButton} variant='primaryBtn'>
+          <Link href='/auth/register' className={css.registerButton} variant='primaryBtn'>
             Зареєструватись
           </Link>
         </div>
