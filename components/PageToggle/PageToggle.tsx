@@ -1,7 +1,26 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import css from './PageToggle.module.css';
 
-const PageToggle = () => {
-  return <h2>PageToggle</h2>;
+export const PageToggle = () => {
+  const pathname = usePathname();
+
+  const isSavedActive = pathname === '/profile/saved';
+  const isOwnActive = pathname === '/profile/own';
+
+  return (
+    <div className={css.toggleWrapper}>
+      <Link href='/profile/saved' className={`${css.tab} ${isSavedActive ? css.active : ''}`}>
+        Збережені історії
+      </Link>
+
+      <Link href='/profile/own' className={`${css.tab} ${isOwnActive ? css.active : ''}`}>
+        Мої історії
+      </Link>
+    </div>
+  );
 };
 
 export default PageToggle;

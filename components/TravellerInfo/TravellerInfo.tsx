@@ -9,15 +9,14 @@ type TravellerInfoProps = {
 export default function TravellerInfo({ traveller }: TravellerInfoProps) {
   return (
     <div className={css.travellerCard}>
-      {traveller.avatarUrl && (
-        <Image
-          src={traveller.avatarUrl}
-          alt={traveller.name}
-          className={css.travellerAvatar}
-          width={100}
-          height={100}
-        />
-      )}
+      <Image
+        src={traveller.avatarUrl || '/images/default-avatar.png'}
+        alt={traveller.name}
+        className={css.travellerAvatar}
+        width={100}
+        height={100}
+      />
+
       <div className={css.travellerInfoWrapper}>
         <h2 className={css.travellerName}>{traveller.name}</h2>
 

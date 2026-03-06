@@ -1,9 +1,5 @@
-import css from './page.module.css';
+import { redirect } from 'next/navigation';
 
 export default function ProfilePage() {
-  return (
-    <>
-      <h1>Збережені / Мої історії</h1>
-    </>
-  );
+  redirect('/profile/saved');
 }

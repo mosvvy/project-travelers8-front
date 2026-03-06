@@ -1,0 +1,51 @@
+.toggleWrapper {
+  display: flex;
+
+  width: 100%;
+  max-width: 420px;
+
+  background-color: #e8eeff;
+  padding: 4px;
+  border-radius: 12px;
+  margin: 0 0 32px 0;
+  gap: 4px;
+
+  box-sizing: border-box;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.active {
+  background-color: #f7f9ff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  color: #000000;
+}
+
+.tab:not(.active):hover {
+  opacity: 0.8;
+}
+@media screen and (min-width: 768px) {
+  .toggleWrapper {
+    margin-top: 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .toggleWrapper {
+    margin-top: 48px;
+  }
+}

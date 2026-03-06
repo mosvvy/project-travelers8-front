@@ -2,7 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../api';
 import { isAxiosError } from 'axios';
-import { logErrorResponse } from '../_utils/utils';
+import { toStoryType, logErrorResponse } from '../_utils/utils';
+import { StoryRaw } from '@/app/api/_types/story';
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,15 +13,25 @@ export async function GET(request: NextRequest) {
     const rawCategory = searchParams.get('category') ?? '';
     const category = rawCategory === 'All' ? '' : rawCategory;
 
-    const res = await api('/stories', {
+    const res = await api.get<{
+      page: number;
+      perPage: number;
+      totalItems: number;
+      totalPages: number;
+      stories: StoryRaw[];
+    }>('/stories', {
       params: {
         page,
         perPage,
         ...(category && { category }),
       },
     });
+    const { stories, ...rest } = res.data;
 
-    return NextResponse.json(res.data);
+    return NextResponse.json({
+      ...rest,
+      stories: stories.map(story => toStoryType(story)),
+    });
   } catch (error) {
     if (isAxiosError(error)) {
       const status = error.response?.status || 500;
@@ -44,14 +55,14 @@ export async function GET(request: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const apiRes = await api.post('/stories', formData, {
+    const apiRes = await api.post<StoryRaw>('/stories', formData, {
       headers: {
         'Content-Type': req.headers.get('Content-Type'),
         Cookie: req.headers.get('cookie') || '',
       },
     });
 
-    return NextResponse.json(apiRes.data, {
+    return NextResponse.json(toStoryType(apiRes.data), {
       status: apiRes.status,
     });
   } catch (error) {
