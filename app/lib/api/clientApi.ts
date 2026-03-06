@@ -4,7 +4,6 @@ import { Story as SingleStory } from './types/stories';
 import { ICategory } from '@/types/category';
 import { nextServer } from './api';
 
-
 export type StoriesResponse = {
   page: number;
   perPage: number;
@@ -82,6 +81,6 @@ export const getPopularStories = async (): Promise<IStory[]> => {
   return data;
 };
 export const getCategories = async () => {
-  const response = await axios.get('/categories'); 
+  const response = await api.get('/categories');
   return response.data;
 };

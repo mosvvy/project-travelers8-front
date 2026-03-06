@@ -8,12 +8,11 @@ import { useRouter } from 'next/navigation';
 import css from './AddStoryForm.module.css';
 import Modal from '@/components/Modal/Modal';
 import { useQuery } from '@tanstack/react-query';
-import { getCategories } from '@/app/lib/api/clientApi'; 
+import { fetchCategories, getCategories } from '@/app/lib/api/clientApi';
 import { createStory } from '@/app/lib/api/proxyApi';
 
-
 export interface AddStoryFormProps {
-   storyId?: string;
+  storyId?: string;
   initialData?: AddStoryFormValues;
   initialValues: AddStoryFormValues;
 
@@ -25,7 +24,6 @@ export interface AddStoryFormProps {
   currentImage?: string;
 }
 
-
 export interface AddStoryFormValues {
   img: File | null;
   title: string;
@@ -34,10 +32,14 @@ export interface AddStoryFormValues {
   date?: string;
 }
 
-export default function AddStoryForm({ storyId, initialData, initialValues,
+export default function AddStoryForm({
+  storyId,
+  initialData,
+  initialValues,
   onSubmit,
   buttonText,
-  currentImage,}: AddStoryFormProps) {
+  currentImage,
+}: AddStoryFormProps) {
   const fieldId = useId();
   const router = useRouter();
 
@@ -75,7 +77,6 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
     }
   };
 
-
   const validationSchema = Yup.object({
     img: currentImage
       ? Yup.mixed<File>().nullable()
@@ -84,7 +85,6 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
     category: Yup.string().required('Поле обовʼязкове'),
     article: Yup.string().required('Поле обовʼязкове'),
   });
-
 
   const categories = [
     {
@@ -129,7 +129,6 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-
         onSubmit={async (values, actions) => {
           try {
             await onSubmit(values, actions);
@@ -145,15 +144,11 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
         validateOnChange
       >
         {({ isSubmitting, isValid, dirty, setFieldValue, values }) => {
-          const isSaveDisabled =
-            isSubmitting ||
-            !isValid ||
-            (!dirty && !values.img);
+          const isSaveDisabled = isSubmitting || !isValid || (!dirty && !values.img);
 
           return (
             <Form className={css.form} noValidate>
               <div className={css.left}>
-
                 {/* ОБКЛАДИНКА */}
                 <div className={css.field}>
                   <label htmlFor={`${fieldId}-img`} className={css.label}>
@@ -162,11 +157,7 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
 
                   <div className={css.preview}>
                     {preview ? (
-                      <img
-                        src={preview}
-                        alt="preview"
-                        className={css.previewImage}
-                      />
+                      <img src={preview} alt='preview' className={css.previewImage} />
                     ) : (
                       <div className={css.placeholder}>Обкладинка</div>
                     )}
@@ -174,11 +165,11 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
 
                   <input
                     id={`${fieldId}-img`}
-                    type="file"
-                    accept="image/png,image/jpeg,image/webp"
+                    type='file'
+                    accept='image/png,image/jpeg,image/webp'
                     className={css.fileInput}
                     disabled={isSubmitting}
-                    onChange={(e) => {
+                    onChange={e => {
                       const file = e.currentTarget.files?.[0] ?? null;
                       setFieldValue('img', file);
 
@@ -189,24 +180,13 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
                     }}
                   />
 
-                  <label
-                    htmlFor={`${fieldId}-img`}
-                    className={css.uploadButton}
-                  >
+                  <label htmlFor={`${fieldId}-img`} className={css.uploadButton}>
                     Завантажити фото
                   </label>
 
-                  {values.img && (
-                    <span className={css.fileName}>
-                      {values.img.name}
-                    </span>
-                  )}
+                  {values.img && <span className={css.fileName}>{values.img.name}</span>}
 
-                  <ErrorMessage
-                    name="img"
-                    component="span"
-                    className={css.error}
-                  />
+                  <ErrorMessage name='img' component='span' className={css.error} />
                 </div>
 
                 {/* ЗАГОЛОВОК */}
@@ -217,17 +197,13 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
 
                   <Field
                     id={`${fieldId}-title`}
-                    name="title"
+                    name='title'
                     className={css.input}
-                    placeholder="Введіть заголовок історії"
+                    placeholder='Введіть заголовок історії'
                     disabled={isSubmitting}
                   />
 
-                  <ErrorMessage
-                    name="title"
-                    component="span"
-                    className={css.error}
-                  />
+                  <ErrorMessage name='title' component='span' className={css.error} />
                 </div>
 
                 {/* КАТЕГОРІЯ */}
@@ -237,27 +213,23 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
                   </label>
 
                   <Field
-                    as="select"
+                    as='select'
                     id={`${fieldId}-category`}
-                    name="category"
+                    name='category'
                     className={css.select}
                     disabled={isSubmitting}
                   >
-                    <option value="" disabled>
+                    <option value='' disabled>
                       Категорія
                     </option>
-                    {categories.map((cat) => (
-    <option key={cat._id} value={cat._id}>
-      {cat.name}
-    </option>
-  ))}
+                    {categories.map(cat => (
+                      <option key={cat._id} value={cat._id}>
+                        {cat.name}
+                      </option>
+                    ))}
                   </Field>
 
-                  <ErrorMessage
-                    name="category"
-                    component="span"
-                    className={css.error}
-                  />
+                  <ErrorMessage name='category' component='span' className={css.error} />
                 </div>
 
                 {/* ТЕКСТ */}
@@ -267,39 +239,27 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
                   </label>
 
                   <Field
-                    as="textarea"
+                    as='textarea'
                     id={`${fieldId}-article`}
-                    name="article"
+                    name='article'
                     rows={8}
                     className={css.textarea}
-                    placeholder="Ваша історія тут"
+                    placeholder='Ваша історія тут'
                     disabled={isSubmitting}
                   />
 
-                  <ErrorMessage
-                    name="article"
-                    component="span"
-                    className={css.error}
-                  />
+                  <ErrorMessage name='article' component='span' className={css.error} />
                 </div>
               </div>
 
               {/* КНОПКИ */}
               <div className={css.right}>
                 <div className={css.actions}>
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    disabled={isSaveDisabled}
-                  >
+                  <Button type='submit' variant='primary' disabled={isSaveDisabled}>
                     {isSubmitting ? 'Збереження...' : buttonText}
                   </Button>
 
-                  <Button
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={() => router.back()}
-                  >
+                  <Button type='button' disabled={isSubmitting} onClick={() => router.back()}>
                     Відмінити
                   </Button>
                 </div>
@@ -309,19 +269,19 @@ export default function AddStoryForm({ storyId, initialData, initialValues,
         }}
       </Formik>
 
-       {/* ГЛОБАЛЬНА МОДАЛКА */}
+      {/* ГЛОБАЛЬНА МОДАЛКА */}
       {isErrorOpen && (
         <Modal onClose={() => setIsErrorOpen(false)}>
-  <div className={css.errorModalWrapper}>
-    <div className={css.errorModalContent}>
-      <h2 className={css.errorModalTitle}>Помилка збереження</h2>
-      <p className={css.errorModalText}>Не вдалося зберегти історію. Спробуй ще раз.</p>
-      <Button type="button" variant="primary" onClick={() => setIsErrorOpen(false)}>
-        Закрити
-      </Button>
-    </div>
-  </div>
-</Modal>
+          <div className={css.errorModalWrapper}>
+            <div className={css.errorModalContent}>
+              <h2 className={css.errorModalTitle}>Помилка збереження</h2>
+              <p className={css.errorModalText}>Не вдалося зберегти історію. Спробуй ще раз.</p>
+              <Button type='button' variant='primary' onClick={() => setIsErrorOpen(false)}>
+                Закрити
+              </Button>
+            </div>
+          </div>
+        </Modal>
       )}
     </>
   );
