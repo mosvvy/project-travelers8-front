@@ -1,6 +1,7 @@
 import axios from 'axios';
-import type { Story as SingleStory } from './types/stories';
+import type { Story as SingleStory, Story } from './types/stories';
 import { AuthUser, AuthUserRaw } from './types/auth-user';
+import { PaginatedResponse } from '@/app/api/_types/paginated-response';
 
 const api = axios.create({
   baseURL: '/api',
@@ -55,6 +56,28 @@ export const createStory = async (data: FormData) => {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
+  });
+
+  return res.data;
+};
+
+export const ownStories = async (
+  pageSize: number,
+  page: number
+): Promise<PaginatedResponse<'stories', Story>> => {
+  const res = await api.get<PaginatedResponse<'stories', Story>>('/stories/own', {
+    params: { page, perPage: pageSize },
+  });
+
+  return res.data;
+};
+
+export const savedStories = async (
+  pageSize: number,
+  page: number
+): Promise<PaginatedResponse<'stories', Story>> => {
+  const res = await api.get<PaginatedResponse<'stories', Story>>('/stories/saved', {
+    params: { page, perPage: pageSize },
   });
 
   return res.data;
