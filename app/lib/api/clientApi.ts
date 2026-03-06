@@ -80,3 +80,7 @@ export const getPopularStories = async (): Promise<IStory[]> => {
   const { data } = await api.get<IStory[]>('/stories/popular');
   return data;
 };
+export const getCategories = async () => {
+  const response = await api.get('/categories');
+  return response.data;
+};

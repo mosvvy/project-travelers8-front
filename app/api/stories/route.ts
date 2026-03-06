@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { api } from '../api';
 import { isAxiosError } from 'axios';
@@ -39,6 +40,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -70,5 +72,6 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+
   }
 }
