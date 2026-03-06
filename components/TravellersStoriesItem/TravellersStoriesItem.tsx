@@ -8,7 +8,6 @@ import Button from '../Button/Button';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-import { useAuthStore } from '@/app/lib/store/authStore';
 import { toggleFavorite } from '@/app/lib/api/clientApi';
 
 interface TravellersStoriesItemProps {
@@ -16,28 +15,22 @@ interface TravellersStoriesItemProps {
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
-  console.log(
-    'TravellersStoriesItem SOURCE:',
-    'components/TravellersStoriesItem/TravellersStoriesItem.tsx'
-  );
   const [isFavorite, setIsFavorite] = useState(story.isFavorite);
-  const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
+  const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount ?? 0);
   const [isLoading, setIsLoading] = useState(false);
 
-  //const isAuthenticated = useAuthStore(state => state.isAuthenticated);
-  //const openAuthModal = useAuthStore(state => state.openAuthModal);
-
   const handleFavoriteClick = async () => {
-    //if (!isAuthenticated) {
-    //  openAuthModal();
-    //  return;
-    //}
-
     try {
       setIsLoading(true);
+
       await toggleFavorite(story._id);
-      setIsFavorite(prev => !prev);
-      setFavoriteCount(prev => (isFavorite ? prev - 1 : prev + 1));
+
+      const nextIsFavorite = !isFavorite;
+
+      setIsFavorite(nextIsFavorite);
+      setFavoriteCount(prev => (nextIsFavorite ? prev + 1 : Math.max(0, prev - 1)));
+
+      toast.success(nextIsFavorite ? 'Додано до збережених' : 'Видалено зі збережених');
     } catch (error) {
       console.error(error);
       toast.error('Не вдалося оновити збережені. Спробуйте ще раз.');
@@ -47,7 +40,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
   };
 
   return (
-    <li key={story._id} className={css.storyCard}>
+    <li className={css.storyCard}>
       <div className={css.storyImageWrapper}>
         <Image
           src={story.img || '/placeholder.jpg'}
@@ -61,9 +54,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
       <div className={css.storyContent}>
         <div className={css.storyText}>
           <p className={css.storyCategory}>{story.category?.name}</p>
-
           <h3 className={css.storyTitleCard}>{story.title}</h3>
-
           <p className={css.storyTextCard}>{story.article}</p>
         </div>
 
@@ -102,16 +93,16 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
             </Link>
 
             <Button
-              className={css.favoriteButton}
+              className={`${css.favoriteButton} ${isFavorite ? css.favoriteButtonActive : ''}`}
               variant='secondary'
               onClick={handleFavoriteClick}
+              disabled={isLoading}
             >
               <svg className={css.favoriteIcon} width='24' height='24'>
                 <use href='/icons/sprite.svg#icon-bookmark' />
               </svg>
             </Button>
           </div>
-
         </div>
       </div>
     </li>
