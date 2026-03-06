@@ -8,11 +8,8 @@ import Button from '../Button/Button';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
-<<<<<<< HEAD
-=======
 import { useAuthStore } from '@/app/lib/store/authStore';
 import AuthNavModal from '../AuthNavModal/AuthNavModal';
->>>>>>> main
 import { toggleFavorite } from '@/app/lib/api/clientApi';
 
 interface TravellersStoriesItemProps {
@@ -20,18 +17,11 @@ interface TravellersStoriesItemProps {
 }
 
 export default function TravellersStoriesItem({ story }: TravellersStoriesItemProps) {
-  console.log(
-    'TravellersStoriesItem SOURCE:',
-    'components/TravellersStoriesItem/TravellersStoriesItem.tsx'
-  );
   const [isFavorite, setIsFavorite] = useState(story.isFavorite);
   const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount ?? 0);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-<<<<<<< HEAD
-  const handleFavoriteClick = async () => {
-=======
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
   const handleFavoriteClick = async () => {
@@ -40,7 +30,6 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
       return;
     }
 
->>>>>>> main
     try {
       setIsLoading(true);
 
@@ -61,37 +50,8 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
   };
 
   return (
-<<<<<<< HEAD
-    <li className={css.storyCard}>
-      <div className={css.storyImageWrapper}>
-        <Image
-          src={story.img || '/placeholder.jpg'}
-          alt={story.title || 'Story image'}
-          fill
-          className='object-cover object-center'
-          sizes='(max-width: 768px) 335px, (max-width: 1024px) 340px, 421px'
-        />
-      </div>
-
-      <div className={css.storyContent}>
-        <div className={css.storyText}>
-          <p className={css.storyCategory}>{story.category?.name}</p>
-          <h3 className={css.storyTitleCard}>{story.title}</h3>
-          <p className={css.storyTextCard}>{story.article}</p>
-        </div>
-
-        <div className={css.storyFooter}>
-          <div className={css.authorInfo}>
-            <Image
-              src={story.ownerId.avatarUrl || '/images/default-avatar.png'}
-              alt={story.ownerId.name || 'placeholder'}
-              width={48}
-              height={48}
-              style={{ borderRadius: '50%', objectFit: 'cover' }}
-            />
-=======
     <>
-      <li key={story._id} className={css.storyCard}>
+      <li className={css.storyCard}>
         <div className={css.storyImageWrapper}>
           <Image
             src={story.img || '/placeholder.jpg'}
@@ -108,19 +68,20 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
             <h3 className={css.storyTitleCard}>{story.title}</h3>
             <p className={css.storyTextCard}>{story.article}</p>
           </div>
->>>>>>> main
 
           <div className={css.storyFooter}>
             <div className={css.authorInfo}>
               <Image
                 src={story.ownerId.avatarUrl || '/images/default-avatar.png'}
-                alt={story.ownerId.name}
+                alt={story.ownerId.name || 'Author avatar'}
                 width={48}
                 height={48}
                 style={{ borderRadius: '50%', objectFit: 'cover' }}
               />
+
               <div className={css.authorDetails}>
                 <p className={css.authorName}>{story.ownerId.name}</p>
+
                 <div className={css.storyMeta}>
                   <p className={css.publishedAt}>{story.date}</p>
                   <span className={css.metaSeparator}></span>
@@ -140,6 +101,7 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
               >
                 Переглянути статтю
               </Link>
+
               <Button
                 className={`${css.favoriteButton} ${isFavorite ? css.favoriteButtonActive : ''}`}
                 variant='secondary'
@@ -156,30 +118,6 @@ export default function TravellersStoriesItem({ story }: TravellersStoriesItemPr
               </Button>
             </div>
           </div>
-<<<<<<< HEAD
-
-          <div className={css.storyActions}>
-            <Link
-              href={`/stories/${story._id}`}
-              className={css.viewStoryLink}
-              variant='secondaryBtn'
-            >
-              Переглянути статтю
-            </Link>
-
-            <Button
-              className={`${css.favoriteButton} ${isFavorite ? css.favoriteButtonActive : ''}`}
-              variant='secondary'
-              onClick={handleFavoriteClick}
-              disabled={isLoading}
-            >
-              <svg className={css.favoriteIcon} width='24' height='24'>
-                <use href='/icons/sprite.svg#icon-bookmark' />
-              </svg>
-            </Button>
-          </div>
-=======
->>>>>>> main
         </div>
       </li>
 
