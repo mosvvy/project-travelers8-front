@@ -5,6 +5,9 @@ import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+
+import AuthInit from './auth/AuthInit';
+
 import AuthProvider from '@/components/AuthProvider/AuthProvider';
 
 const ninutoSans = Nunito_Sans({
@@ -39,6 +42,8 @@ export default function RootLayout({
           <TanStackProvider>
             <AuthProvider>
               <Header />
+              <AuthInit />
+
               <main>{children}</main>
               <Toaster position='top-right' />
               <Footer />

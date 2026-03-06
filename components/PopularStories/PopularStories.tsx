@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { getPopularStories } from '@/app/lib/api/clientApi';
 import TravellersStories from '../TravellersStories/TravellersStories';
 import Link from '../Link/Link';
+import { convertToIStory } from '@/app/api/_utils/utils';
 
 const getLimit = () => {
   if (typeof window === 'undefined') return 3;
