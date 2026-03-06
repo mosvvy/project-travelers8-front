@@ -1,3 +1,5 @@
+@import 'modern-normalize/modern-normalize.css';
+
 :root {
   --color-neutral-darkest: #000;
   --color-neutral-lighter: #d8d8d8;

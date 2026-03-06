@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Story as SingleStory, Story } from './types/stories';
+import type { Story as SingleStory } from './types/stories';
 import type { IStory } from '@/types/story';
 import { AuthUser, AuthUserRaw } from '@/app/api/_types/auth-user';
 import { PaginatedResponse } from '@/app/api/_types/paginated-response';
@@ -21,19 +21,16 @@ type AuthResponse = {
 
 export const login = async (payload: LoginPayload): Promise<AuthUser> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
-
   return toUser(data.user);
 };
 
 export const getCurrentUser = async (): Promise<AuthUser> => {
   const { data } = await api.get<AuthUserRaw>('/users/me');
-
   return toUser(data);
 };
 
 export const checkSession = async (): Promise<boolean> => {
   const { data } = await api.post<{ success: boolean }>('/auth/refresh');
-
   return data.success;
 };
 
@@ -45,14 +42,7 @@ export const logout = async () => {
   return !!success;
 };
 
-export const fetchStory = async (storyId: string): Promise<SingleStory> => {
-  const { data } = await api.get<SingleStory>(`/stories/${storyId}`);
-
-  return data;
-};
-
 export const createStory = async (data: FormData) => {
-  console.log('Creating story with data:', data);
   const res = await api.post('/stories', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -84,8 +74,17 @@ export const savedStories = async (
   return res.data;
 };
 
+export const fetchStoryClient = async (storyId: string): Promise<SingleStory> => {
+  const { data } = await api.get<SingleStory>(`/stories/${storyId}`);
+  return data;
+};
+
 const toUser = (user: AuthUserRaw): AuthUser => {
   const { _id, avatarUrl, ...restUser } = user;
 
-  return { ...restUser, id: _id, avatarUrl: avatarUrl ?? '/images/default-avatar.png' };
+  return {
+    ...restUser,
+    id: _id,
+    avatarUrl: avatarUrl ?? '/images/default-avatar.png',
+  };
 };

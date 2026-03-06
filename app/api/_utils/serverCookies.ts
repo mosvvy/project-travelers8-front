@@ -1,31 +1,35 @@
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
+
 type CookiesHeader = string | string[] | undefined;
 
 export const setCookies = async (cookiesHeader: CookiesHeader): Promise<boolean> => {
-  if (cookiesHeader) {
-    const cookieArray = Array.isArray(cookiesHeader) ? cookiesHeader : [cookiesHeader];
+  if (!cookiesHeader) return false;
 
-    for (const cookieString of cookieArray) {
-      const cookieStore = await cookies();
-      const [nameValue] = cookieString.split(';');
-      const [name, value] = nameValue.split('=');
-      const parsedCookies = parse(cookieString);
+  const cookieStore = await cookies();
+  const cookieArray = Array.isArray(cookiesHeader) ? cookiesHeader : [cookiesHeader];
 
-      cookieStore.set({
-        name,
-        value,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: parsedCookies.Path || '/',
-        maxAge: Number(parsedCookies['Max-Age']),
-        expires: parsedCookies.Expires ? new Date(parsedCookies.Expires) : undefined,
-      });
-    }
+  for (const cookieString of cookieArray) {
+    const [nameValue] = cookieString.split(';');
+    const [name, value] = nameValue.split('=');
 
-    return true;
+    const parsed = parse(cookieString);
+
+    cookieStore.set({
+      name,
+      value,
+      httpOnly: /httponly/i.test(cookieString),
+      secure: /secure/i.test(cookieString),
+      sameSite: cookieString.toLowerCase().includes('samesite=none')
+        ? 'none'
+        : cookieString.toLowerCase().includes('samesite=strict')
+          ? 'strict'
+          : 'lax',
+      path: parsed.Path || '/',
+      expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+      maxAge: parsed['Max-Age'] ? Number(parsed['Max-Age']) : undefined,
+    });
   }
 
-  return false;
+  return true;
 };
