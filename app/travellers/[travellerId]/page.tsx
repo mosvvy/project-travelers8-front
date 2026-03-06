@@ -3,6 +3,7 @@ import TravellerStories from '@/components/TravellersStories/TravellersStories';
 import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
 import css from './page.module.css';
 import Section from '@/components/Section/Section';
+import type { IStory } from '@/types/story';
 
 type PageProps = {
   params: Promise<{
@@ -22,7 +23,7 @@ export default async function TravellerPage({ params }: PageProps) {
   }
   const data = await res.json();
   const traveller = data.user;
-  const stories = data.articles.map(article => {
+  const stories = data.articles.map((article: IStory) => {
     return { ...article, ownerId: traveller };
   });
   const hasStories = stories?.length > 0;
