@@ -25,8 +25,6 @@ export const setCookies = async (cookiesHeader: CookiesHeader): Promise<boolean>
       cookieStore.set({
         name,
         value,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
         path: parsedCookies.Path || '/',
         maxAge: Number(parsedCookies['Max-Age']),
         expires: parsedCookies.Expires ? new Date(parsedCookies.Expires) : undefined,

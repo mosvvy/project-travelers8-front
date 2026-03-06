@@ -1,4 +1,6 @@
 import axios from 'axios';
+import type { AuthResponse } from './types/auth-response';
+import type { RegisterPayload } from './types/register-payload';
 import type { Story as SingleStory } from './types/stories';
 import { AuthUser, AuthUserRaw } from './types/auth-user';
 
@@ -13,14 +15,12 @@ type LoginPayload = {
   password: string;
 };
 
-type AuthResponse = {
-  user: AuthUserRaw;
-};
-
 export const login = async (payload: LoginPayload): Promise<AuthUser> => {
-  const { data } = await api.post<AuthResponse>('/auth/login', payload);
+  const {
+    data: { user },
+  } = await api.post<AuthResponse>('/auth/login', payload);
 
-  return toUser(data.user);
+  return toUser(user);
 };
 
 export const getCurrentUser = async (): Promise<AuthUser> => {
@@ -64,4 +64,9 @@ const toUser = (user: AuthUserRaw): AuthUser => {
   const { _id, avatarUrl, ...restUser } = user;
 
   return { ...restUser, id: _id, avatarUrl: avatarUrl ?? '/images/default-avatar.png' };
+};
+
+export const register = async (payload: RegisterPayload): Promise<AuthResponse> => {
+  const { data } = await api.post<AuthResponse>('/auth/register', payload);
+  return data;
 };
