@@ -37,7 +37,7 @@ export default async function TravellerPage({ params }: PageProps) {
         {hasStories ? (
           <TravellerStories stories={traveller.savedArticles} />
         ) : (
-          <MessageNoStories text={text} buttonText={buttonText} />
+          <MessageNoStories text={text} buttonText={buttonText} route='/stories' />
         )}
       </Section>
     </>
