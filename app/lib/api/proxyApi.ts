@@ -4,12 +4,14 @@ import type { IStory } from '@/types/story';
 import { AuthUser, AuthUserRaw } from '@/app/api/_types/auth-user';
 import { PaginatedResponse } from '@/app/api/_types/paginated-response';
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!BACKEND_URL) {
+  throw new Error('NEXT_PUBLIC_API_URL is not defined');
+}
 
 const api = axios.create({
-  baseURL: `${SITE_URL}/api`,
+  baseURL: BACKEND_URL,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -25,19 +27,16 @@ type AuthResponse = {
 
 export const login = async (payload: LoginPayload): Promise<AuthUser> => {
   const { data } = await api.post<AuthResponse>('/auth/login', payload);
-
   return toUser(data.user);
 };
 
 export const getCurrentUser = async (): Promise<AuthUser> => {
   const { data } = await api.get<AuthUserRaw>('/users/me');
-
   return toUser(data);
 };
 
 export const checkSession = async (): Promise<boolean> => {
   const { data } = await api.post<{ success: boolean }>('/auth/refresh');
-
   return data.success;
 };
 
@@ -89,5 +88,9 @@ export const savedStories = async (
 const toUser = (user: AuthUserRaw): AuthUser => {
   const { _id, avatarUrl, ...restUser } = user;
 
-  return { ...restUser, id: _id, avatarUrl: avatarUrl ?? '/images/default-avatar.png' };
+  return {
+    ...restUser,
+    id: _id,
+    avatarUrl: avatarUrl ?? '/images/default-avatar.png',
+  };
 };
