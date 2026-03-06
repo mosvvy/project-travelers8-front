@@ -3,6 +3,7 @@ import TravellerStories from '@/components/TravellersStories/TravellersStories';
 import MessageNoStories from '@/components/MessageNoStories/MessageNoStories';
 import css from './page.module.css';
 import Section from '@/components/Section/Section';
+import type { IStory } from '@/types/story';
 
 type PageProps = {
   params: Promise<{
@@ -22,7 +23,10 @@ export default async function TravellerPage({ params }: PageProps) {
   }
   const data = await res.json();
   const traveller = data.user;
-  const hasStories = traveller.savedArticles?.length > 0;
+  const stories = data.articles.map((article: IStory) => {
+    return { ...article, ownerId: traveller };
+  });
+  const hasStories = stories?.length > 0;
 
   const text = 'Цей користувач ще не опублікував історій';
   const buttonText = 'Назад до історій';
@@ -35,7 +39,7 @@ export default async function TravellerPage({ params }: PageProps) {
       <Section>
         <h2 className={css.travellerStoriesTitle}>Історії мандрівника</h2>
         {hasStories ? (
-          <TravellerStories stories={traveller.savedArticles} />
+          <TravellerStories stories={stories} />
         ) : (
           <MessageNoStories text={text} buttonText={buttonText} route='/stories' />
         )}
